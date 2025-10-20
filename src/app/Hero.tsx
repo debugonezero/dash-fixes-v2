@@ -1,0 +1,49 @@
+import Image from "next/image";
+import Link from 'next/link';
+import AnimationWrapper from "./AnimationWrapper";
+import { ArrowRight } from 'lucide-react';
+
+const Hero = () => {
+  return (
+    <section className="hero-bg flex-grow flex items-center py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <AnimationWrapper delay={0.1}>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-tight mb-6">
+            Expert Tech Repair.
+            <br />
+            <span className="gradient-text">Shipped From Your Door.</span>
+          </h1>
+          <p className="text-lg md:text-xl text-textSubtleDark mb-8">
+            Your device is essential. Our mail-in repair service makes getting
+            it fixed simple. We&apos;ll send you a free, pre-paid shipping
+            label. Just pack your device and drop it off. We handle the rest.
+          </p>
+          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <Link href="/contact" className="px-8 py-4 bg-accentBlue text-textDark rounded-lg font-semibold text-lg text-center hover:bg-opacity-90 transition shadow-lg hover:shadow-xl">
+              GET YOUR FREE SHIPPING LABEL <ArrowRight className="inline ml-2" />
+            </Link>
+          </div>
+        </AnimationWrapper>
+        <AnimationWrapper delay={0.2}>
+          <div className="relative">
+            <div className="relative z-10">
+              <Image
+                src="/graphics/hero-image.jpg"
+                alt="A successfully repaired laptop looking like new"
+                className="rounded-xl shadow-xl w-full"
+                width={1200}
+                height={675}
+                sizes="(max-width: 640px) 400px, (max-width: 768px) 800px, 1200px"
+                priority
+              />
+            </div>
+            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accentGreen rounded-xl opacity-20"></div>
+            <div className="absolute -top-6 -left-6 w-24 h-24 bg-accentBlue rounded-full opacity-20"></div>
+          </div>
+        </AnimationWrapper>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;
