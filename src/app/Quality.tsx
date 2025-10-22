@@ -1,58 +1,102 @@
-import AnimationWrapper from './AnimationWrapper';
-import { DollarSign, Star, Circle, Check, Info } from 'lucide-react';
+import AnimationWrapper from "./AnimationWrapper";
 
 const Quality = () => {
   return (
-    <section id="quality" className="py-16 px-4 sm:px-6 lg:px-8 bg-solarized-light2 dark:bg-solarized-dark2">
+    <section
+      id="quality"
+      className="py-16 px-4 sm:px-6 lg:px-8 bg-solarized-light2 dark:bg-solarized-dark2"
+    >
       <div className="max-w-7xl mx-auto">
         <AnimationWrapper>
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">Our Screen Quality Tiers 🛠️</h2>
-            <p className="text-lg max-w-2xl mx-auto">We believe in giving you choices. You decide what&apos;s best for your device and your budget.</p>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+              Our Screen Quality Tiers
+            </h2>
+            <p className="text-lg max-w-2xl mx-auto dark:text-solarized-light3">
+              We believe in giving you choices. You decide what&apos;s best for
+              your device and your budget.
+            </p>
           </div>
         </AnimationWrapper>
         <div className="grid md:grid-cols-3 gap-8">
           {/* Aftermarket Incell */}
           <AnimationWrapper delay={0.1}>
-            <div className="bg-solarized-light dark:bg-solarized-dark rounded-xl p-8 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1">
-              <div className="w-16 h-16 rounded-full bg-solarized-red bg-opacity-10 flex items-center justify-center mb-6">
-                <DollarSign className="w-8 h-8 text-solarized-red" />
+            <div className="bg-solarized-light2 dark:bg-solarized-dark2 h-full rounded-lg p-6 border border-solarized-light3 dark:border-solarized-dark3">
+              <div className="w-12 h-12 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center mb-4">
+                <span className="text-2xl">💰</span>
               </div>
-              <h3 className="text-xl font-heading font-bold mb-3">Aftermarket Incell</h3>
-              <p className="text-solarized-dark3 dark:text-solarized-light3 mb-4">The most budget-friendly option to get your device back up and running.</p>
-              <ul className="space-y-2 text-left">
-                <li className="flex items-start"><Check className="text-solarized-green mr-2 mt-1" size={16} /><strong>Best For:</strong> Data recovery, temporary fixes, or budget-conscious trade-ins.</li>
-                <li className="flex items-start"><Info className="text-solarized-blue mr-2 mt-1" size={16} /><strong>Keep in Mind:</strong> Colors and brightness may differ slightly from the original screen.</li>
+              <div className="mb-4">
+                <h3 className="text-lg font-heading font-bold mb-2 text-solarized-dark2 dark:text-solarized-light">
+                  Aftermarket Incell
+                </h3>
+                <p className="text-solarized-dark3 dark:text-solarized-light3">
+                  Budget-friendly option for data recovery or temporary fixes.
+                </p>
+              </div>
+              <ul className="space-y-1 text-sm text-solarized-dark3 dark:text-solarized-light3 mb-4">
+                <li className="flex items-center">
+                  <span className="text-solarized-green mr-2">✅</span>
+                  <strong>Best For:</strong> Trade-ins, temporary use.
+                </li>
+                <li className="flex items-center">
+                  <span className="text-solarized-blue mr-2">❓</span>
+                  <strong>Keep in Mind:</strong> Slight color differences.
+                </li>
               </ul>
             </div>
           </AnimationWrapper>
-          
+
           {/* Aftermarket OLED */}
           <AnimationWrapper delay={0.2}>
-            <div className="bg-solarized-light dark:bg-solarized-dark rounded-xl p-8 shadow-md transition duration-300 border-t-4 border-solarized-blue hover:shadow-xl hover:-translate-y-1">
-              <div className="w-16 h-16 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center mb-6">
-                <Star className="w-8 h-8 text-solarized-blue" />
+            <div className="bg-solarized-light2 dark:bg-solarized-dark2 h-full rounded-lg p-6 border border-solarized-light3 dark:border-solarized-dark3">
+              <div className="w-12 h-12 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center mb-4">
+                <span className="text-2xl">⭐</span>
               </div>
-              <h3 className="text-xl font-heading font-bold mb-3">Aftermarket OLED (Most Popular)</h3>
-              <p className="text-solarized-dark3 dark:text-solarized-light3 mb-4">The perfect balance of exceptional quality and great value, closely matching the original display.</p>
-              <ul className="space-y-2 text-left">
-                <li className="flex items-start"><Check className="text-solarized-green mr-2 mt-1" size={16} /><strong>Best For:</strong> Everyday use for customers who want a high-quality repair without the premium price of a genuine part.</li>
-                <li className="flex items-start"><Info className="text-solarized-blue mr-2 mt-1" size={16} /><strong>Keep in Mind:</strong> Offers a vibrant and reliable display that is nearly indistinguishable from the original.</li>
+              <div className="mb-4">
+                <h3 className="text-lg font-heading font-bold mb-2 text-solarized-dark2 dark:text-solarized-light">
+                  Aftermarket OLED
+                </h3>
+                <p className="text-solarized-dark3 dark:text-solarized-light3">
+                  High-quality balance, closely matching original.
+                </p>
+              </div>
+              <ul className="space-y-1 text-sm text-solarized-dark3 dark:text-solarized-light3 mb-4">
+                <li className="flex items-center">
+                  <span className="text-solarized-green mr-2">✅</span>
+                  <strong>Best For:</strong> Everyday use, great value.
+                </li>
+                <li className="flex items-center">
+                  <span className="text-solarized-blue mr-2">❓</span>
+                  <strong>Keep in Mind:</strong> Nearly indistinguishable.
+                </li>
               </ul>
             </div>
           </AnimationWrapper>
-          
+
           {/* Genuine */}
           <AnimationWrapper delay={0.3}>
-            <div className="bg-solarized-light dark:bg-solarized-dark rounded-xl p-8 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1">
-              <div className="w-16 h-16 rounded-full bg-solarized-violet bg-opacity-10 flex items-center justify-center mb-6">
-                <Circle className="w-8 h-8 text-solarized-violet" />
+            <div className="bg-solarized-light2 dark:bg-solarized-dark2 h-full rounded-lg p-6 border border-solarized-light3 dark:border-solarized-dark3">
+              <div className="w-12 h-12 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center mb-4">
+                <span className="text-2xl">🏆</span>
               </div>
-              <h3 className="text-xl font-heading font-bold mb-3">Genuine / Refurbished</h3>
-              <p className="text-solarized-dark3 dark:text-solarized-light3 mb-4">The highest quality available, restoring your device to its original factory state.</p>
-              <ul className="space-y-2 text-left">
-                <li className="flex items-start"><Check className="text-solarized-green mr-2 mt-1" size={16} /><strong>Best For:</strong> Customers who demand perfect color accuracy and original performance.</li>
-                <li className="flex items-start"><Info className="text-solarized-blue mr-2 mt-1" size={16} /><strong>Keep in Mind:</strong> This is the premium option. The Apple serialization message may still appear.</li>
+              <div className="mb-4">
+                <h3 className="text-lg font-heading font-bold mb-2 text-solarized-dark2 dark:text-solarized-light">
+                  Genuine / Refurbished
+                </h3>
+                <p className="text-solarized-dark3 dark:text-solarized-light3">
+                  Highest quality, original factory state.
+                </p>
+              </div>
+              <ul className="space-y-1 text-sm text-solarized-dark3 dark:text-solarized-light3 mb-4">
+                <li className="flex items-center">
+                  <span className="text-solarized-green mr-2">✅</span>
+                  <strong>Best For:</strong> Perfect accuracy.
+                </li>
+                <li className="flex items-center">
+                  <span className="text-solarized-blue mr-2">❓</span>
+                  <strong>Keep in Mind:</strong> Premium, may show Apple
+                  message.
+                </li>
               </ul>
             </div>
           </AnimationWrapper>
