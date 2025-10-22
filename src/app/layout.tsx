@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
 import Script from "next/script";
@@ -37,16 +36,9 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-solarized-light text-solarized-dark dark:bg-solarized-dark dark:text-solarized-light font-sans transition-colors duration-300 antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem={false}
-          storageKey="theme"
-        >
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </ThemeProvider>
+        <Header />
+        <main>{children}</main>
+        <Footer />
 
         <Script
           async

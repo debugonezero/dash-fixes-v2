@@ -2,15 +2,37 @@
 
 import Link from "next/link";
 import { Wrench, Phone, Menu, X } from "lucide-react";
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import ThemeToggle from "./ThemeToggle";
+import { useState, useEffect } from "react";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    const isDarkMode = savedTheme === "dark";
+    setIsDark(isDarkMode);
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const toggleTheme = () => {
+    const newIsDark = !isDark;
+    setIsDark(newIsDark);
+    if (newIsDark) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
   };
 
   return (
@@ -70,7 +92,17 @@ const Header = () => {
             <Phone className="w-4 h-4 mr-2" size={16} />
             (626) 622-0196
           </a>
-          <ThemeToggle />
+          <button
+            onClick={toggleTheme}
+            className="w-10 h-10 rounded-full flex items-center justify-center border border-solarized-light3 dark:border-solarized-dark3 hover:bg-accentBlue/10 transition-colors"
+            aria-label="Toggle theme"
+          >
+            {isDark ? (
+              <i className="fa-solid fa-sun"></i>
+            ) : (
+              <i className="fa-solid fa-moon"></i>
+            )}
+          </button>
           <button
             onClick={toggleMobileMenu}
             aria-label={
@@ -91,56 +123,48 @@ const Header = () => {
         </div>
       </div>
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden"
+      <div
+        className={`md:hidden transition-all duration-300 ${isMobileMenuOpen ? "block" : "hidden"}`}
+      >
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <Link
+            href="/about"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
           >
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <Link
-                href="/about"
-                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
-              >
-                About
-              </Link>
-              <Link
-                href="/services"
-                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
-              >
-                Services
-              </Link>
-              <Link
-                href="/mail-in-repair"
-                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
-              >
-                Mail-In Repair
-              </Link>
-              <Link
-                href="/faq"
-                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
-              >
-                FAQ
-              </Link>
-              <Link
-                href="/donate"
-                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
-              >
-                Donate
-              </Link>
-              <Link
-                href="#contact"
-                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
-              >
-                Contact
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            About
+          </Link>
+          <Link
+            href="/services"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
+          >
+            Services
+          </Link>
+          <Link
+            href="/mail-in-repair"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
+          >
+            Mail-In Repair
+          </Link>
+          <Link
+            href="/faq"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
+          >
+            FAQ
+          </Link>
+          <Link
+            href="/donate"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
+          >
+            Donate
+          </Link>
+          <Link
+            href="#contact"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
+          >
+            Contact
+          </Link>
+        </div>
+      </div>
     </header>
   );
 };
