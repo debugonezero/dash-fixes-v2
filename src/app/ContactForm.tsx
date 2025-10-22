@@ -109,149 +109,151 @@ const ContactForm = () => {
   };
 
   return (
-    <form id="contact-form" className="space-y-6" onSubmit={handleSubmit}>
-      <div>
-        <label
-          htmlFor="name"
-          className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2"
-        >
-          Name
-        </label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          required
-          value={formData.name}
-          onChange={handleChange}
-          className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.name ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
-        />
-        {errors.name && (
-          <p className="text-solarized-red text-sm mt-1">{errors.name}</p>
-        )}
-      </div>
-      <div>
-        <label
-          htmlFor="email"
-          className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2"
-        >
-          Email
-        </label>
-        <input
-          type="email"
-          name="_replyto"
-          id="email"
-          required
-          value={formData.email}
-          onChange={handleChange}
-          className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.email ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
-        />
-        {errors.email && (
-          <p className="text-solarized-red text-sm mt-1">{errors.email}</p>
-        )}
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="bg-white dark:bg-solarized-dark p-6 rounded-lg shadow-md">
+      <form id="contact-form" className="space-y-6" onSubmit={handleSubmit}>
         <div>
           <label
-            htmlFor="deviceType"
+            htmlFor="name"
             className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2"
           >
-            Device Type
+            Name
           </label>
-          <select
-            id="deviceType"
-            name="device-type"
+          <input
+            type="text"
+            name="name"
+            id="name"
             required
-            value={formData.deviceType}
+            value={formData.name}
             onChange={handleChange}
-            className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.deviceType ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
-          >
-            <option value="" disabled>
-              Select your device
-            </option>
-            <option value="iPhone">iPhone</option>
-            <option value="Google Pixel">Google Pixel</option>
-            <option value="Samsung Galaxy">Samsung Galaxy</option>
-            <option value="Tablet / iPad">Tablet / iPad</option>
-            <option value="Laptop">Laptop</option>
-            <option value="Game Console">Game Console</option>
-            <option value="Other">Other</option>
-          </select>
-          {errors.deviceType && (
-            <p className="text-solarized-red text-sm mt-1">
-              {errors.deviceType}
-            </p>
+            className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.name ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
+          />
+          {errors.name && (
+            <p className="text-solarized-red text-sm mt-1">{errors.name}</p>
           )}
         </div>
         <div>
           <label
-            htmlFor="serviceType"
+            htmlFor="email"
             className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2"
           >
-            Service Needed
+            Email
           </label>
-          <select
-            id="serviceType"
-            name="service-type"
+          <input
+            type="email"
+            name="_replyto"
+            id="email"
             required
-            value={formData.serviceType}
+            value={formData.email}
             onChange={handleChange}
-            className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.serviceType ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
-          >
-            <option value="" disabled>
-              Select a service
-            </option>
-            <option value="Screen Repair">Screen Repair</option>
-            <option value="Battery Replacement">Battery Replacement</option>
-            <option value="Charging Port">Charging Port Issue</option>
-            <option value="Data Recovery">Data Recovery</option>
-            <option value="Water Damage">Water Damage</option>
-            <option value="Diagnostics">Diagnostics / Not Sure</option>
-            <option value="Other">Other</option>
-          </select>
-          {errors.serviceType && (
-            <p className="text-solarized-red text-sm mt-1">
-              {errors.serviceType}
-            </p>
+            className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.email ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
+          />
+          {errors.email && (
+            <p className="text-solarized-red text-sm mt-1">{errors.email}</p>
           )}
         </div>
-      </div>
-      <div>
-        <label
-          htmlFor="message"
-          className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2"
-        >
-          Describe the Issue
-        </label>
-        <textarea
-          name="message"
-          id="message"
-          rows={4}
-          required
-          value={formData.message}
-          onChange={handleChange}
-          placeholder="Please provide the model of your device (e.g., iPhone 14 Pro) and any other details about the problem."
-          className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.message ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
-        ></textarea>
-        {errors.message && (
-          <p className="text-solarized-red text-sm mt-1">{errors.message}</p>
-        )}
-      </div>
-      <button
-        type="submit"
-        className="w-full px-6 py-3 bg-solarized-blue text-solarized-light rounded-lg font-medium text-center hover:bg-opacity-90 transition"
-      >
-        Send Request
-      </button>
-      {status && (
-        <div
-          id="form-status"
-          className={`mt-6 text-center font-medium ${status.startsWith("Oops") ? "text-solarized-red" : "text-solarized-green"}`}
-        >
-          {status}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label
+              htmlFor="deviceType"
+              className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2"
+            >
+              Device Type
+            </label>
+            <select
+              id="deviceType"
+              name="device-type"
+              required
+              value={formData.deviceType}
+              onChange={handleChange}
+              className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.deviceType ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
+            >
+              <option value="" disabled>
+                Select your device
+              </option>
+              <option value="iPhone">iPhone</option>
+              <option value="Google Pixel">Google Pixel</option>
+              <option value="Samsung Galaxy">Samsung Galaxy</option>
+              <option value="Tablet / iPad">Tablet / iPad</option>
+              <option value="Laptop">Laptop</option>
+              <option value="Game Console">Game Console</option>
+              <option value="Other">Other</option>
+            </select>
+            {errors.deviceType && (
+              <p className="text-solarized-red text-sm mt-1">
+                {errors.deviceType}
+              </p>
+            )}
+          </div>
+          <div>
+            <label
+              htmlFor="serviceType"
+              className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2"
+            >
+              Service Needed
+            </label>
+            <select
+              id="serviceType"
+              name="service-type"
+              required
+              value={formData.serviceType}
+              onChange={handleChange}
+              className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.serviceType ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
+            >
+              <option value="" disabled>
+                Select a service
+              </option>
+              <option value="Screen Repair">Screen Repair</option>
+              <option value="Battery Replacement">Battery Replacement</option>
+              <option value="Charging Port">Charging Port Issue</option>
+              <option value="Data Recovery">Data Recovery</option>
+              <option value="Water Damage">Water Damage</option>
+              <option value="Diagnostics">Diagnostics / Not Sure</option>
+              <option value="Other">Other</option>
+            </select>
+            {errors.serviceType && (
+              <p className="text-solarized-red text-sm mt-1">
+                {errors.serviceType}
+              </p>
+            )}
+          </div>
         </div>
-      )}
-    </form>
+        <div>
+          <label
+            htmlFor="message"
+            className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2"
+          >
+            Describe the Issue
+          </label>
+          <textarea
+            name="message"
+            id="message"
+            rows={4}
+            required
+            value={formData.message}
+            onChange={handleChange}
+            placeholder="Please provide the model of your device (e.g., iPhone 14 Pro) and any other details about the problem."
+            className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.message ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
+          ></textarea>
+          {errors.message && (
+            <p className="text-solarized-red text-sm mt-1">{errors.message}</p>
+          )}
+        </div>
+        <button
+          type="submit"
+          className="w-full px-6 py-3 bg-solarized-blue text-solarized-light rounded-lg font-medium text-center hover:bg-opacity-90 transition"
+        >
+          Send Request
+        </button>
+        {status && (
+          <div
+            id="form-status"
+            className={`mt-6 text-center font-medium ${status.startsWith("Oops") ? "text-solarized-red" : "text-solarized-green"}`}
+          >
+            {status}
+          </div>
+        )}
+      </form>
+    </div>
   );
 };
 
