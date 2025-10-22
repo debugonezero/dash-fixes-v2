@@ -29,12 +29,10 @@ const Hero = () => {
           </p>
           <div className="flex justify-center space-x-6 mt-6">
             <div className="flex items-center text-sm text-solarized-dark3 dark:text-solarized-light3">
-              <i className="fa-solid fa-shield-alt mr-2"></i>
-              Secure SSL
+              🛡️ Secure SSL
             </div>
             <div className="flex items-center text-sm text-solarized-dark3 dark:text-solarized-light3">
-              <i className="fa-solid fa-shipping-fast mr-2"></i>
-              Insured Shipping
+              📦 Insured Shipping
             </div>
           </div>
         </AnimationWrapper>

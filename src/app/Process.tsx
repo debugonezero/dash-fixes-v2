@@ -6,21 +6,21 @@ const Process = () => {
       title: "1. Get Your Free Label",
       description:
         "Fill out the form below to get an instant quote and a free, pre-paid shipping label emailed to you.",
-      iconClass: "fa-solid fa-file-signature text-3xl text-solarized-blue",
+      icon: "📝",
       backgroundColor: "bg-solarized-blue",
     },
     {
       title: "2. Mail Your Device",
       description:
         "Package your device securely and drop it off at your nearest mail location. Shipping is on us.",
-      iconClass: "fa-solid fa-box-open text-3xl text-solarized-cyan",
+      icon: "📦",
       backgroundColor: "bg-solarized-cyan",
     },
     {
       title: "3. We Fix & Return",
       description:
         "Once we receive it, we&apos;ll confirm the quote, perform the repair, and ship it right back to you, fully insured.",
-      iconClass: "fa-solid fa-microchip text-3xl text-solarized-green",
+      icon: "🔧",
       backgroundColor: "bg-solarized-green",
     },
   ];
@@ -63,7 +63,7 @@ const Process = () => {
               <div
                 className={`w-20 h-20 mx-auto rounded-full ${step.backgroundColor} bg-opacity-10 flex items-center justify-center mb-4`}
               >
-                <i className={step.iconClass}></i>
+                <span className="text-3xl">{step.icon}</span>
               </div>
               <h3 className="text-xl font-heading font-bold mb-2 dark:text-solarized-light">
                 {step.title}
