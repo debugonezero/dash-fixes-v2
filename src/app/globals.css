@@ -33,3 +33,7 @@
         rgba(0, 43, 54, 0) 50%
     );
 }
+
+.font-heading {
+    font-family: "Space Grotesk", sans-serif;
+}

@@ -62,23 +62,20 @@ const Services = () => {
           {mainServices.map((service, index) => (
             <AnimationWrapper key={index} delay={index * 0.1}>
               <Link href={service.link}>
-                <div className="service-card bg-solarized-light dark:bg-solarized-dark h-full rounded-2xl p-8 shadow-lg border border-transparent transition-all duration-300 hover:shadow-2xl hover:border-solarized-blue hover:scale-[1.02]">
-                  <div className="w-16 h-16 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center mb-6">
-                    <span className="text-3xl">{service.icon}</span>
+                <div className="service-card bg-solarized-light dark:bg-solarized-dark h-full rounded-lg p-6 border border-solarized-light3 dark:border-solarized-dark3">
+                  <div className="w-12 h-12 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center mb-4">
+                    <span className="text-2xl">{service.icon}</span>
                   </div>
-                  <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark2 dark:text-solarized-light">
+                  <h3 className="text-lg font-heading font-bold mb-2 text-solarized-dark2 dark:text-solarized-light">
                     {service.title}
                   </h3>
-                  <p className="text-solarized-dark3 dark:text-solarized-light3 mb-4 text-sm">
+                  <p className="text-solarized-dark3 dark:text-solarized-light3 mb-3 text-sm">
                     {service.description}
                   </p>
-                  <ul className="space-y-2 text-sm text-solarized-dark3 dark:text-solarized-light3">
+                  <ul className="space-y-1 text-sm text-solarized-dark3 dark:text-solarized-light3">
                     {service.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-center">
-                        <Check
-                          className="text-solarized-green mr-2 flex-shrink-0"
-                          size={16}
-                        />
+                        <span className="text-solarized-green mr-2">✅</span>
                         <span>{feature}</span>
                       </li>
                     ))}
