@@ -6,8 +6,6 @@ import Pricing from "./Pricing";
 import Disclaimer from "./Disclaimer";
 import Quality from "./Quality";
 import FAQ from "./FAQ";
-import AnimationWrapper from "./AnimationWrapper";
-import CallToAction from "./CallToAction";
 
 export default function Home() {
   return (
