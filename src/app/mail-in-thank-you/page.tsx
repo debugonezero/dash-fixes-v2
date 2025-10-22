@@ -3,7 +3,7 @@ import AnimationWrapper from "../AnimationWrapper";
 
 const ThankYouPage = () => {
   return (
-    <section className="flex-grow flex items-center justify-center text-center py-16 px-4 sm:px-6 lg:px-8">
+    <section className="hero-bg flex-grow flex items-center justify-center text-center py-16 px-4 sm:px-6 lg:px-8">
       <AnimationWrapper>
         <div className="w-24 h-24 mx-auto rounded-full bg-solarized-green bg-opacity-10 flex items-center justify-center mb-6">
           <i className="fa-solid fa-paper-plane text-4xl text-solarized-green"></i>

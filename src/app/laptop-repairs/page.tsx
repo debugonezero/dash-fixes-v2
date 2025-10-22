@@ -36,15 +36,15 @@ const LaptopRepairsPage = () => {
   ];
 
   return (
-    <div className="bg-white dark:bg-darkTeal">
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+    <div className="bg-white dark:bg-solarized-dark min-h-screen">
+      <section className="hero-bg py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <AnimationWrapper>
             <div className="text-center mb-16">
-              <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-textDark dark:text-textLight">
+              <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-textDark dark:text-solarized-light">
                 Nationwide Laptop & MacBook Repair
               </h1>
-              <p className="text-lg max-w-3xl mx-auto text-textSubtleDark dark:text-textSubtleLight">
+              <p className="text-lg max-w-3xl mx-auto text-textSubtleDark dark:text-solarized-light3">
                 Whether you have a MacBook, Windows laptop, or Chromebook, we
                 provide expert hardware and software repairs through our
                 convenient mail-in service.
@@ -59,10 +59,10 @@ const LaptopRepairsPage = () => {
                     <div className="flex justify-center mb-4 text-accentMagenta">
                       {service.icon}
                     </div>
-                    <h3 className="text-xl font-bold font-heading text-textDark dark:text-textLight mb-2 text-center">
+                    <h3 className="text-xl font-heading font-bold mb-3 text-textDark dark:text-solarized-light">
                       {service.title}
                     </h3>
-                    <p className="text-textSubtleDark dark:text-textSubtleLight font-sans text-sm text-center">
+                    <p className="text-textSubtleDark dark:text-solarized-light3">
                       {service.description}
                     </p>
                   </div>

@@ -5,7 +5,7 @@ import { ShieldHalf, Check, X } from "lucide-react";
 const DonatePage = () => {
   return (
     <div className="bg-white dark:bg-solarized-dark min-h-screen">
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section className="hero-bg py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <AnimationWrapper>
             <div className="text-center mb-16">

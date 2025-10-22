@@ -62,7 +62,7 @@ const WhyGetAQuote = () => (
 const ContactPage = () => {
   return (
     <div className="bg-white dark:bg-solarized-dark min-h-screen">
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section className="hero-bg py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-textDark dark:text-solarized-light">
