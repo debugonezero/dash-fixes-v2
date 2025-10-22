@@ -71,6 +71,9 @@ const ContactPage = () => {
             <p className="text-lg max-w-2xl mx-auto text-textSubtleDark dark:text-solarized-light3">
               Have a broken device? Fill out the form below, or give us a call!
             </p>
+            <p className="text-center text-red-500 font-bold">
+              TEST: Contact page loads successfully!
+            </p>
             <div className="mt-8 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8">
               <a
                 href="tel:626-622-0196"
