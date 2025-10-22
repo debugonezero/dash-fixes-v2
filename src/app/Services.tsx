@@ -61,7 +61,7 @@ const Services = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {mainServices.map((service, index) => (
             <AnimationWrapper key={index} delay={index * 0.1}>
-              <Link href={service.link} passHref>
+              <Link href={service.link}>
                 <div className="service-card bg-solarized-light dark:bg-solarized-dark h-full rounded-2xl p-8 shadow-lg border border-transparent transition-all duration-300 hover:shadow-2xl hover:border-solarized-blue hover:scale-[1.02]">
                   <div className="w-16 h-16 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center mb-6">
                     {service.icon}

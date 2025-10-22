@@ -5,7 +5,6 @@ import "./globals.css";
 import Script from "next/script";
 import Header from "./Header";
 import Footer from "./Footer";
-import AnimationWrapper from "./AnimationWrapper";
 
 export const metadata: Metadata = {
   title: "Dash Fixes | Campus Tech Repairs",
@@ -45,9 +44,7 @@ export default function RootLayout({
           enableSystem={false}
         >
           <Header />
-          <main>
-            <AnimationWrapper>{children}</AnimationWrapper>
-          </main>
+          <main>{children}</main>
           <Footer />
         </ThemeProvider>
 
