@@ -10,24 +10,12 @@
 }
 
 .glassmorphism-header {
-    background-color: rgba(
-        253,
-        246,
-        227,
-        0.8
-    ); /* Light background with transparency */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background-color: #ffffff;
     border-bottom: 1px solid rgba(147, 161, 161, 0.2);
 }
 
 .dark .glassmorphism-header {
-    background-color: rgba(
-        0,
-        43,
-        54,
-        0.8
-    ); /* Dark background with transparency */
+    background-color: #002b36;
     border-bottom: 1px solid rgba(147, 161, 161, 0.2);
 }
 
