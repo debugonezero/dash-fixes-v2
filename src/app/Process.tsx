@@ -3,23 +3,30 @@ import AnimationWrapper from "./AnimationWrapper";
 const Process = () => {
   const steps = [
     {
-      title: "1. Get Your Free Label",
+      title: "1. Request Quote",
       description:
-        "Fill out the form below to get an instant quote and a free, pre-paid shipping label emailed to you.",
+        "Submit your repair details via our contact form for a free, instant quote tailored to your device.",
       icon: "📝",
       backgroundColor: "bg-solarized-blue",
     },
     {
-      title: "2. Mail Your Device",
+      title: "2. Get Free Label",
       description:
-        "Package your device securely and drop it off at your nearest mail location. Shipping is on us.",
+        "Receive a pre-paid shipping label via email to send your device securely and at no cost.",
       icon: "📦",
       backgroundColor: "bg-solarized-cyan",
     },
     {
-      title: "3. We Fix & Return",
+      title: "3. Ship Your Device",
       description:
-        "Once we receive it, we&apos;ll confirm the quote, perform the repair, and ship it right back to you, fully insured.",
+        "Package your device safely and drop it off at any USPS or UPS location using the provided label.",
+      icon: "🚚",
+      backgroundColor: "bg-solarized-magenta",
+    },
+    {
+      title: "4. Repair & Return",
+      description:
+        "We repair your device and ship it back fully insured. Track progress and get updates along the way.",
       icon: "🔧",
       backgroundColor: "bg-solarized-green",
     },
@@ -34,24 +41,30 @@ const Process = () => {
         <AnimationWrapper>
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-solarized-dark3 dark:text-solarized-light">
-              How It Works: As Easy As 1-2-3
+              How It Works: Your 4-Step Mail-in Process
             </h2>
-            <div className="flex justify-center items-center space-x-8 mt-8">
+            <div className="flex justify-center items-center space-x-4 mt-8">
               <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-solarized-blue flex items-center justify-center text-solarized-light font-bold">
+                <div className="w-8 h-8 rounded-full bg-solarized-blue flex items-center justify-center text-solarized-light font-bold text-sm">
                   1
                 </div>
-                <div className="w-16 h-1 bg-solarized-blue mx-2"></div>
+                <div className="w-12 h-1 bg-solarized-blue"></div>
               </div>
               <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-solarized-cyan flex items-center justify-center text-solarized-light font-bold">
+                <div className="w-8 h-8 rounded-full bg-solarized-cyan flex items-center justify-center text-solarized-light font-bold text-sm">
                   2
                 </div>
-                <div className="w-16 h-1 bg-solarized-cyan mx-2"></div>
+                <div className="w-12 h-1 bg-solarized-cyan"></div>
               </div>
               <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-solarized-green flex items-center justify-center text-solarized-light font-bold">
+                <div className="w-8 h-8 rounded-full bg-solarized-magenta flex items-center justify-center text-solarized-light font-bold text-sm">
                   3
+                </div>
+                <div className="w-12 h-1 bg-solarized-magenta"></div>
+              </div>
+              <div className="flex items-center">
+                <div className="w-8 h-8 rounded-full bg-solarized-green flex items-center justify-center text-solarized-light font-bold text-sm">
+                  4
                 </div>
               </div>
             </div>

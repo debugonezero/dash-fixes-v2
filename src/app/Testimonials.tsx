@@ -8,7 +8,7 @@ const Testimonials = () => {
         "Came to get my Galaxy S6 Lite screen replaced. He found the piece for $35 and charged $65 for the labor. I recommend their services if you're in need.",
       author: "David C.",
       icon: "👤",
-      repairType: "Phone Screen Repair",
+      repairType: "iPhone Screen Replacement",
     },
     {
       quote:

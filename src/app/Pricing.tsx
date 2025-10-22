@@ -31,33 +31,34 @@ const Pricing = () => {
                 </p>
               </div>
               <ul className="space-y-1 text-sm text-solarized-dark3 dark:text-solarized-light3 mb-4">
-                <li className="flex items-center">
-                  <span className="text-solarized-green mr-2">✅</span>
-                  Screen replacement: $49+
-                </li>
-                <li className="flex items-center">
-                  <span className="text-solarized-green mr-2">✅</span>
-                  Battery replacement: $49+
-                </li>
-                <li className="flex items-center">
-                  <span className="text-solarized-green mr-2">✅</span>
-                  Back Glass repair: $79+
-                </li>
-                <li className="flex items-center">
-                  <span className="text-solarized-green mr-2">✅</span>
-                  Data recovery: $99+
-                </li>
-                <li className="flex items-center">
-                  <span className="text-solarized-green mr-2">✅</span>
-                  Water damage: $79+
-                </li>
-              </ul>
-              <a
-                href="#contact"
-                className="block w-full py-3 bg-solarized-blue text-solarized-light text-center rounded-lg font-medium hover:bg-opacity-90 transition"
-              >
-                Get Phone Help
-              </a>
+                  <ul className="space-y-1 text-sm text-solarized-dark3 dark:text-solarized-light3 mb-4">
+                    <li className="flex items-center">
+                      <span className="text-solarized-green mr-2">✅</span>
+                      Screen replacement: $49+
+                    </li>
+                    <li className="flex items-center">
+                      <span className="text-solarized-green mr-2">✅</span>
+                      Battery replacement: $49+
+                    </li>
+                    <li className="flex items-center">
+                      <span className="text-solarized-green mr-2">✅</span>
+                      Back Glass repair: $79+
+                    </li>
+                    <li className="flex items-center">
+                      <span className="text-solarized-green mr-2">✅</span>
+                      Data recovery: $99+
+                    </li>
+                    <li className="flex items-center">
+                      <span className="text-solarized-green mr-2">✅</span>
+                      Water damage: $79+
+                    </li>
+                  </ul>
+                  <a
+                    href="#contact"
+                    className="block w-full py-3 bg-solarized-blue text-solarized-light text-center rounded-lg font-medium hover:bg-opacity-90 transition"
+                  >
+                    Get Phone Help
+                  </a>
             </div>
           </AnimationWrapper>
 
@@ -183,7 +184,7 @@ const Pricing = () => {
                   And much more...
                 </li>
                 <li className="flex items-center">
-                  <span className="text-solarized-green mr-2">❓</span>
+                  <span className="text-solarized-blue mr-2">❓</span>
                   If it has a battery, ask us!
                 </li>
               </ul>

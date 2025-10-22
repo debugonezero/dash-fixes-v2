@@ -94,7 +94,7 @@ const Header = () => {
           </a>
           <button
             onClick={toggleTheme}
-            className="w-10 h-10 rounded-full flex items-center justify-center border border-solarized-light3 dark:border-solarized-dark3 hover:bg-accentBlue/10 transition-colors"
+            className="w-12 h-12 rounded-full bg-solarized-light dark:bg-solarized-dark flex items-center justify-center border-2 border-solarized-blue hover:bg-solarized-blue hover:text-solarized-light transition-colors font-bold"
             aria-label="Toggle theme"
           >
             {isDark ? (

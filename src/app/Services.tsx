@@ -36,7 +36,7 @@ const Services = () => {
     title: "Nationwide Mail-in Repairs",
     description:
       "Not on campus? No problem! We offer expert repairs to anyone in the United States. Get a free quote, a pre-paid shipping label, and fast turnaround.",
-    link: "/mail-in-repair",
+    link: "/contact",
   };
 
   return (
