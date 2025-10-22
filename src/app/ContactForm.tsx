@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +10,7 @@ const ContactForm = () => {
     serviceType: "",
     message: "",
   });
+
   const [errors, setErrors] = useState({
     name: "",
     email: "",
@@ -17,15 +18,17 @@ const ContactForm = () => {
     serviceType: "",
     message: "",
   });
+
   const [status, setStatus] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >,
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    validateField(e.target.name, e.target.value);
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    validateField(name, value);
   };
 
   const validateField = (name: string, value: string) => {
@@ -82,7 +85,13 @@ const ContactForm = () => {
         },
       });
       if (response.ok) {
-        form.reset();
+        setFormData({
+          name: "",
+          email: "",
+          deviceType: "",
+          serviceType: "",
+          message: "",
+        });
         setErrors({
           name: "",
           email: "",
@@ -90,13 +99,13 @@ const ContactForm = () => {
           serviceType: "",
           message: "",
         });
-        window.location.href = "/mail-in-thank-you"; // Assuming a Next.js route
+        window.location.href = "/mail-in-thank-you";
       } else {
         const responseData = await response.json();
         if (Object.hasOwn(responseData, "errors")) {
           setStatus(
-            responseData["errors"]
-              .map((error: { message: string }) => error["message"])
+            responseData.errors
+              .map((error: { message: string }) => error.message)
               .join(", "),
           );
         } else {
@@ -125,12 +134,17 @@ const ContactForm = () => {
             required
             value={formData.name}
             onChange={handleChange}
-            className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.name ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
+            className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${
+              errors.name
+                ? "border-solarized-red"
+                : "border-solarized-light3 dark:border-solarized-dark3"
+            }`}
           />
           {errors.name && (
             <p className="text-solarized-red text-sm mt-1">{errors.name}</p>
           )}
         </div>
+
         <div>
           <label
             htmlFor="email"
@@ -145,12 +159,17 @@ const ContactForm = () => {
             required
             value={formData.email}
             onChange={handleChange}
-            className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.email ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
+            className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${
+              errors.email
+                ? "border-solarized-red"
+                : "border-solarized-light3 dark:border-solarized-dark3"
+            }`}
           />
           {errors.email && (
             <p className="text-solarized-red text-sm mt-1">{errors.email}</p>
           )}
         </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label
@@ -165,7 +184,11 @@ const ContactForm = () => {
               required
               value={formData.deviceType}
               onChange={handleChange}
-              className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.deviceType ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
+              className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${
+                errors.deviceType
+                  ? "border-solarized-red"
+                  : "border-solarized-light3 dark:border-solarized-dark3"
+              }`}
             >
               <option value="" disabled>
                 Select your device
@@ -184,6 +207,7 @@ const ContactForm = () => {
               </p>
             )}
           </div>
+
           <div>
             <label
               htmlFor="serviceType"
@@ -197,7 +221,11 @@ const ContactForm = () => {
               required
               value={formData.serviceType}
               onChange={handleChange}
-              className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.serviceType ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
+              className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${
+                errors.serviceType
+                  ? "border-solarized-red"
+                  : "border-solarized-light3 dark:border-solarized-dark3"
+              }`}
             >
               <option value="" disabled>
                 Select a service
@@ -217,6 +245,7 @@ const ContactForm = () => {
             )}
           </div>
         </div>
+
         <div>
           <label
             htmlFor="message"
@@ -232,22 +261,32 @@ const ContactForm = () => {
             value={formData.message}
             onChange={handleChange}
             placeholder="Please provide the model of your device (e.g., iPhone 14 Pro) and any other details about the problem."
-            className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.message ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
+            className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${
+              errors.message
+                ? "border-solarized-red"
+                : "border-solarized-light3 dark:border-solarized-dark3"
+            }`}
           ></textarea>
           {errors.message && (
             <p className="text-solarized-red text-sm mt-1">{errors.message}</p>
           )}
         </div>
+
         <button
           type="submit"
           className="w-full px-6 py-3 bg-solarized-blue text-solarized-light rounded-lg font-medium text-center hover:bg-opacity-90 transition"
         >
           Send Request
         </button>
+
         {status && (
           <div
             id="form-status"
-            className={`mt-6 text-center font-medium ${status.startsWith("Oops") ? "text-solarized-red" : "text-solarized-green"}`}
+            className={`mt-6 text-center font-medium ${
+              status.startsWith("Oops")
+                ? "text-solarized-red"
+                : "text-solarized-green"
+            }`}
           >
             {status}
           </div>
