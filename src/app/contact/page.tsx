@@ -89,7 +89,7 @@ const ContactPage = () => {
             </div>
           </div>
           <div className="max-w-4xl mx-auto mt-12 grid md:grid-cols-2 gap-12 items-start">
-            <ContactForm />
+            {/* <ContactForm /> */}
             <WhyGetAQuote />
           </div>
         </div>
