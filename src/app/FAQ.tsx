@@ -19,6 +19,31 @@ const FAQ = () => {
       answer:
         "Our commitment to quality extends to all Apple products. We use specific, high-quality parts for each type of MacBook repair: Screens: We use Genuine, Refurbished, or Premium quality displays to ensure a perfect picture. Batteries: We use either Genuine or high-quality Premium batteries for longevity and safety. Keyboards & Trackpads: For these critical components, we only use Genuine parts to guarantee a perfect fit, feel, and long-term reliability.",
     },
+    {
+      question: "How does mail-in repair work?",
+      answer:
+        "Mail-in repair is simple! Submit our contact form with your device details and issue. We'll send a free, prepaid shipping label via email. Package your device securely and drop it at any USPS or UPS location. We repair it and ship it back insured. No campus visits needed!",
+    },
+    {
+      question: "What are shipping costs?",
+      answer:
+        "Shipping is completely free for mail-in repairs. We provide a prepaid label for both directions, covering all costs. Just use the label we email you.",
+    },
+    {
+      question: "How long does the mail-in repair process take?",
+      answer:
+        "Typically 5-7 business days total: 1-2 days for shipping to us, 1-2 days for repair, 1-2 days back to you. Rush options available for an extra fee.",
+    },
+    {
+      question: "Is my device insured during shipping?",
+      answer:
+        "Yes! Your device is fully insured during transit. We use USPS Priority Mail with tracking, and you can opt for additional insurance if needed.",
+    },
+    {
+      question: "What if my repair costs more than quoted?",
+      answer:
+        "We'll always contact you before proceeding if costs exceed the initial quote. No work is done without your approval, and we prioritize transparency.",
+    },
   ];
 
   return (

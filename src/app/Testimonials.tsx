@@ -7,11 +7,15 @@ const Testimonials = () => {
       quote:
         "Came to get my Galaxy S6 Lite screen replaced. He found the piece for $35 and charged $65 for the labor. I recommend their services if you're in need.",
       author: "David C.",
+      photo: "/graphics/testimonial-david.jpg",
+      repairType: "Phone Screen Repair",
     },
     {
       quote:
         "Amazing service provider! If you want the job done right and quickly by a professional, this is it! Technicians know how to quickly identify all types of problems and can resolve all issues related to tech! Have been using them for all tech related issues for a long time!",
       author: "Martin N.",
+      photo: "/graphics/testimonial-martin.jpg",
+      repairType: "Laptop Performance Optimization",
     },
   ];
 
@@ -35,12 +39,24 @@ const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <AnimationWrapper key={index} delay={index * 0.1}>
               <div className="bg-solarized-light dark:bg-solarized-dark rounded-xl p-8 shadow-md">
+                <div className="flex items-center mb-4">
+                  <img
+                    src={testimonial.photo}
+                    alt={`${testimonial.author} photo`}
+                    className="w-12 h-12 rounded-full mr-4"
+                  />
+                  <div>
+                    <p className="font-semibold text-solarized-dark2 dark:text-solarized-light">
+                      {testimonial.author}
+                    </p>
+                    <p className="text-sm text-solarized-dark3 dark:text-solarized-light3">
+                      {testimonial.repairType}
+                    </p>
+                  </div>
+                </div>
                 <p className="text-lg italic text-solarized-dark3 dark:text-solarized-light3 mb-6">
                   &quot;{testimonial.quote}&quot;
                 </p>
-                <div className="text-right font-medium dark:text-solarized-light">
-                  - {testimonial.author}
-                </div>
               </div>
             </AnimationWrapper>
           ))}

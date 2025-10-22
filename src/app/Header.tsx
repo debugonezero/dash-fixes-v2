@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Wrench, Phone, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
@@ -90,48 +91,56 @@ const Header = () => {
         </div>
       </div>
       {/* Mobile Menu */}
-      <div
-        className={`md:hidden transition-all duration-300 ${isMobileMenuOpen ? "block" : "hidden"}`}
-      >
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <Link
-            href="/about"
-            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden"
           >
-            About
-          </Link>
-          <Link
-            href="/services"
-            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
-          >
-            Services
-          </Link>
-          <Link
-            href="/mail-in-repair"
-            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
-          >
-            Mail-In Repair
-          </Link>
-          <Link
-            href="/faq"
-            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
-          >
-            FAQ
-          </Link>
-          <Link
-            href="/donate"
-            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
-          >
-            Donate
-          </Link>
-          <Link
-            href="#contact"
-            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
-          >
-            Contact
-          </Link>
-        </div>
-      </div>
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+              <Link
+                href="/about"
+                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
+              >
+                About
+              </Link>
+              <Link
+                href="/services"
+                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
+              >
+                Services
+              </Link>
+              <Link
+                href="/mail-in-repair"
+                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
+              >
+                Mail-In Repair
+              </Link>
+              <Link
+                href="/faq"
+                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
+              >
+                FAQ
+              </Link>
+              <Link
+                href="/donate"
+                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
+              >
+                Donate
+              </Link>
+              <Link
+                href="#contact"
+                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
+              >
+                Contact
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

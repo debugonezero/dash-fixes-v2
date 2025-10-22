@@ -10,6 +10,13 @@ const ContactForm = () => {
     serviceType: "",
     message: "",
   });
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    deviceType: "",
+    serviceType: "",
+    message: "",
+  });
   const [status, setStatus] = useState("");
 
   const handleChange = (
@@ -18,10 +25,50 @@ const ContactForm = () => {
     >,
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    validateField(e.target.name, e.target.value);
+  };
+
+  const validateField = (name: string, value: string) => {
+    let error = "";
+    switch (name) {
+      case "name":
+        if (!value.trim()) error = "Name is required";
+        break;
+      case "email":
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!value.trim()) error = "Email is required";
+        else if (!emailRegex.test(value)) error = "Invalid email format";
+        break;
+      case "deviceType":
+        if (!value) error = "Please select a device type";
+        break;
+      case "serviceType":
+        if (!value) error = "Please select a service type";
+        break;
+      case "message":
+        if (!value.trim()) error = "Message is required";
+        else if (value.trim().length < 10)
+          error = "Message must be at least 10 characters";
+        break;
+    }
+    setErrors({ ...errors, [name]: error });
+  };
+
+  const validateForm = () => {
+    const newErrors = { ...errors };
+    Object.keys(formData).forEach((key) => {
+      validateField(key, formData[key as keyof typeof formData]);
+    });
+    setErrors(newErrors);
+    return Object.values(newErrors).every((error) => error === "");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateForm()) {
+      setStatus("Please fix the errors above");
+      return;
+    }
     setStatus("Sending...");
     const form = e.currentTarget as HTMLFormElement;
     const data = new FormData(form);
@@ -36,6 +83,13 @@ const ContactForm = () => {
       });
       if (response.ok) {
         form.reset();
+        setErrors({
+          name: "",
+          email: "",
+          deviceType: "",
+          serviceType: "",
+          message: "",
+        });
         window.location.href = "/mail-in-thank-you"; // Assuming a Next.js route
       } else {
         const responseData = await response.json();
@@ -70,8 +124,11 @@ const ContactForm = () => {
           required
           value={formData.name}
           onChange={handleChange}
-          className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border border-solarized-light3 dark:border-solarized-dark3 focus:ring-solarized-blue focus:border-solarized-blue transition"
+          className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.name ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
         />
+        {errors.name && (
+          <p className="text-solarized-red text-sm mt-1">{errors.name}</p>
+        )}
       </div>
       <div>
         <label
@@ -87,8 +144,11 @@ const ContactForm = () => {
           required
           value={formData.email}
           onChange={handleChange}
-          className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border border-solarized-light3 dark:border-solarized-dark3 focus:ring-solarized-blue focus:border-solarized-blue transition"
+          className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.email ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
         />
+        {errors.email && (
+          <p className="text-solarized-red text-sm mt-1">{errors.email}</p>
+        )}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
@@ -104,7 +164,7 @@ const ContactForm = () => {
             required
             value={formData.deviceType}
             onChange={handleChange}
-            className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border border-solarized-light3 dark:border-solarized-dark3 focus:ring-solarized-blue focus:border-solarized-blue transition"
+            className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.deviceType ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
           >
             <option value="" disabled>
               Select your device
@@ -117,6 +177,11 @@ const ContactForm = () => {
             <option value="Game Console">Game Console</option>
             <option value="Other">Other</option>
           </select>
+          {errors.deviceType && (
+            <p className="text-solarized-red text-sm mt-1">
+              {errors.deviceType}
+            </p>
+          )}
         </div>
         <div>
           <label
@@ -131,7 +196,7 @@ const ContactForm = () => {
             required
             value={formData.serviceType}
             onChange={handleChange}
-            className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border border-solarized-light3 dark:border-solarized-dark3 focus:ring-solarized-blue focus:border-solarized-blue transition"
+            className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.serviceType ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
           >
             <option value="" disabled>
               Select a service
@@ -144,6 +209,11 @@ const ContactForm = () => {
             <option value="Diagnostics">Diagnostics / Not Sure</option>
             <option value="Other">Other</option>
           </select>
+          {errors.serviceType && (
+            <p className="text-solarized-red text-sm mt-1">
+              {errors.serviceType}
+            </p>
+          )}
         </div>
       </div>
       <div>
@@ -161,8 +231,11 @@ const ContactForm = () => {
           value={formData.message}
           onChange={handleChange}
           placeholder="Please provide the model of your device (e.g., iPhone 14 Pro) and any other details about the problem."
-          className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border border-solarized-light3 dark:border-solarized-dark3 focus:ring-solarized-blue focus:border-solarized-blue transition"
+          className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${errors.message ? "border-solarized-red" : "border-solarized-light3 dark:border-solarized-dark3"}`}
         ></textarea>
+        {errors.message && (
+          <p className="text-solarized-red text-sm mt-1">{errors.message}</p>
+        )}
       </div>
       <button
         type="submit"

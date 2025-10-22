@@ -6,7 +6,7 @@ import CallToAction from "./CallToAction";
 const Services = () => {
   const mainServices = [
     {
-      icon: <Smartphone className="w-8 h-8 text-solarized-red" />,
+      photo: "/graphics/phone-repair.jpg",
       title: "Phone Repairs 📱",
       description:
         "Broken screens, battery issues, water damage - we&apos;ve got you covered.",
@@ -14,7 +14,7 @@ const Services = () => {
       link: "/phone-repairs",
     },
     {
-      icon: <Laptop className="w-8 h-8 text-solarized-blue" />,
+      photo: "/graphics/laptop-repair.jpg",
       title: "Laptop Repairs 💻",
       description:
         "From hardware issues to software problems, we&apos;ll get your laptop running like new.",
@@ -22,7 +22,7 @@ const Services = () => {
       link: "/laptop-repairs",
     },
     {
-      icon: <Gamepad className="w-8 h-8 text-solarized-green" />,
+      photo: "/graphics/console-repair.jpg",
       title: "Game Console Repairs 🎮",
       description:
         "Overheating PS5s, controller drift, and more - we&apos;ll get you back in the game.",
@@ -63,8 +63,12 @@ const Services = () => {
             <AnimationWrapper key={index} delay={index * 0.1}>
               <Link href={service.link}>
                 <div className="service-card bg-solarized-light dark:bg-solarized-dark h-full rounded-2xl p-8 shadow-lg border border-transparent transition-all duration-300 hover:shadow-2xl hover:border-solarized-blue hover:scale-[1.02]">
-                  <div className="w-16 h-16 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center mb-6">
-                    {service.icon}
+                  <div className="w-16 h-16 rounded-full overflow-hidden mb-6">
+                    <img
+                      src={service.photo}
+                      alt={`${service.title} repair`}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark2 dark:text-solarized-light">
                     {service.title}

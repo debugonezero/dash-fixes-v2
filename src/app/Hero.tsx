@@ -19,7 +19,27 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-            <CallToAction href="/contact" text="GET YOUR FREE SHIPPING LABEL" />
+            <CallToAction
+              href="/contact"
+              text="Start Free Mail-in Repair Quote"
+            />
+          </div>
+          <p className="text-center mt-4 text-sm text-solarized-dark3 dark:text-solarized-light3">
+            Get prepaid label & insured shipping
+          </p>
+          <div className="flex justify-center space-x-6 mt-6">
+            <div className="flex items-center text-sm text-solarized-dark3 dark:text-solarized-light3">
+              <i className="fa-solid fa-shield-alt mr-2"></i>
+              Secure SSL
+            </div>
+            <div className="flex items-center text-sm text-solarized-dark3 dark:text-solarized-light3">
+              <i className="fa-solid fa-shipping-fast mr-2"></i>
+              Insured Shipping
+            </div>
+            <div className="flex items-center text-sm text-solarized-dark3 dark:text-solarized-light3">
+              <i className="fa-brands fa-apple mr-2"></i>
+              Apple Authorized
+            </div>
           </div>
         </AnimationWrapper>
         <AnimationWrapper delay={0.2}>
