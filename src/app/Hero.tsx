@@ -39,14 +39,9 @@ const Hero = () => {
         <AnimationWrapper delay={0.2}>
           <div className="relative">
             <div className="relative z-10">
-              <Image
-                src="/graphics/hero-image-large.webp"
+              <img
+                src="/graphics/hero-image.jpg"
                 alt="A successfully repaired laptop looking like new"
-                className="rounded-xl shadow-xl w-full"
-                width={1200}
-                height={675}
-                sizes="(max-width: 640px) 400px, (max-width: 768px) 800px, 1200px"
-                priority
               />
             </div>
             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-solarized-yellow rounded-xl opacity-20"></div>
