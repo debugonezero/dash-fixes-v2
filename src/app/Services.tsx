@@ -7,7 +7,7 @@ const Services = () => {
   const mainServices = [
     {
       icon: "📱",
-      title: "Phone Repairs 📱",
+      title: "Phone Repairs",
       description:
         "Broken screens, battery issues, water damage - we&apos;ve got you covered.",
       features: ["Screen replacements", "Battery swaps", "Charging port fixes"],
@@ -15,7 +15,7 @@ const Services = () => {
     },
     {
       icon: "💻",
-      title: "Laptop Repairs 💻",
+      title: "Laptop Repairs",
       description:
         "From hardware issues to software problems, we&apos;ll get your laptop running like new.",
       features: ["Virus removal", "Hardware upgrades", "Keyboard replacements"],
@@ -23,7 +23,7 @@ const Services = () => {
     },
     {
       icon: "🎮",
-      title: "Game Console Repairs 🎮",
+      title: "Game Console Repairs",
       description:
         "Overheating PS5s, controller drift, and more - we&apos;ll get you back in the game.",
       features: ["HDMI Port Repair", "Internal Cleaning", "Controller Repair"],
@@ -33,7 +33,7 @@ const Services = () => {
 
   const mailInService = {
     icon: <Package className="w-12 h-12 text-solarized-blue" />,
-    title: "Nationwide Mail-in Repairs 📦",
+    title: "Nationwide Mail-in Repairs",
     description:
       "Not on campus? No problem! We offer expert repairs to anyone in the United States. Get a free quote, a pre-paid shipping label, and fast turnaround.",
     link: "/mail-in-repair",
