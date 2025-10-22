@@ -1,5 +1,4 @@
-import ContactForm from "../ContactForm";
-import { Check, Zap, ShieldCheck, Lock, Phone, Mail } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
 
 const WhyGetAQuote = () => (
   <div className="pt-8 md:pt-0">
@@ -8,7 +7,7 @@ const WhyGetAQuote = () => (
     </h3>
     <ul className="space-y-4">
       <li className="flex items-start">
-        <Check className="text-accentGreen mr-3 mt-1" size={16} />
+        <span className="text-accentGreen mr-3">✅</span>
         <div>
           <h4 className="font-bold dark:text-solarized-light">
             100% Free & No-Obligation
@@ -20,7 +19,7 @@ const WhyGetAQuote = () => (
         </div>
       </li>
       <li className="flex items-start">
-        <Zap className="text-accentGreen mr-3 mt-1" size={16} />
+        <span className="text-accentGreen mr-3">⚡</span>
         <div>
           <h4 className="font-bold dark:text-solarized-light">
             Fast & Honest Responses
@@ -32,7 +31,7 @@ const WhyGetAQuote = () => (
         </div>
       </li>
       <li className="flex items-start">
-        <ShieldCheck className="text-accentGreen mr-3 mt-1" size={16} />
+        <span className="text-accentGreen mr-3">🛡️</span>
         <div>
           <h4 className="font-bold dark:text-solarized-light">
             Expertise Guaranteed
@@ -44,7 +43,7 @@ const WhyGetAQuote = () => (
         </div>
       </li>
       <li className="flex items-start">
-        <Lock className="text-accentGreen mr-3 mt-1" size={16} />
+        <span className="text-accentGreen mr-3">🔒</span>
         <div>
           <h4 className="font-bold dark:text-solarized-light">
             Your Privacy is Our Priority
