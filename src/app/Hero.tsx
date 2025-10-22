@@ -7,12 +7,12 @@ const Hero = () => {
     <section className="hero-bg flex-grow flex items-center py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         <AnimationWrapper delay={0.1}>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-tight mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-tight mb-6 dark:text-solarized-light">
             Expert Tech Repair.
             <br />
             <span className="gradient-text">Shipped From Your Door.</span>
           </h1>
-          <p className="text-lg md:text-xl text-solarized-dark3 mb-8">
+          <p className="text-lg md:text-xl text-solarized-dark3 dark:text-solarized-light3 mb-8">
             Your device is essential. Our mail-in repair service makes getting
             it fixed simple. We&apos;ll send you a free, pre-paid shipping
             label. Just pack your device and drop it off. We handle the rest.

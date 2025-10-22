@@ -19,44 +19,44 @@ const Header = () => {
           <div className="w-10 h-10 rounded-full bg-solarized-blue flex items-center justify-center">
             <Wrench className="text-solarized-light" size={20} />
           </div>
-          <h1 className="text-2xl font-heading font-bold">
+          <h1 className="text-2xl font-heading font-bold dark:text-solarized-light">
             <span className="gradient-text">Dash Fixes</span>
           </h1>
         </Link>
         <nav className="hidden md:flex space-x-8">
           <Link
             href="/about"
-            className="font-medium hover:text-solarized-blue transition"
+            className="font-medium hover:text-solarized-blue transition dark:text-solarized-light dark:hover:text-solarized-light"
           >
             About
           </Link>
           <Link
             href="/services"
-            className="font-medium hover:text-solarized-blue transition"
+            className="font-medium hover:text-solarized-blue transition dark:text-solarized-light dark:hover:text-solarized-light"
           >
             Services
           </Link>
           <Link
             href="/mail-in-repair"
-            className="font-medium hover:text-solarized-blue transition"
+            className="font-medium hover:text-solarized-blue transition dark:text-solarized-light dark:hover:text-solarized-light"
           >
             Mail-In Repair
           </Link>
           <Link
             href="/faq"
-            className="font-medium hover:text-solarized-blue transition"
+            className="font-medium hover:text-solarized-blue transition dark:text-solarized-light dark:hover:text-solarized-light"
           >
             FAQ
           </Link>
           <Link
             href="/donate"
-            className="font-medium hover:text-solarized-blue transition"
+            className="font-medium hover:text-solarized-blue transition dark:text-solarized-light dark:hover:text-solarized-light"
           >
             Donate
           </Link>
           <Link
             href="#contact"
-            className="font-medium hover:text-solarized-blue transition"
+            className="font-medium hover:text-solarized-blue transition dark:text-solarized-light dark:hover:text-solarized-light"
           >
             Contact
           </Link>
@@ -64,7 +64,7 @@ const Header = () => {
         <div className="flex items-center space-x-4">
           <a
             href="tel:626-622-0196"
-            className="hidden md:flex items-center font-medium hover:text-solarized-blue transition"
+            className="hidden md:flex items-center font-medium hover:text-solarized-blue transition dark:text-solarized-light dark:hover:text-solarized-light"
           >
             <Phone className="w-4 h-4 mr-2" size={16} />
             (626) 622-0196
@@ -83,7 +83,7 @@ const Header = () => {
           </button>
           <Link
             href="#contact"
-            className="hidden md:block px-4 py-2 bg-solarized-blue text-solarized-light rounded-lg font-medium hover:bg-opacity-90 transition"
+            className="hidden md:block px-4 py-2 bg-solarized-blue text-solarized-light rounded-lg font-medium hover:bg-opacity-90 transition dark:text-solarized-light"
           >
             Get Help Now
           </Link>
@@ -96,37 +96,37 @@ const Header = () => {
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <Link
             href="/about"
-            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
           >
             About
           </Link>
           <Link
             href="/services"
-            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
           >
             Services
           </Link>
           <Link
             href="/mail-in-repair"
-            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
           >
             Mail-In Repair
           </Link>
           <Link
             href="/faq"
-            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
           >
             FAQ
           </Link>
           <Link
             href="/donate"
-            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
           >
             Donate
           </Link>
           <Link
             href="#contact"
-            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition dark:text-solarized-light"
           >
             Contact
           </Link>

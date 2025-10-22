@@ -42,15 +42,15 @@ const Services = () => {
   return (
     <section
       id="services"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-solarized-light2"
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-solarized-light2 dark:bg-solarized-dark2"
     >
       <div className="max-w-7xl mx-auto">
         <AnimationWrapper>
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-solarized-dark2">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-solarized-dark2 dark:text-solarized-light">
               Our Repair Services 🛠️
             </h2>
-            <p className="text-lg max-w-3xl mx-auto text-solarized-dark3">
+            <p className="text-lg max-w-3xl mx-auto text-solarized-dark3 dark:text-solarized-light3">
               We specialize in fixing all your campus tech essentials quickly
               and affordably. Can&apos;t make it in person? We serve the entire
               nation via our mail-in program.
@@ -62,17 +62,17 @@ const Services = () => {
           {mainServices.map((service, index) => (
             <AnimationWrapper key={index} delay={index * 0.1}>
               <Link href={service.link} passHref>
-                <div className="service-card bg-solarized-light h-full rounded-2xl p-8 shadow-lg border border-transparent transition-all duration-300 hover:shadow-2xl hover:border-solarized-blue hover:scale-[1.02]">
+                <div className="service-card bg-solarized-light dark:bg-solarized-dark h-full rounded-2xl p-8 shadow-lg border border-transparent transition-all duration-300 hover:shadow-2xl hover:border-solarized-blue hover:scale-[1.02]">
                   <div className="w-16 h-16 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center mb-6">
                     {service.icon}
                   </div>
-                  <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark2">
+                  <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark2 dark:text-solarized-light">
                     {service.title}
                   </h3>
-                  <p className="text-solarized-dark3 mb-4 text-sm">
+                  <p className="text-solarized-dark3 dark:text-solarized-light3 mb-4 text-sm">
                     {service.description}
                   </p>
-                  <ul className="space-y-2 text-sm text-solarized-dark3">
+                  <ul className="space-y-2 text-sm text-solarized-dark3 dark:text-solarized-light3">
                     {service.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-center">
                         <Check
@@ -90,7 +90,7 @@ const Services = () => {
         </div>
 
         <AnimationWrapper delay={0.3}>
-          <div className="bg-solarized-light rounded-2xl shadow-xl border border-transparent transition-all duration-300 hover:shadow-2xl hover:border-solarized-blue hover:scale-[1.01] p-8 md:p-12">
+          <div className="bg-solarized-light dark:bg-solarized-dark rounded-2xl shadow-xl border border-transparent transition-all duration-300 hover:shadow-2xl hover:border-solarized-blue hover:scale-[1.01] p-8 md:p-12">
             <div className="md:flex md:items-center md:gap-12">
               <div className="flex-shrink-0 mb-8 md:mb-0 text-center md:text-left">
                 <div className="w-24 h-24 mx-auto md:mx-0 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center">
@@ -98,10 +98,10 @@ const Services = () => {
                 </div>
               </div>
               <div className="flex-grow text-center md:text-left">
-                <h3 className="text-2xl md:text-3xl font-heading font-bold mb-3 text-solarized-dark2">
+                <h3 className="text-2xl md:text-3xl font-heading font-bold mb-3 text-solarized-dark2 dark:text-solarized-light">
                   {mailInService.title}
                 </h3>
-                <p className="text-solarized-dark3 mb-6 max-w-2xl mx-auto md:mx-0">
+                <p className="text-solarized-dark3 dark:text-solarized-light3 mb-6 max-w-2xl mx-auto md:mx-0">
                   {mailInService.description}
                 </p>
               </div>

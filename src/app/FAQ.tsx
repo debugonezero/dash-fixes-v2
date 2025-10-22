@@ -22,11 +22,14 @@ const FAQ = () => {
   ];
 
   return (
-    <section id="faq" className="py-16 px-4 sm:px-6 lg:px-8">
+    <section
+      id="faq"
+      className="py-16 px-4 sm:px-6 lg:px-8 bg-solarized-light2 dark:bg-solarized-dark2"
+    >
       <div className="max-w-3xl mx-auto">
         <AnimationWrapper>
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 dark:text-solarized-light">
               Frequently Asked Questions
             </h2>
           </div>
@@ -35,7 +38,7 @@ const FAQ = () => {
           {faqs.map((faq, index) => (
             <AnimationWrapper key={index} delay={index * 0.1}>
               <details className="bg-solarized-light2 dark:bg-solarized-dark2 p-4 rounded-lg">
-                <summary className="text-xl font-heading font-bold cursor-pointer list-none hover:text-solarized-blue transition">
+                <summary className="text-xl font-heading font-bold cursor-pointer list-none hover:text-solarized-blue transition dark:text-solarized-light">
                   {faq.question}
                 </summary>
                 <p className="text-solarized-dark3 dark:text-solarized-light3 mt-2">

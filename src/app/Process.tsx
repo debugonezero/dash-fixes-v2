@@ -46,7 +46,7 @@ const Process = () => {
               >
                 <i className={step.iconClass}></i>
               </div>
-              <h3 className="text-xl font-heading font-bold mb-2">
+              <h3 className="text-xl font-heading font-bold mb-2 dark:text-solarized-light">
                 {step.title}
               </h3>
               <p className="text-solarized-dark3 dark:text-solarized-light3">
