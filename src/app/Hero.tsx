@@ -36,10 +36,6 @@ const Hero = () => {
               <i className="fa-solid fa-shipping-fast mr-2"></i>
               Insured Shipping
             </div>
-            <div className="flex items-center text-sm text-solarized-dark3 dark:text-solarized-light3">
-              <i className="fa-brands fa-apple mr-2"></i>
-              Apple Authorized
-            </div>
           </div>
         </AnimationWrapper>
         <AnimationWrapper delay={0.2}>

@@ -2,21 +2,9 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
-import { Inter, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import Header from "./Header";
 import Footer from "./Footer";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: "Dash Fixes | Campus Tech Repairs",
   description:
@@ -48,9 +36,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body
-        className={`${inter.variable} ${spaceGrotesk.variable} bg-solarized-light text-solarized-dark dark:bg-solarized-dark dark:text-solarized-light font-sans transition-colors duration-300 antialiased`}
-      >
+      <body className="bg-solarized-light text-solarized-dark dark:bg-solarized-dark dark:text-solarized-light font-sans transition-colors duration-300 antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
