@@ -1,4 +1,3 @@
-import Image from "next/image";
 import AnimationWrapper from "./AnimationWrapper";
 import { ExternalLink } from "lucide-react";
 
@@ -8,14 +7,14 @@ const Testimonials = () => {
       quote:
         "Came to get my Galaxy S6 Lite screen replaced. He found the piece for $35 and charged $65 for the labor. I recommend their services if you're in need.",
       author: "David C.",
-      photo: "/graphics/testimonial-david.jpg",
+      icon: "👤",
       repairType: "Phone Screen Repair",
     },
     {
       quote:
         "Amazing service provider! If you want the job done right and quickly by a professional, this is it! Technicians know how to quickly identify all types of problems and can resolve all issues related to tech! Have been using them for all tech related issues for a long time!",
       author: "Martin N.",
-      photo: "/graphics/testimonial-martin.jpg",
+      icon: "💻",
       repairType: "Laptop Performance Optimization",
     },
   ];
@@ -41,13 +40,9 @@ const Testimonials = () => {
             <AnimationWrapper key={index} delay={index * 0.1}>
               <div className="bg-solarized-light dark:bg-solarized-dark rounded-xl p-8 shadow-md">
                 <div className="flex items-center mb-4">
-                  <Image
-                    src={testimonial.photo}
-                    alt={`${testimonial.author} photo`}
-                    width={48}
-                    height={48}
-                    className="w-12 h-12 rounded-full mr-4"
-                  />
+                  <div className="w-12 h-12 rounded-full mr-4 bg-solarized-light2 dark:bg-solarized-dark2 flex items-center justify-center">
+                    <span className="text-2xl">{testimonial.icon}</span>
+                  </div>
                   <div>
                     <p className="font-semibold text-solarized-dark2 dark:text-solarized-light">
                       {testimonial.author}
