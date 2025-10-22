@@ -67,7 +67,7 @@ const LaptopRepairsPage = () => {
                     </p>
                   </div>
                   <div className="text-center mt-6">
-                    <Link href={service.link} passHref>
+                    <Link href={service.link}>
                       <span className="font-medium text-accentBlue hover:underline cursor-pointer">
                         Get a Quote &rarr;
                       </span>
