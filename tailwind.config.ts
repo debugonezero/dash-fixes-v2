@@ -10,10 +10,10 @@ const config: Config = {
     extend: {
       colors: {
         solarized: {
-          dark: "#002b36",
+          dark: "#1a1a1a",
           dark2: "#073642",
           dark3: "#586e75",
-          light: "#ffffff",
+          light: "#f5f5f5",
           light2: "#eee8d5",
           light3: "#93a1a1",
           yellow: "#b58900",
