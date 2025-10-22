@@ -6,34 +6,34 @@ import { useState, useEffect } from "react";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  // const [isDark, setIsDark] = useState(false);
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "light";
-    const isDarkMode = savedTheme === "dark";
-    setIsDark(isDarkMode);
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const savedTheme = localStorage.getItem("theme") || "light";
+  //   const isDarkMode = savedTheme === "dark";
+  //   setIsDark(isDarkMode);
+  //   if (isDarkMode) {
+  //     document.documentElement.classList.add("dark");
+  //   } else {
+  //     document.documentElement.classList.remove("dark");
+  //   }
+  // }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const toggleTheme = () => {
-    const newIsDark = !isDark;
-    setIsDark(newIsDark);
-    if (newIsDark) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  };
+  // const toggleTheme = () => {
+  //   const newIsDark = !isDark;
+  //   setIsDark(newIsDark);
+  //   if (newIsDark) {
+  //     document.documentElement.classList.add("dark");
+  //     localStorage.setItem("theme", "dark");
+  //   } else {
+  //     document.documentElement.classList.remove("dark");
+  //     localStorage.setItem("theme", "light");
+  //   }
+  // };
 
   return (
     <header className="py-6 px-4 sm:px-6 lg:px-8 glassmorphism-header sticky top-0 z-50">
@@ -92,9 +92,9 @@ const Header = () => {
             <Phone className="w-4 h-4 mr-2" size={16} />
             (626) 622-0196
           </a>
-          <button
+          {/* <button
             onClick={toggleTheme}
-            className="w-12 h-12 rounded-full bg-solarized-light dark:bg-solarized-dark flex items-center justify-center border-2 border-solarized-blue hover:bg-solarized-blue hover:text-solarized-light transition-colors font-bold"
+            className="w-10 h-10 rounded-full flex items-center justify-center border border-solarized-light3 dark:border-solarized-dark3 hover:bg-accentBlue/10 transition-colors"
             aria-label="Toggle theme"
           >
             {isDark ? (
@@ -102,7 +102,7 @@ const Header = () => {
             ) : (
               <i className="fa-solid fa-moon"></i>
             )}
-          </button>
+          </button> */}
           <button
             onClick={toggleMobileMenu}
             aria-label={
