@@ -1,6 +1,6 @@
 import Link from "next/link";
 import AnimationWrapper from "./AnimationWrapper";
-import { Smartphone, Laptop, Package, Gamepad, Check } from "lucide-react";
+import { Package } from "lucide-react";
 import CallToAction from "./CallToAction";
 
 const Services = () => {

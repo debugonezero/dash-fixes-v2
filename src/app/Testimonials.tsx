@@ -1,3 +1,4 @@
+import Image from "next/image";
 import AnimationWrapper from "./AnimationWrapper";
 import { ExternalLink } from "lucide-react";
 
@@ -40,9 +41,11 @@ const Testimonials = () => {
             <AnimationWrapper key={index} delay={index * 0.1}>
               <div className="bg-solarized-light dark:bg-solarized-dark rounded-xl p-8 shadow-md">
                 <div className="flex items-center mb-4">
-                  <img
+                  <Image
                     src={testimonial.photo}
                     alt={`${testimonial.author} photo`}
+                    width={48}
+                    height={48}
                     className="w-12 h-12 rounded-full mr-4"
                   />
                   <div>
