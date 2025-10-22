@@ -1,71 +1,137 @@
 "use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { Wrench, PhoneOutgoing, Menu, X } from 'lucide-react';
+import Link from "next/link";
+import { Wrench, Phone, Menu, X } from "lucide-react";
+import { useState } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const navLinks = [
-    { href: "/about", label: "About" },
-    { href: "/services", label: "Services" },
-    { href: "/mail-in-repair", label: "Mail-In Repair" },
-    { href: "/faq", label: "FAQ" },
-    { href: "/donate", label: "Donate" },
-    { href: "/contact", label: "Contact" },
-  ];
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   return (
-    <header className="py-4 px-4 sm:px-6 lg:px-8 glassmorphism-header sticky top-0 z-50">
+    <header className="py-6 px-4 sm:px-6 lg:px-8 glassmorphism-header sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center space-x-2">
-          <div className="w-10 h-10 rounded-full bg-accentBlue flex items-center justify-center">
-            <Wrench className="text-white" size={20} />
+          <div className="w-10 h-10 rounded-full bg-solarized-blue flex items-center justify-center">
+            <Wrench className="text-solarized-light" size={20} />
           </div>
           <h1 className="text-2xl font-heading font-bold">
             <span className="gradient-text">Dash Fixes</span>
           </h1>
         </Link>
-        <nav className="hidden md:flex items-center space-x-2">
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="px-3 py-2 rounded-md font-medium hover:bg-accentBlue/10 transition-colors">
-              {link.label}
-            </Link>
-          ))}
+        <nav className="hidden md:flex space-x-8">
+          <Link
+            href="/about"
+            className="font-medium hover:text-solarized-blue transition"
+          >
+            About
+          </Link>
+          <Link
+            href="/services"
+            className="font-medium hover:text-solarized-blue transition"
+          >
+            Services
+          </Link>
+          <Link
+            href="/mail-in-repair"
+            className="font-medium hover:text-solarized-blue transition"
+          >
+            Mail-In Repair
+          </Link>
+          <Link
+            href="/faq"
+            className="font-medium hover:text-solarized-blue transition"
+          >
+            FAQ
+          </Link>
+          <Link
+            href="/donate"
+            className="font-medium hover:text-solarized-blue transition"
+          >
+            Donate
+          </Link>
+          <Link
+            href="#contact"
+            className="font-medium hover:text-solarized-blue transition"
+          >
+            Contact
+          </Link>
         </nav>
         <div className="flex items-center space-x-4">
-          <a href="tel:626-622-0196" className="hidden lg:flex items-center font-medium hover:text-accentBlue transition-colors">
-            <PhoneOutgoing className="w-4 h-4 mr-2" />
+          <a
+            href="tel:626-622-0196"
+            className="hidden md:flex items-center font-medium hover:text-solarized-blue transition"
+          >
+            <Phone className="w-4 h-4 mr-2" size={16} />
             (626) 622-0196
           </a>
-          <Link href="/contact" className="hidden md:block px-4 py-2 bg-accentBlue text-textDark rounded-lg font-medium hover:bg-opacity-90 transition-all">
+          <ThemeToggle />
+          <button
+            onClick={toggleMobileMenu}
+            aria-label={
+              isMobileMenuOpen
+                ? "Close navigation menu"
+                : "Open navigation menu"
+            }
+            className="md:hidden"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+          <Link
+            href="#contact"
+            className="hidden md:block px-4 py-2 bg-solarized-blue text-solarized-light rounded-lg font-medium hover:bg-opacity-90 transition"
+          >
             Get Help Now
           </Link>
-          <button 
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle navigation menu" 
-            className="md:hidden p-2 rounded-md hover:bg-accentBlue/10 transition-colors"
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
       </div>
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden mt-4">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="block px-3 py-2 rounded-md text-base font-medium hover:bg-lightOrange-dark transition-colors">
-                {link.label}
-              </Link>
-            ))}
-            <a href="tel:626-622-0196" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-lightOrange-dark transition-colors">
-              (626) 622-0196
-            </a>
-          </div>
+      <div
+        className={`md:hidden transition-all duration-300 ${isMobileMenuOpen ? "block" : "hidden"}`}
+      >
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <Link
+            href="/about"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition"
+          >
+            About
+          </Link>
+          <Link
+            href="/services"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition"
+          >
+            Services
+          </Link>
+          <Link
+            href="/mail-in-repair"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition"
+          >
+            Mail-In Repair
+          </Link>
+          <Link
+            href="/faq"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition"
+          >
+            FAQ
+          </Link>
+          <Link
+            href="/donate"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition"
+          >
+            Donate
+          </Link>
+          <Link
+            href="#contact"
+            className="block px-3 py-2 rounded-md text-base font-medium hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition"
+          >
+            Contact
+          </Link>
         </div>
-      )}
+      </div>
     </header>
   );
 };

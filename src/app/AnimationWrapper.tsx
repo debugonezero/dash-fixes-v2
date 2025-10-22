@@ -1,18 +1,13 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-
-const AnimationWrapper = ({ children, delay = 0 }: { children: React.ReactNode, delay?: number }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay }}
-      viewport={{ once: true }}
-    >
-      {children}
-    </motion.div>
-  );
+const AnimationWrapper = ({
+  children,
+  delay,
+}: {
+  children: React.ReactNode;
+  delay?: number;
+}) => {
+  return <div>{children}</div>;
 };
 
 export default AnimationWrapper;

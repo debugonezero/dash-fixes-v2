@@ -59,7 +59,7 @@ const ContactForm = () => {
       <div>
         <label
           htmlFor="name"
-          className="block text-sm font-medium text-textDark mb-2"
+          className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2"
         >
           Name
         </label>
@@ -70,13 +70,13 @@ const ContactForm = () => {
           required
           value={formData.name}
           onChange={handleChange}
-          className="block w-full px-4 py-3 rounded-lg bg-lightOrange-dark border border-textSubtleDark focus:ring-accentBlue focus:border-accentBlue transition"
+          className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border border-solarized-light3 dark:border-solarized-dark3 focus:ring-solarized-blue focus:border-solarized-blue transition"
         />
       </div>
       <div>
         <label
           htmlFor="email"
-          className="block text-sm font-medium text-textDark mb-2"
+          className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2"
         >
           Email
         </label>
@@ -87,14 +87,14 @@ const ContactForm = () => {
           required
           value={formData.email}
           onChange={handleChange}
-          className="block w-full px-4 py-3 rounded-lg bg-lightOrange-dark border border-textSubtleDark focus:ring-accentBlue focus:border-accentBlue transition"
+          className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border border-solarized-light3 dark:border-solarized-dark3 focus:ring-solarized-blue focus:border-solarized-blue transition"
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label
             htmlFor="deviceType"
-            className="block text-sm font-medium text-textDark mb-2"
+            className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2"
           >
             Device Type
           </label>
@@ -104,7 +104,7 @@ const ContactForm = () => {
             required
             value={formData.deviceType}
             onChange={handleChange}
-            className="block w-full px-4 py-3 rounded-lg bg-lightOrange-dark border border-textSubtleDark focus:ring-accentBlue focus:border-accentBlue transition"
+            className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border border-solarized-light3 dark:border-solarized-dark3 focus:ring-solarized-blue focus:border-solarized-blue transition"
           >
             <option value="" disabled>
               Select your device
@@ -121,7 +121,7 @@ const ContactForm = () => {
         <div>
           <label
             htmlFor="serviceType"
-            className="block text-sm font-medium text-textDark mb-2"
+            className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2"
           >
             Service Needed
           </label>
@@ -131,7 +131,7 @@ const ContactForm = () => {
             required
             value={formData.serviceType}
             onChange={handleChange}
-            className="block w-full px-4 py-3 rounded-lg bg-lightOrange-dark border border-textSubtleDark focus:ring-accentBlue focus:border-accentBlue transition"
+            className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border border-solarized-light3 dark:border-solarized-dark3 focus:ring-solarized-blue focus:border-solarized-blue transition"
           >
             <option value="" disabled>
               Select a service
@@ -149,7 +149,7 @@ const ContactForm = () => {
       <div>
         <label
           htmlFor="message"
-          className="block text-sm font-medium text-textDark mb-2"
+          className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2"
         >
           Describe the Issue
         </label>
@@ -161,19 +161,19 @@ const ContactForm = () => {
           value={formData.message}
           onChange={handleChange}
           placeholder="Please provide the model of your device (e.g., iPhone 14 Pro) and any other details about the problem."
-          className="block w-full px-4 py-3 rounded-lg bg-lightOrange-dark border border-textSubtleDark focus:ring-accentBlue focus:border-accentBlue transition"
+          className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border border-solarized-light3 dark:border-solarized-dark3 focus:ring-solarized-blue focus:border-solarized-blue transition"
         ></textarea>
       </div>
       <button
         type="submit"
-        className="w-full px-6 py-3 bg-accentBlue text-textLight rounded-lg font-medium text-center hover:bg-opacity-90 transition"
+        className="w-full px-6 py-3 bg-solarized-blue text-solarized-light rounded-lg font-medium text-center hover:bg-opacity-90 transition"
       >
         Send Request
       </button>
       {status && (
         <div
           id="form-status"
-          className={`mt-6 text-center font-medium ${status.startsWith("Oops") ? "text-accentMagenta" : "text-accentGreen"}`}
+          className={`mt-6 text-center font-medium ${status.startsWith("Oops") ? "text-solarized-red" : "text-solarized-green"}`}
         >
           {status}
         </div>

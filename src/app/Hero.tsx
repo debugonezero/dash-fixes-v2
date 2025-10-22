@@ -1,7 +1,6 @@
 import Image from "next/image";
-import Link from 'next/link';
 import AnimationWrapper from "./AnimationWrapper";
-import { ArrowRight } from 'lucide-react';
+import CallToAction from "./CallToAction";
 
 const Hero = () => {
   return (
@@ -13,22 +12,21 @@ const Hero = () => {
             <br />
             <span className="gradient-text">Shipped From Your Door.</span>
           </h1>
-          <p className="text-lg md:text-xl text-textSubtleDark mb-8">
+          <p className="text-lg md:text-xl text-solarized-dark3 mb-8">
             Your device is essential. Our mail-in repair service makes getting
             it fixed simple. We&apos;ll send you a free, pre-paid shipping
             label. Just pack your device and drop it off. We handle the rest.
           </p>
+
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-            <Link href="/contact" className="px-8 py-4 bg-accentBlue text-textDark rounded-lg font-semibold text-lg text-center hover:bg-opacity-90 transition shadow-lg hover:shadow-xl">
-              GET YOUR FREE SHIPPING LABEL <ArrowRight className="inline ml-2" />
-            </Link>
+            <CallToAction href="/contact" text="GET YOUR FREE SHIPPING LABEL" />
           </div>
         </AnimationWrapper>
         <AnimationWrapper delay={0.2}>
           <div className="relative">
             <div className="relative z-10">
               <Image
-                src="/graphics/hero-image.jpg"
+                src="/graphics/hero-image-large.webp"
                 alt="A successfully repaired laptop looking like new"
                 className="rounded-xl shadow-xl w-full"
                 width={1200}
@@ -37,8 +35,8 @@ const Hero = () => {
                 priority
               />
             </div>
-            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accentGreen rounded-xl opacity-20"></div>
-            <div className="absolute -top-6 -left-6 w-24 h-24 bg-accentBlue rounded-full opacity-20"></div>
+            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-solarized-yellow rounded-xl opacity-20"></div>
+            <div className="absolute -top-6 -left-6 w-24 h-24 bg-solarized-blue rounded-full opacity-20"></div>
           </div>
         </AnimationWrapper>
       </div>

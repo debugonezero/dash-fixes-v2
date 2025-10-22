@@ -14,20 +14,20 @@ const Testimonials = () => {
   ];
 
   return (
-    <section id="testimonials" className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="testimonials" className="py-16 px-4 sm:px-6 lg:px-8 bg-solarized-light2 dark:bg-solarized-dark2">
       <div className="max-w-7xl mx-auto">
         <AnimationWrapper>
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-textDark">What Our Customers Say ⭐</h2>
-            <p className="text-lg max-w-2xl mx-auto text-textSubtleDark">We&apos;re proud of our 5-star service.</p>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">What Our Customers Say ⭐</h2>
+            <p className="text-lg max-w-2xl mx-auto">We&apos;re proud of our 5-star service.</p>
           </div>
         </AnimationWrapper>
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
           {testimonials.map((testimonial, index) => (
             <AnimationWrapper key={index} delay={index * 0.1}>
-              <div className="bg-lightOrange-dark rounded-xl p-8 shadow-md">
-                <p className="text-lg italic text-textDark mb-6">&quot;{testimonial.quote}&quot;</p>
-                <div className="text-right font-medium text-textDark">
+              <div className="bg-solarized-light dark:bg-solarized-dark rounded-xl p-8 shadow-md">
+                <p className="text-lg italic text-solarized-dark3 mb-6">&quot;{testimonial.quote}&quot;</p>
+                <div className="text-right font-medium">
                   - {testimonial.author}
                 </div>
               </div>
@@ -35,7 +35,7 @@ const Testimonials = () => {
           ))}
         </div>
         <div className="text-center mt-12">
-          <a href="https://www.yelp.com/biz/dash-fixes-pasadena" target="_blank" rel="noopener noreferrer" className="px-6 py-3 border border-accentBlue text-accentBlue rounded-lg font-medium text-center hover:bg-accentBlue hover:text-white transition">
+          <a href="https://www.yelp.com/biz/dash-fixes-pasadena" target="_blank" rel="noopener noreferrer" className="px-6 py-3 border border-solarized-blue text-solarized-blue rounded-lg font-medium text-center hover:bg-solarized-blue hover:bg-opacity-10 transition">
             Read More Reviews on Yelp <ExternalLink className="inline ml-2" size={16} />
           </a>
         </div>

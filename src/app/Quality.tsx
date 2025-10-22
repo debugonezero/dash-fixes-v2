@@ -3,7 +3,7 @@ import { DollarSign, Star, Circle, Check, Info } from 'lucide-react';
 
 const Quality = () => {
   return (
-    <section id="quality" className="py-16 px-4 sm:px-6 lg:px-8 bg-lightOrange-dark">
+    <section id="quality" className="py-16 px-4 sm:px-6 lg:px-8 bg-solarized-light2 dark:bg-solarized-dark2">
       <div className="max-w-7xl mx-auto">
         <AnimationWrapper>
           <div className="text-center mb-16">
@@ -14,45 +14,45 @@ const Quality = () => {
         <div className="grid md:grid-cols-3 gap-8">
           {/* Aftermarket Incell */}
           <AnimationWrapper delay={0.1}>
-            <div className="bg-white rounded-xl p-8 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1">
-              <div className="w-16 h-16 rounded-full bg-accentMagenta bg-opacity-10 flex items-center justify-center mb-6">
-                <DollarSign className="w-8 h-8 text-accentMagenta" />
+            <div className="bg-solarized-light dark:bg-solarized-dark rounded-xl p-8 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1">
+              <div className="w-16 h-16 rounded-full bg-solarized-red bg-opacity-10 flex items-center justify-center mb-6">
+                <DollarSign className="w-8 h-8 text-solarized-red" />
               </div>
               <h3 className="text-xl font-heading font-bold mb-3">Aftermarket Incell</h3>
-              <p className="text-textSubtleDark mb-4">The most budget-friendly option to get your device back up and running.</p>
+              <p className="text-solarized-dark3 dark:text-solarized-light3 mb-4">The most budget-friendly option to get your device back up and running.</p>
               <ul className="space-y-2 text-left">
-                <li className="flex items-start"><Check className="text-accentGreen mr-2 mt-1" size={16} /><strong>Best For:</strong> Data recovery, temporary fixes, or budget-conscious trade-ins.</li>
-                <li className="flex items-start"><Info className="text-accentBlue mr-2 mt-1" size={16} /><strong>Keep in Mind:</strong> Colors and brightness may differ slightly from the original screen.</li>
+                <li className="flex items-start"><Check className="text-solarized-green mr-2 mt-1" size={16} /><strong>Best For:</strong> Data recovery, temporary fixes, or budget-conscious trade-ins.</li>
+                <li className="flex items-start"><Info className="text-solarized-blue mr-2 mt-1" size={16} /><strong>Keep in Mind:</strong> Colors and brightness may differ slightly from the original screen.</li>
               </ul>
             </div>
           </AnimationWrapper>
           
           {/* Aftermarket OLED */}
           <AnimationWrapper delay={0.2}>
-            <div className="bg-white rounded-xl p-8 shadow-md transition duration-300 border-t-4 border-accentBlue hover:shadow-xl hover:-translate-y-1">
-              <div className="w-16 h-16 rounded-full bg-accentBlue bg-opacity-10 flex items-center justify-center mb-6">
-                <Star className="w-8 h-8 text-accentBlue" />
+            <div className="bg-solarized-light dark:bg-solarized-dark rounded-xl p-8 shadow-md transition duration-300 border-t-4 border-solarized-blue hover:shadow-xl hover:-translate-y-1">
+              <div className="w-16 h-16 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center mb-6">
+                <Star className="w-8 h-8 text-solarized-blue" />
               </div>
               <h3 className="text-xl font-heading font-bold mb-3">Aftermarket OLED (Most Popular)</h3>
-              <p className="text-textSubtleDark mb-4">The perfect balance of exceptional quality and great value, closely matching the original display.</p>
+              <p className="text-solarized-dark3 dark:text-solarized-light3 mb-4">The perfect balance of exceptional quality and great value, closely matching the original display.</p>
               <ul className="space-y-2 text-left">
-                <li className="flex items-start"><Check className="text-accentGreen mr-2 mt-1" size={16} /><strong>Best For:</strong> Everyday use for customers who want a high-quality repair without the premium price of a genuine part.</li>
-                <li className="flex items-start"><Info className="text-accentBlue mr-2 mt-1" size={16} /><strong>Keep in Mind:</strong> Offers a vibrant and reliable display that is nearly indistinguishable from the original.</li>
+                <li className="flex items-start"><Check className="text-solarized-green mr-2 mt-1" size={16} /><strong>Best For:</strong> Everyday use for customers who want a high-quality repair without the premium price of a genuine part.</li>
+                <li className="flex items-start"><Info className="text-solarized-blue mr-2 mt-1" size={16} /><strong>Keep in Mind:</strong> Offers a vibrant and reliable display that is nearly indistinguishable from the original.</li>
               </ul>
             </div>
           </AnimationWrapper>
           
           {/* Genuine */}
           <AnimationWrapper delay={0.3}>
-            <div className="bg-white rounded-xl p-8 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1">
-              <div className="w-16 h-16 rounded-full bg-accentGreen bg-opacity-10 flex items-center justify-center mb-6">
-                <Circle className="w-8 h-8 text-accentGreen" />
+            <div className="bg-solarized-light dark:bg-solarized-dark rounded-xl p-8 shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1">
+              <div className="w-16 h-16 rounded-full bg-solarized-violet bg-opacity-10 flex items-center justify-center mb-6">
+                <Circle className="w-8 h-8 text-solarized-violet" />
               </div>
               <h3 className="text-xl font-heading font-bold mb-3">Genuine / Refurbished</h3>
-              <p className="text-textSubtleDark mb-4">The highest quality available, restoring your device to its original factory state.</p>
+              <p className="text-solarized-dark3 dark:text-solarized-light3 mb-4">The highest quality available, restoring your device to its original factory state.</p>
               <ul className="space-y-2 text-left">
-                <li className="flex items-start"><Check className="text-accentGreen mr-2 mt-1" size={16} /><strong>Best For:</strong> Customers who demand perfect color accuracy and original performance.</li>
-                <li className="flex items-start"><Info className="text-accentBlue mr-2 mt-1" size={16} /><strong>Keep in Mind:</strong> This is the premium option. The Apple serialization message may still appear.</li>
+                <li className="flex items-start"><Check className="text-solarized-green mr-2 mt-1" size={16} /><strong>Best For:</strong> Customers who demand perfect color accuracy and original performance.</li>
+                <li className="flex items-start"><Info className="text-solarized-blue mr-2 mt-1" size={16} /><strong>Keep in Mind:</strong> This is the premium option. The Apple serialization message may still appear.</li>
               </ul>
             </div>
           </AnimationWrapper>
