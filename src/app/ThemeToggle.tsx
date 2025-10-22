@@ -16,7 +16,6 @@ const ThemeToggle = () => {
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       aria-label="Toggle theme"
-      suppressHydrationWarning
       className="w-10 h-10 rounded-full flex items-center justify-center border border-solarized-light3 dark:border-solarized-dark3 hover:bg-accentBlue/10 transition-colors"
     >
       {theme === "dark" ? (
