@@ -37,12 +37,17 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-solarized-light text-solarized-dark dark:bg-solarized-dark dark:text-solarized-light font-sans transition-colors duration-300 antialiased">
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+        >
           <Header />
           <main>
             <AnimationWrapper>{children}</AnimationWrapper>
           </main>
           <Footer />
+        </ThemeProvider>
 
         <Script
           async
