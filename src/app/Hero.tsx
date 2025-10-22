@@ -24,10 +24,10 @@ const Hero = () => {
               text="Start Free Mail-in Repair Quote"
             />
           </div>
-          <p className="text-center mt-4 text-sm text-solarized-dark3 dark:text-solarized-light3">
+          <p className="mt-4 text-sm text-solarized-dark3 dark:text-solarized-light3">
             Get prepaid label & insured shipping
           </p>
-          <div className="flex justify-center space-x-6 mt-6">
+          <div className="flex space-x-6 mt-6">
             <div className="flex items-center text-sm text-solarized-dark3 dark:text-solarized-light3">
               🛡️ Secure SSL
             </div>
