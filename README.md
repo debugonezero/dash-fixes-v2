@@ -147,19 +147,20 @@ npm run dev
 
 ### Environment Variables
 ```env
-# Database
+# Database (optional - currently using in-memory storage)
 DATABASE_URL="postgresql://username:password@localhost:5432/dashfixes"
 
-# Stripe
-STRIPE_SECRET_KEY=sk_test_...
-STRIPE_PUBLISHABLE_KEY=pk_test_...
-STRIPE_WEBHOOK_SECRET=whsec_...
+# Stripe (required for payments)
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_YOUR_STRIPE_PUBLISHABLE_KEY_HERE
+STRIPE_SECRET_KEY=sk_test_YOUR_STRIPE_SECRET_KEY_HERE
+STRIPE_WEBHOOK_SECRET=whsec_YOUR_WEBHOOK_SECRET_HERE
 
-# Formspree
-FORMSPREE_ID=your_formspree_id
+# Shippo (required for shipping labels)
+SHIPPO_API_KEY=shippo_test_YOUR_SHIPPO_TEST_API_KEY_HERE
 
-# Google Analytics (optional)
-GA_TRACKING_ID=G-XXXXXXXXXX
+# NextAuth (optional)
+NEXTAUTH_SECRET=your-nextauth-secret-here
+NEXTAUTH_URL=http://localhost:3000
 ```
 
 ## 🚀 Deployment
