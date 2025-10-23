@@ -5,7 +5,7 @@ import { loadStripe } from '@stripe/stripe-js';
 // For development/testing, use a fallback if env var is not set
 const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_51ABC123def456';
 
-// Force test mode for development
+// Always use test mode for development to avoid live charges
 const isProduction = process.env.NODE_ENV === 'production';
 const finalStripeKey = isProduction
   ? stripePublishableKey

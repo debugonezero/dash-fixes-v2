@@ -129,14 +129,19 @@ export default function HomePage() {
             Join hundreds of satisfied customers who trust Dash Fixes with their tech repairs.
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <Link href="/contact">
+            <Link href="/mail-in-repair">
               <button className="px-8 py-4 bg-solarized-light text-solarized-blue rounded-lg font-semibold text-lg text-center hover:bg-solarized-light2 transition">
-                Start Your Repair
+                Start Mail-in Repair
+              </button>
+            </Link>
+            <Link href="/contact">
+              <button className="px-8 py-4 border-2 border-solarized-light text-solarized-light rounded-lg font-semibold text-lg text-center hover:bg-solarized-light hover:text-solarized-blue transition">
+                In-Person Service
               </button>
             </Link>
             <Link href="/track">
               <button className="px-8 py-4 border-2 border-solarized-light text-solarized-light rounded-lg font-semibold text-lg text-center hover:bg-solarized-light hover:text-solarized-blue transition">
-                Track Existing Repair
+                Track Repair
               </button>
             </Link>
           </div>

@@ -1,4 +1,3 @@
-import DonationForm from "./DonationForm";
 import AnimationWrapper from "../AnimationWrapper";
 import RepairRequestForm from "../components/RepairRequestForm";
 import {
@@ -6,9 +5,6 @@ import {
   PackageOpen,
   Microchip,
   Truck,
-  ShieldHalf,
-  Check,
-  X,
   ArrowRight,
 } from "lucide-react";
 import CallToAction from "../CallToAction";
@@ -25,12 +21,10 @@ const MailInRepairPage = () => {
               <span className="gradient-text">Wherever You Are.</span>
             </h2>
             <p className="text-lg md:text-xl text-solarized-dark3 dark:text-solarized-light3 mb-8 max-w-3xl mx-auto">
-              Mail your device to Dash Fixes for professional service, or donate
-              your old electronics to support our mission.
+              Mail your device to Dash Fixes for professional service. We ship from Pasadena, CA with 3-5 business day turnaround.
             </p>
             <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <CallToAction href="#start-repair" text="Start a Repair" />
-              <CallToAction href="#donate-device" text="Donate a Device" />
+              <CallToAction href="#repair-form" text="Start Your Repair" />
             </div>
           </AnimationWrapper>
         </div>
@@ -49,7 +43,7 @@ const MailInRepairPage = () => {
               </h2>
               <p className="text-lg max-w-2xl mx-auto text-solarized-dark3 dark:text-solarized-light3">
                 A clear and simple process to get your device repaired and
-                returned to you safely.
+                returned to you safely. Typical turnaround: 3-5 business days.
               </p>
             </div>
           </AnimationWrapper>
@@ -112,7 +106,7 @@ const MailInRepairPage = () => {
               href="#repair-form"
               className="px-8 py-4 bg-solarized-blue text-white rounded-lg font-medium hover:bg-opacity-90 transition-all text-lg shadow-md hover:shadow-lg"
             >
-              Start Your Repair Request{" "}
+              Get Started Now{" "}
               <ArrowRight className="inline ml-2" />
             </a>
           </div>
@@ -122,67 +116,178 @@ const MailInRepairPage = () => {
         </div>
       </section>
 
-      {/* Donation Section */}
-      <section
-        id="donate-device"
-        className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-solarized-dark"
-      >
-        <div className="max-w-7xl mx-auto">
+      {/* FAQ Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-solarized-dark">
+        <div className="max-w-4xl mx-auto">
           <AnimationWrapper>
-            <div className="text-center mb-16">
+            <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-solarized-dark3 dark:text-solarized-light">
-                Give Your Old Tech a New Purpose
+                Mail-in Repair FAQ
               </h2>
-              <p className="text-lg max-w-2xl mx-auto text-solarized-dark3 dark:text-solarized-light3">
-                Your donated devices provide essential parts for complex repairs
-                and help reduce e-waste.
+              <p className="text-lg text-solarized-dark3 dark:text-solarized-light3">
+                Common questions about our mail-in repair service
               </p>
             </div>
           </AnimationWrapper>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <AnimationWrapper>
-              <div className="bg-solarized-light2 dark:bg-solarized-dark2 p-8 rounded-lg shadow-md border-t-4 border-solarized-blue">
-                <div className="w-16 h-16 rounded-full bg-accentBlue bg-opacity-10 flex items-center justify-center mb-6">
-                  <ShieldHalf className="text-3xl text-solarized-blue dark:text-solarized-blue" />
-                </div>
-                <h3 className="text-2xl font-heading font-bold mb-4 text-solarized-dark3 dark:text-solarized-light">
-                  Our Data Security Promise
+
+          <div className="space-y-6">
+            <AnimationWrapper delay={0.1}>
+              <div className="bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6">
+                <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark3 dark:text-solarized-light">
+                  How long does the repair process take?
                 </h3>
-                <p className="text-lg text-solarized-dark3 dark:text-solarized-light3">
-                  Your privacy is our top priority. We professionally wipe all
-                  data from every donated device using industry-standard
-                  methods. We guarantee that your personal information will be
-                  securely and permanently destroyed.
+                <p className="text-solarized-dark3 dark:text-solarized-light3">
+                  Typical turnaround is 3-5 business days from when we receive your device. This includes diagnosis, repair, and return shipping. We'll provide tracking information throughout the process.
                 </p>
               </div>
-              <div className="mt-8 text-solarized-dark3 dark:text-solarized-light">
-                <h4 className="text-xl font-heading font-bold mb-3">
-                  What we accept:
-                </h4>
-                <ul className="space-y-2">
-                  <li className="flex items-center">
-                    <Check className="text-solarized-green mr-2" size={16} />{" "}
-                    Laptops (working or not)
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="text-solarized-green mr-2" size={16} />{" "}
-                    Smartphones & Tablets
-                  </li>
-                  <li className="flex items-center">
-                    <Check className="text-solarized-green mr-2" size={16} /> Game
-                    Consoles & Handhelds
-                  </li>
-                  <li className="flex items-center">
-                    <X className="text-solarized-red mr-2" size={16} /> We do
-                    not accept printers, TVs, or large appliances.
-                  </li>
-                </ul>
+            </AnimationWrapper>
+
+            <AnimationWrapper delay={0.2}>
+              <div className="bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6">
+                <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark3 dark:text-solarized-light">
+                  What if my device can't be repaired?
+                </h3>
+                <p className="text-solarized-dark3 dark:text-solarized-light3">
+                  If your device is beyond repair, we'll contact you with options. You can choose to have it returned at no additional cost, or we can recycle it responsibly. No repair, no additional fees.
+                </p>
               </div>
             </AnimationWrapper>
-            <DonationForm />
+
+            <AnimationWrapper delay={0.3}>
+              <div className="bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6">
+                <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark3 dark:text-solarized-light">
+                  Is my data safe?
+                </h3>
+                <p className="text-solarized-dark3 dark:text-solarized-light3">
+                  Absolutely. We use industry-standard data wiping methods to permanently destroy all personal information. Your privacy is our top priority, and we never access or retain your data.
+                </p>
+              </div>
+            </AnimationWrapper>
+
+            <AnimationWrapper delay={0.4}>
+              <div className="bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6">
+                <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark3 dark:text-solarized-light">
+                  What devices do you repair?
+                </h3>
+                <p className="text-solarized-dark3 dark:text-solarized-light3">
+                  We specialize in iPhones, Android phones, iPads, tablets, laptops, MacBooks, and gaming consoles. Common repairs include screen replacements, battery replacements, charging port fixes, and data recovery.
+                </p>
+              </div>
+            </AnimationWrapper>
+
+            <AnimationWrapper delay={0.5}>
+              <div className="bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6">
+                <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark3 dark:text-solarized-light">
+                  How does the shipping work?
+                </h3>
+                <p className="text-solarized-dark3 dark:text-solarized-light3">
+                  After you submit your repair request and pay the $9.99 diagnostic fee, we'll email you a pre-paid shipping label with the closest FedEx, UPS, or USPS drop-off locations. Your device is fully insured during transit.
+                </p>
+              </div>
+            </AnimationWrapper>
+
+            <AnimationWrapper delay={0.6}>
+              <div className="bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6">
+                <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark3 dark:text-solarized-light">
+                  Where am I shipping my device?
+                </h3>
+                <p className="text-solarized-dark3 dark:text-solarized-light3">
+                  Our secure P.O. Box is located in Pasadena, CA. The full shipping address will be on the pre-paid label we email to you after you get your quote.
+                </p>
+              </div>
+            </AnimationWrapper>
+
+            <AnimationWrapper delay={0.7}>
+              <div className="bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6">
+                <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark3 dark:text-solarized-light">
+                  What if I decline the final quote?
+                </h3>
+                <p className="text-solarized-dark3 dark:text-solarized-light3">
+                  If you choose not to proceed with the repair after receiving the final quote, we will securely ship your device back to you. A small diagnostic fee of $25 may apply to cover our technician's time and return shipping costs.
+                </p>
+              </div>
+            </AnimationWrapper>
+
+            <AnimationWrapper delay={0.8}>
+              <div className="bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6">
+                <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark3 dark:text-solarized-light">
+                  How should I package my device?
+                </h3>
+                <p className="text-solarized-dark3 dark:text-solarized-light3">
+                  To ensure your device arrives safely, please use a sturdy box with at least 2 inches of padding (like bubble wrap) on all sides. Please do not include any accessories such as chargers, cables, or cases unless we specifically ask for them.
+                </p>
+              </div>
+            </AnimationWrapper>
+
+            <AnimationWrapper delay={0.9}>
+              <div className="bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6">
+                <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark3 dark:text-solarized-light">
+                  How much does shipping cost?
+                </h3>
+                <p className="text-solarized-dark3 dark:text-solarized-light3">
+                  We offer simple, flat-rate round-trip shipping for just <strong>$9.99</strong>. This covers a pre-paid label to send your device to us and the insured return shipping back to you.
+                </p>
+              </div>
+            </AnimationWrapper>
+
+            <AnimationWrapper delay={0.6}>
+              <div className="bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6">
+                <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark3 dark:text-solarized-light">
+                  What if I need to cancel my repair?
+                </h3>
+                <p className="text-solarized-dark3 dark:text-solarized-light3">
+                  You can cancel at any time before we begin the repair. If your device hasn't been shipped yet, you'll receive a full refund of the diagnostic fee. Contact us at contact@dashfixes.com or (626) 622-0196.
+                </p>
+              </div>
+            </AnimationWrapper>
+
+            <AnimationWrapper delay={0.7}>
+              <div className="bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6">
+                <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark3 dark:text-solarized-light">
+                  Do you offer a warranty on repairs?
+                </h3>
+                <p className="text-solarized-dark3 dark:text-solarized-light3">
+                  Yes! We offer a 90-day warranty on all repairs. If you experience any issues with the repair within 90 days, we'll fix it at no additional cost. This warranty covers parts and labor for the specific issue that was repaired.
+                </p>
+              </div>
+            </AnimationWrapper>
+
+            <AnimationWrapper delay={0.8}>
+              <div className="bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6">
+                <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark3 dark:text-solarized-light">
+                  What if my device is under warranty with the manufacturer?
+                </h3>
+                <p className="text-solarized-dark3 dark:text-solarized-light3">
+                  If your device is still under manufacturer warranty, we recommend using their service first. However, if you've already tried that or prefer our service, we can still help. Our repairs are performed by certified technicians and use high-quality parts.
+                </p>
+              </div>
+            </AnimationWrapper>
+
+            <AnimationWrapper delay={0.9}>
+              <div className="bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6">
+                <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark3 dark:text-solarized-light">
+                  Can I track my repair status?
+                </h3>
+                <p className="text-solarized-dark3 dark:text-solarized-light3">
+                  Absolutely! Once your repair is confirmed, you'll receive a service number via email. You can use this number on our tracking page to check the status of your repair in real-time. We'll also send you email updates at each step of the process.
+                </p>
+              </div>
+            </AnimationWrapper>
+
+            <AnimationWrapper delay={1.0}>
+              <div className="bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6">
+                <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark3 dark:text-solarized-light">
+                  What payment methods do you accept?
+                </h3>
+                <p className="text-solarized-dark3 dark:text-solarized-light3">
+                  We accept all major credit cards (Visa, MasterCard, American Express, Discover) through our secure Stripe payment system. For the diagnostic fee, we also accept PayPal and Apple Pay. All payments are processed securely and your information is never stored on our servers.
+                </p>
+              </div>
+            </AnimationWrapper>
           </div>
         </div>
       </section>
+
     </div>
   );
 };

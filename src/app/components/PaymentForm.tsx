@@ -63,27 +63,35 @@ export default function PaymentForm({
     e.preventDefault();
 
     if (!stripe || !elements) {
+      setMessage('Payment system is not ready. Please refresh the page.');
       return;
     }
 
     setIsLoading(true);
 
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: `${window.location.origin}/track/${serviceNumber}?payment=success`,
-      },
-      redirect: 'if_required',
-    });
+    try {
+      const { error } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: `${window.location.origin}/track/${serviceNumber}?payment=success`,
+        },
+        redirect: 'if_required',
+      });
 
-    if (error) {
-      setMessage(error.message || 'An error occurred.');
-      onError(error.message || 'Payment failed');
+      if (error) {
+        setMessage(error.message || 'An error occurred.');
+        onError(error.message || 'Payment failed');
+        setIsLoading(false);
+      } else {
+        // Payment succeeded without redirect
+        setMessage('Payment succeeded!');
+        onSuccess(serviceNumber);
+      }
+    } catch (error) {
+      console.error('Payment confirmation error:', error);
+      setMessage('An unexpected error occurred. Please try again.');
+      onError('Payment system error');
       setIsLoading(false);
-    } else {
-      // Payment succeeded without redirect
-      setMessage('Payment succeeded!');
-      onSuccess(serviceNumber);
     }
   };
 
@@ -92,10 +100,6 @@ export default function PaymentForm({
       <PaymentElement
         options={{
           layout: 'tabs',
-        }}
-        onLoadError={(error) => {
-          console.error('Payment Element load error:', error);
-          onError('Failed to load payment form. Please refresh and try again.');
         }}
       />
 
@@ -110,7 +114,7 @@ export default function PaymentForm({
       )}
 
       <button
-        disabled={!stripe || isLoading}
+        disabled={!stripe || !elements || isLoading}
         className="w-full px-6 py-3 bg-solarized-blue text-solarized-light rounded-lg font-medium text-center hover:bg-opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
       >
         {isLoading ? (

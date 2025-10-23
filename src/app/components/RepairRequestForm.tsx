@@ -111,7 +111,7 @@ export default function RepairRequestForm() {
               Complete Payment
             </h2>
             <p className="text-solarized-dark3 dark:text-solarized-light3">
-              Pay $5.99 for your pre-paid shipping label and get instant tracking
+              Pay $9.99 for your pre-paid shipping label and get instant tracking
             </p>
           </div>
 
@@ -311,6 +311,8 @@ export default function RepairRequestForm() {
                     value={formData.shippingAddress.zipCode}
                     onChange={handleInputChange}
                     required
+                    pattern="[0-9]{5}"
+                    title="Please enter a valid 5-digit ZIP code"
                     className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark border border-solarized-light3 dark:border-solarized-dark3 focus:ring-solarized-blue focus:border-solarized-blue transition"
                   />
                 </div>

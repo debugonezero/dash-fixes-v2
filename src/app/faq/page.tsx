@@ -28,9 +28,29 @@ const faqData = [
       "We accept a variety of payment methods for your convenience, including <strong>Credit/Debit Cards, Apple Pay, Google Pay, and Venmo</strong>. All card payments are processed securely through Square.",
   },
   {
-    question: "What payment methods do you accept?",
+    question: "How long does the repair process take?",
     answer:
-      "We accept a variety of payment methods for your convenience, including <strong>Credit/Debit Cards, Apple Pay, Google Pay, and Venmo</strong>. All card payments are processed securely through Square.",
+      "Typical turnaround is 3-5 business days from when we receive your device. This includes diagnosis, repair, and return shipping. We'll provide tracking information throughout the process.",
+  },
+  {
+    question: "How much does shipping cost?",
+    answer:
+      "We offer simple, flat-rate round-trip shipping for just <strong>$9.99</strong>. This covers a pre-paid label to send your device to us and the insured return shipping back to you.",
+  },
+  {
+    question: "Where am I shipping my device?",
+    answer:
+      "Our secure P.O. Box is located in Pasadena, CA. The full shipping address will be on the pre-paid label we email to you after you get your quote.",
+  },
+  {
+    question: "How should I package my device?",
+    answer:
+      "To ensure your device arrives safely, please use a sturdy box with at least 2 inches of padding (like bubble wrap) on all sides. Please do not include any accessories such as chargers, cables, or cases unless we specifically ask for them.",
+  },
+  {
+    question: "What if I decline the final quote?",
+    answer:
+      "If you choose not to proceed with the repair after receiving the final quote, we will securely ship your device back to you. A small diagnostic fee of $25 may apply to cover our technician's time and return shipping costs.",
   },
 ];
 
