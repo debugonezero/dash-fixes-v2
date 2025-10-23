@@ -20,19 +20,26 @@ const Hero = () => {
 
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
             <CallToAction
-              href="/contact"
-              text="Start Free Mail-in Repair Quote"
+              href="/mail-in-repair"
+              text="Start Mail-in Repair"
+            />
+            <CallToAction
+              href="/services"
+              text="View All Services"
             />
           </div>
           <p className="mt-4 text-sm text-solarized-dark3 dark:text-solarized-light3">
-            Get prepaid label & insured shipping
+            ⚡ 3-5 business days turnaround • 📍 Ships from Pasadena, CA
           </p>
-          <div className="flex space-x-6 mt-6">
+          <div className="flex flex-wrap gap-4 mt-6">
             <div className="flex items-center text-sm text-solarized-dark3 dark:text-solarized-light3">
               🛡️ Secure SSL
             </div>
             <div className="flex items-center text-sm text-solarized-dark3 dark:text-solarized-light3">
               <span className="mr-2">📦</span>Insured Shipping
+            </div>
+            <div className="flex items-center text-sm text-solarized-dark3 dark:text-solarized-light3">
+              <span className="mr-2">🚚</span>Free Pre-paid Labels
             </div>
           </div>
         </AnimationWrapper>
