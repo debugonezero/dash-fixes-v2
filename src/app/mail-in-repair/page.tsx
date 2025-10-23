@@ -58,7 +58,7 @@ const MailInRepairPage = () => {
               </h3>
               <p className="text-solarized-dark3 dark:text-solarized-light3">
                 Fill out the form below with your device details and the issue
-                you&apos;re facing. We&apos;ll email you a preliminary quote.
+                you are facing. We will email you a preliminary quote.
               </p>
             </AnimationWrapper>
             {/* Step 2 */}
@@ -70,7 +70,7 @@ const MailInRepairPage = () => {
                 2. Ship It
               </h3>
               <p className="text-solarized-dark3 dark:text-solarized-light3">
-                We&apos;ll email you a pre-paid shipping label. Package your
+                We will email you a pre-paid shipping label. Package your
                 device securely and drop it off with the carrier.
               </p>
             </AnimationWrapper>
@@ -83,7 +83,7 @@ const MailInRepairPage = () => {
                 3. We Repair
               </h3>
               <p className="text-solarized-dark3 dark:text-solarized-light3">
-                Once we receive it, we&apos;ll confirm the diagnosis, send a
+                Once we receive it, we will confirm the diagnosis, send a
                 final quote for your approval, and then perform the repair.
               </p>
             </AnimationWrapper>
@@ -96,7 +96,7 @@ const MailInRepairPage = () => {
                 4. We Return
               </h3>
               <p className="text-solarized-dark3 dark:text-solarized-light3">
-                After payment, we&apos;ll ship your device back to you, fully
+                After payment, we will ship your device back to you, fully
                 insured and with tracking information.
               </p>
             </AnimationWrapper>
