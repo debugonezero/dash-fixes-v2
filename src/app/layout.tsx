@@ -4,6 +4,7 @@ import "./globals.css";
 import Script from "next/script";
 import Header from "./Header";
 import Footer from "./Footer";
+import CookieConsent from "./components/CookieConsent";
 export const metadata: Metadata = {
   title: "Dash Fixes | Campus Tech Repairs",
   description:
@@ -39,6 +40,7 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        <CookieConsent />
 
         <Script
           async
