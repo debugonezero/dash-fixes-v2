@@ -5,7 +5,6 @@ import Quality from "./Quality";
 import Testimonials from "./Testimonials";
 import Pricing from "./Pricing";
 import FAQ from "./FAQ";
-import CallToAction from "./CallToAction";
 import Script from "next/script";
 import Link from "next/link";
 
