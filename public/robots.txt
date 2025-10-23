@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Block access to sensitive areas
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /track/
+
+# Allow important pages
+Allow: /sitemap.xml
+Allow: /
+
+# Crawl delay (optional)
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://www.dashfixes.com/sitemap.xml

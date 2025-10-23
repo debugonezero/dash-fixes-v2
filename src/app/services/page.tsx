@@ -1,87 +1,195 @@
-import Testimonials from "../Testimonials";
-import Link from "next/link";
+import AnimationWrapper from "../AnimationWrapper";
+import { Smartphone, Laptop, Gamepad2, Package, CheckCircle } from "lucide-react";
+import CallToAction from "../CallToAction";
+import Script from "next/script";
 
-const ServicesPage = () => {
-  return (
-    <div className="bg-white dark:bg-solarized-dark min-h-screen">
-      <section className="hero-bg py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-solarized-dark3 dark:text-solarized-light">
-              Our Repair Services
-            </h1>
-            <p className="text-lg max-w-2xl mx-auto text-solarized-dark3 dark:text-solarized-light3">
-              We specialize in fixing all your campus tech essentials quickly
-              and affordably.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="service-card bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6 border border-solarized-light3 dark:border-solarized-dark3">
-              <h3 className="text-lg font-heading font-bold mb-2 text-solarized-dark2 dark:text-solarized-light">
-                Phone Repairs 📱
-              </h3>
-              <p className="text-solarized-dark3 dark:text-solarized-light3 mb-3">
-                Broken screens, battery issues, water damage - we&apos;ve got
-                you covered for all smartphone problems.
-              </p>
-              <Link
-                href="/phone-repairs"
-                className="font-medium text-accentBlue hover:underline dark:text-solarized-blue"
-              >
-                Learn More →
-              </Link>
-            </div>
-            <div className="service-card bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6 border border-solarized-light3 dark:border-solarized-dark3">
-              <h3 className="text-lg font-heading font-bold mb-2 text-solarized-dark2 dark:text-solarized-light">
-                Laptop Repairs 💻
-              </h3>
-              <p className="text-solarized-dark3 dark:text-solarized-light3 mb-3">
-                From hardware issues to software problems, we&apos;ll get your
-                laptop running like new again.
-              </p>
-              <Link
-                href="/laptop-repairs"
-                className="font-medium text-solarized-blue hover:underline dark:text-solarized-blue"
-              >
-                Learn More →
-              </Link>
-            </div>
-            <div className="service-card bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6 border border-solarized-light3 dark:border-solarized-dark3">
-              <h3 className="text-lg font-heading font-bold mb-2 text-solarized-dark2 dark:text-solarized-light">
-                Mail-in Repairs 📦
-              </h3>
-              <p className="text-solarized-dark3 dark:text-solarized-light3 mb-3">
-                Not on campus? No problem! Securely mail your device to us from
-                anywhere in the country.
-              </p>
-              <Link
-                href="/mail-in-repair"
-                className="font-medium text-accentBlue hover:underline dark:text-solarized-blue"
-              >
-                Learn More →
-              </Link>
-            </div>
-            <div className="service-card bg-solarized-light2 dark:bg-solarized-dark2 rounded-lg p-6 border border-solarized-light3 dark:border-solarized-dark3">
-              <h3 className="text-lg font-heading font-bold mb-2 text-solarized-dark2 dark:text-solarized-light">
-                Game Console Repairs 🎮
-              </h3>
-              <p className="text-solarized-dark3 dark:text-solarized-light3 mb-3">
-                From overheating PS5s to sticky controller buttons, we&apos;ll
-                get you back in the game.
-              </p>
-              <Link
-                href="/game-console-repairs"
-                className="font-medium text-accentBlue hover:underline dark:text-solarized-blue"
-              >
-                Learn More →
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-      <Testimonials />
-    </div>
-  );
+export const metadata = {
+  title: "Tech Repair Services | Dash Fixes",
+  description: "Professional repair services for iPhones, MacBooks, laptops, and game consoles. Fast, affordable, and reliable tech repairs in Pasadena and nationwide.",
+  keywords: "iPhone repair, MacBook repair, laptop repair, game console repair, phone repair, tech repair Pasadena",
+  openGraph: {
+    title: "Tech Repair Services | Dash Fixes",
+    description: "Professional repair services for iPhones, MacBooks, laptops, and game consoles. Fast, affordable, and reliable tech repairs.",
+    url: "https://www.dashfixes.com/services",
+    type: "website",
+  },
 };
 
-export default ServicesPage;
+const servicesSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Tech Repair Services",
+  "description": "Professional repair services for iPhones, MacBooks, laptops, and game consoles",
+  "provider": {
+    "@type": "Organization",
+    "name": "Dash Fixes",
+    "url": "https://www.dashfixes.com"
+  },
+  "serviceType": "Electronics Repair",
+  "areaServed": {
+    "@type": "Place",
+    "name": "Pasadena, CA"
+  },
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Phone Repairs",
+      "description": "Screen repairs, battery replacement, charging port fixes for all phone models"
+    },
+    {
+      "@type": "Offer",
+      "name": "Laptop Repairs",
+      "description": "Hardware upgrades, virus removal, keyboard replacements for laptops and MacBooks"
+    },
+    {
+      "@type": "Offer",
+      "name": "Game Console Repairs",
+      "description": "HDMI port repair, internal cleaning, controller repair for gaming consoles"
+    }
+  ]
+};
+
+export default function ServicesPage() {
+  const mainServices = [
+    {
+      icon: <Smartphone className="w-6 h-6 text-solarized-blue" />,
+      title: "Phone Repairs",
+      description:
+        "Broken screens, battery issues, water damage - we've got you covered.",
+      features: ["Screen replacements", "Battery swaps", "Charging port fixes"],
+      link: "/phone-repairs",
+      schema: {
+        "@type": "Service",
+        "name": "Phone Repair Service",
+        "description": "Professional phone repair services including screen replacement, battery replacement, and charging port fixes"
+      }
+    },
+    {
+      icon: <Laptop className="w-6 h-6 text-solarized-blue" />,
+      title: "Laptop Repairs",
+      description:
+        "From hardware issues to software problems, we'll get your laptop running like new.",
+      features: ["Virus removal", "Hardware upgrades", "Keyboard replacements"],
+      link: "/laptop-repairs",
+      schema: {
+        "@type": "Service",
+        "name": "Laptop Repair Service",
+        "description": "Complete laptop repair services including hardware upgrades, virus removal, and component replacements"
+      }
+    },
+    {
+      icon: <Gamepad2 className="w-6 h-6 text-solarized-blue" />,
+      title: "Game Console Repairs",
+      description:
+        "Overheating PS5s, controller drift, and more - we'll get you back in the game.",
+      features: ["HDMI Port Repair", "Internal Cleaning", "Controller Repair"],
+      link: "/game-console-repairs",
+      schema: {
+        "@type": "Service",
+        "name": "Game Console Repair Service",
+        "description": "Gaming console repair services including HDMI port fixes, internal cleaning, and controller repairs"
+      }
+    },
+  ];
+
+  const mailInService = {
+    icon: <Package className="w-12 h-12 text-solarized-blue" />,
+    title: "Nationwide Mail-in Repairs",
+    description:
+      "Not on campus? No problem! We offer expert repairs to anyone in the United States. Get a free quote, a pre-paid shipping label, and fast turnaround.",
+    link: "/contact",
+  };
+
+  return (
+    <>
+      <Script
+        id="services-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(servicesSchema),
+        }}
+      />
+      <section
+        id="services"
+        className="section-spacing bg-solarized-light2 dark:bg-solarized-dark2"
+      >
+        <div className="max-w-7xl mx-auto">
+          <AnimationWrapper>
+            <div className="text-center content-spacing">
+              <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-solarized-dark2 dark:text-solarized-light">
+                Our Repair Services
+              </h1>
+              <p className="text-lg max-w-3xl mx-auto text-solarized-dark3 dark:text-solarized-light3">
+                We specialize in fixing all your campus tech essentials quickly
+                and affordably. Can't make it in person? We serve the entire
+                nation via our mail-in program.
+              </p>
+            </div>
+          </AnimationWrapper>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {mainServices.map((service, index) => (
+              <AnimationWrapper key={index} delay={index * 0.1}>
+                <article
+                  itemScope
+                  itemType="https://schema.org/Service"
+                >
+                  <meta itemProp="name" content={service.title} />
+                  <meta itemProp="description" content={service.description} />
+                  <meta itemProp="provider" content="Dash Fixes" />
+                  <a href={service.link}>
+                    <div className="service-card bg-solarized-light dark:bg-solarized-dark h-full rounded-lg card-spacing border border-solarized-light3 dark:border-solarized-dark3">
+                      <div className="w-12 h-12 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center icon-spacing">
+                        {service.icon}
+                      </div>
+                      <h3 className="text-lg font-heading font-bold mb-2 text-solarized-dark2 dark:text-solarized-light">
+                        {service.title}
+                      </h3>
+                      <p className="text-solarized-dark3 dark:text-solarized-light3 mb-3 text-sm">
+                        {service.description}
+                      </p>
+                      <ul className="space-y-1 text-sm text-solarized-dark3 dark:text-solarized-light3">
+                        {service.features.map((feature, featureIndex) => (
+                          <li key={featureIndex} className="flex items-center">
+                            <CheckCircle className="w-4 h-4 text-solarized-green mr-2 flex-shrink-0" />
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </a>
+                </article>
+              </AnimationWrapper>
+            ))}
+          </div>
+
+          <AnimationWrapper delay={0.3}>
+            <div className="bg-solarized-light dark:bg-solarized-dark rounded-2xl shadow-xl border border-transparent transition-all duration-300 hover:shadow-2xl hover:border-solarized-blue hover:scale-[1.01] p-8 md:p-12">
+              <div className="md:flex md:items-center md:gap-12">
+                <div className="flex-shrink-0 mb-8 md:mb-0 text-center md:text-left">
+                  <div className="w-24 h-24 mx-auto md:mx-0 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center">
+                    {mailInService.icon}
+                  </div>
+                </div>
+                <div className="flex-grow text-center md:text-left">
+                  <h3 className="text-2xl md:text-3xl font-heading font-bold mb-3 text-solarized-dark2 dark:text-solarized-light">
+                    {mailInService.title}
+                  </h3>
+                  <p className="text-solarized-dark3 dark:text-solarized-light3 mb-6 max-w-2xl mx-auto md:mx-0">
+                    {mailInService.description}
+                  </p>
+                </div>
+                <div className="flex-shrink-0 text-center md:text-right mt-6 md:mt-0">
+                  <CallToAction
+                    href={mailInService.link}
+                    text="Request a Quote"
+                  />
+                </div>
+              </div>
+            </div>
+          </AnimationWrapper>
+        </div>
+      </section>
+    </>
+  );
+}

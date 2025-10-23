@@ -39,18 +39,6 @@ export default function sitemap() {
       priority: 0.6,
     },
     {
-      url: `${baseUrl}/google-pixel-repair`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/iphone-repair`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
-    {
       url: `${baseUrl}/laptop-repairs`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
@@ -60,7 +48,7 @@ export default function sitemap() {
       url: `${baseUrl}/mail-in-repair`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.7,
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/phone-repairs`,
@@ -69,16 +57,22 @@ export default function sitemap() {
       priority: 0.6,
     },
     {
-      url: `${baseUrl}/samsung-galaxy-repair`,
+      url: `${baseUrl}/privacy`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.5,
+      priority: 0.4,
     },
     {
       url: `${baseUrl}/services`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/track`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
   ];
 }
