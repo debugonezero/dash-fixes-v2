@@ -75,7 +75,13 @@ const serviceRequests: Array<{
   issueDescription: string;
   customerName: string;
   customerEmail: string;
-  shippingAddress: string;
+  shippingAddress: {
+    street1: string;
+    city: string;
+    state: string;
+    zip: string;
+    country?: string;
+  };
   paymentAmount: number;
   paymentStatus: string;
   status: string;
@@ -103,7 +109,13 @@ export const db = {
     issueDescription: string;
     customerName: string;
     customerEmail: string;
-    shippingAddress: string;
+    shippingAddress: {
+      street1: string;
+      city: string;
+      state: string;
+      zip: string;
+      country?: string;
+    };
     paymentAmount: number;
     paymentStatus?: string;
     status?: string;
@@ -126,10 +138,18 @@ export const db = {
     return serviceRequests.find(req => req.serviceNumber === serviceNumber);
   },
 
+  getServiceRequest: async (id: number) => {
+    return serviceRequests.find(req => req.id === id);
+  },
+
   updateServiceRequest: async (id: number, updates: Partial<{
     paymentStatus: string;
     status: string;
     stripePaymentId: string;
+    shippingLabelUrl?: string;
+    trackingNumber?: string;
+    shippingCost?: number;
+    shippingProvider?: string;
     updatedAt: Date;
     completedAt: Date;
   }>) => {

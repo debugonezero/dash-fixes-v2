@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import Stripe from 'stripe';
 import { db } from '@/app/lib/stripe';
+import { createShippingLabel, ShippingAddress } from '@/app/lib/shippo';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_51ABC123def456', {
   apiVersion: '2025-09-30.clover',
@@ -35,14 +36,50 @@ export async function POST(request: NextRequest) {
         // Update service request status
         const serviceRequestId = paymentIntent.metadata.serviceRequestId;
         if (serviceRequestId) {
-          await db.updateServiceRequest(parseInt(serviceRequestId), {
-            paymentStatus: 'paid',
-            status: 'PAID',
-            stripePaymentId: paymentIntent.id,
-            updatedAt: new Date(),
-          });
+          // Get service request details for shipping
+          const serviceRequest = await db.getServiceRequest(parseInt(serviceRequestId));
 
-          console.log(`Payment succeeded for service request ${serviceRequestId}`);
+          if (serviceRequest) {
+            // Generate shipping label
+            try {
+              const fromAddress: ShippingAddress = {
+                name: serviceRequest.customerName,
+                street1: serviceRequest.shippingAddress.street1,
+                city: serviceRequest.shippingAddress.city,
+                state: serviceRequest.shippingAddress.state,
+                zip: serviceRequest.shippingAddress.zip,
+                country: serviceRequest.shippingAddress.country || 'US'
+              };
+
+              const shippingLabel = await createShippingLabel(fromAddress, 'usps_priority');
+
+              // Update service request with shipping info
+              await db.updateServiceRequest(parseInt(serviceRequestId), {
+                paymentStatus: 'paid',
+                status: 'SHIPPING_LABEL_GENERATED',
+                stripePaymentId: paymentIntent.id,
+                shippingLabelUrl: shippingLabel.label_url,
+                trackingNumber: shippingLabel.tracking_number,
+                shippingCost: parseFloat(shippingLabel.rate.amount),
+                shippingProvider: shippingLabel.rate.service,
+                updatedAt: new Date(),
+              });
+
+              console.log(`Payment succeeded and shipping label generated for service request ${serviceRequestId}`);
+              console.log(`Tracking: ${shippingLabel.tracking_number}, Label: ${shippingLabel.label_url}`);
+
+            } catch (shippingError) {
+              console.error('Error generating shipping label:', shippingError);
+
+              // Still mark as paid but note shipping error
+              await db.updateServiceRequest(parseInt(serviceRequestId), {
+                paymentStatus: 'paid',
+                status: 'PAID_SHIPPING_ERROR',
+                stripePaymentId: paymentIntent.id,
+                updatedAt: new Date(),
+              });
+            }
+          }
         }
         break;
 

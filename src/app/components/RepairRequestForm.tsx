@@ -12,10 +12,10 @@ interface FormData {
   customerName: string;
   customerEmail: string;
   shippingAddress: {
-    street: string;
+    street1: string;
     city: string;
     state: string;
-    zipCode: string;
+    zip: string;
     country: string;
   };
 }
@@ -28,10 +28,10 @@ export default function RepairRequestForm() {
     customerName: '',
     customerEmail: '',
     shippingAddress: {
-      street: '',
+      street1: '',
       city: '',
       state: '',
-      zipCode: '',
+      zip: '',
       country: 'US',
     },
   });
@@ -255,14 +255,14 @@ export default function RepairRequestForm() {
 
             <div className="space-y-4">
               <div>
-                <label htmlFor="shippingAddress.street" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light mb-2">
+                <label htmlFor="shippingAddress.street1" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light mb-2">
                   Street Address *
                 </label>
                 <input
                   type="text"
-                  id="shippingAddress.street"
-                  name="shippingAddress.street"
-                  value={formData.shippingAddress.street}
+                  id="shippingAddress.street1"
+                  name="shippingAddress.street1"
+                  value={formData.shippingAddress.street1}
                   onChange={handleInputChange}
                   required
                   className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark border border-solarized-light3 dark:border-solarized-dark3 focus:ring-solarized-blue focus:border-solarized-blue transition"
@@ -301,14 +301,14 @@ export default function RepairRequestForm() {
                 </div>
 
                 <div>
-                  <label htmlFor="shippingAddress.zipCode" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light mb-2">
+                  <label htmlFor="shippingAddress.zip" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light mb-2">
                     ZIP Code *
                   </label>
                   <input
                     type="text"
-                    id="shippingAddress.zipCode"
-                    name="shippingAddress.zipCode"
-                    value={formData.shippingAddress.zipCode}
+                    id="shippingAddress.zip"
+                    name="shippingAddress.zip"
+                    value={formData.shippingAddress.zip}
                     onChange={handleInputChange}
                     required
                     pattern="[0-9]{5}"
