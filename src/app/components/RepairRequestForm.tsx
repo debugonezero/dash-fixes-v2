@@ -144,7 +144,7 @@ export default function RepairRequestForm() {
             Request Mail-in Repair
           </h2>
           <p className="text-solarized-dark3 dark:text-solarized-light3">
-            Fill out the form below and pay $5.99 for your pre-paid shipping label
+            Fill out the form below and pay $9.99 for your pre-paid shipping label
           </p>
         </div>
 
@@ -335,7 +335,7 @@ export default function RepairRequestForm() {
                 Creating Service Request...
               </>
             ) : (
-              'Continue to Payment ($5.99)'
+              'Continue to Payment ($9.99)'
             )}
           </button>
 
