@@ -41,10 +41,10 @@ const LaptopRepairsPage = () => {
         <div className="max-w-7xl mx-auto">
           <AnimationWrapper>
             <div className="text-center mb-16">
-              <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-textDark dark:text-solarized-light">
+              <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-solarized-dark3 dark:text-solarized-light">
                 Nationwide Laptop & MacBook Repair
               </h1>
-              <p className="text-lg max-w-3xl mx-auto text-textSubtleDark dark:text-solarized-light3">
+              <p className="text-lg max-w-3xl mx-auto text-solarized-dark3 dark:text-solarized-light3">
                 Whether you have a MacBook, Windows laptop, or Chromebook, we
                 provide expert hardware and software repairs through our
                 convenient mail-in service.
@@ -56,19 +56,19 @@ const LaptopRepairsPage = () => {
               <AnimationWrapper key={index} delay={index * 0.1}>
                 <div className="service-card bg-lightOrange-dark dark:bg-darkTeal-light p-8 rounded-lg shadow-lg flex flex-col justify-between">
                   <div>
-                    <div className="flex justify-center mb-4 text-accentMagenta">
+                    <div className="flex justify-center mb-4 text-solarized-magenta">
                       {service.icon}
                     </div>
-                    <h3 className="text-xl font-heading font-bold mb-3 text-textDark dark:text-solarized-light">
+                    <h3 className="text-xl font-heading font-bold mb-3 text-solarized-dark3 dark:text-solarized-light">
                       {service.title}
                     </h3>
-                    <p className="text-textSubtleDark dark:text-solarized-light3">
+                    <p className="text-solarized-dark3 dark:text-solarized-light3">
                       {service.description}
                     </p>
                   </div>
                   <div className="text-center mt-6">
                     <Link href={service.link}>
-                      <span className="font-medium text-accentBlue hover:underline cursor-pointer">
+                      <span className="font-medium text-solarized-blue hover:underline cursor-pointer">
                         Get a Quote &rarr;
                       </span>
                     </Link>

@@ -10,18 +10,18 @@ const AboutPage = () => {
         <div className="max-w-4xl mx-auto">
           <AnimationWrapper>
             <div className="text-center">
-              <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-textDark dark:text-solarized-light">
+              <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-solarized-dark3 dark:text-solarized-light">
                 Our Philosophy
               </h1>
             </div>
           </AnimationWrapper>
           <div className="mt-12 space-y-12">
             <AnimationWrapper delay={0.1}>
-              <h2 className="text-3xl font-heading font-bold mb-4 flex items-center text-textDark dark:text-solarized-light">
-                <Recycle className="text-accentGreen mr-4" size={24} />A Focus
+              <h2 className="text-3xl font-heading font-bold mb-4 flex items-center text-solarized-dark3 dark:text-solarized-light">
+                <Recycle className="text-solarized-green mr-4" size={24} />A Focus
                 on Sustainability
               </h2>
-              <p className="text-lg text-textSubtleDark dark:text-solarized-light3">
+              <p className="text-lg text-solarized-dark3 dark:text-solarized-light3">
                 In a world of disposable technology, we believe in giving
                 devices a second chance. Our work is driven by a commitment to
                 reducing e-waste. By repairing and refurbishing electronics, we
@@ -29,7 +29,7 @@ const AboutPage = () => {
                 Our{" "}
                 <Link
                   href="/donate"
-                  className="text-accentBlue hover:underline"
+                  className="text-solarized-blue hover:underline"
                 >
                   donation program
                 </Link>{" "}
@@ -38,11 +38,11 @@ const AboutPage = () => {
               </p>
             </AnimationWrapper>
             <AnimationWrapper delay={0.2}>
-              <h2 className="text-3xl font-heading font-bold mb-4 flex items-center text-textDark dark:text-solarized-light">
-                <Handshake className="text-accentBlue mr-4" size={24} />
+              <h2 className="text-3xl font-heading font-bold mb-4 flex items-center text-solarized-dark3 dark:text-solarized-light">
+                <Handshake className="text-solarized-blue mr-4" size={24} />
                 Our Service Philosophy
               </h2>
-              <p className="text-lg text-textSubtleDark dark:text-solarized-light3">
+              <p className="text-lg text-solarized-dark3 dark:text-solarized-light3">
                 We believe that expert repair should be clear, honest, and
                 accessible. Our philosophy is built on two key principles:
                 transparent pricing and open communication. You will always

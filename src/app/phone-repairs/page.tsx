@@ -49,10 +49,10 @@ const PhoneRepairsPage = () => {
         <div className="max-w-7xl mx-auto">
           <AnimationWrapper>
             <div className="text-center mb-16">
-              <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-textDark dark:text-solarized-light">
+              <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-solarized-dark3 dark:text-solarized-light">
                 Nationwide Phone Repair Service
               </h1>
-              <p className="text-lg max-w-2xl mx-auto text-textSubtleDark dark:text-solarized-light3">
+              <p className="text-lg max-w-2xl mx-auto text-solarized-dark3 dark:text-solarized-light3">
                 From the latest models to older generations, we provide expert,
                 affordable phone repairs via our simple mail-in service.
               </p>
@@ -62,20 +62,20 @@ const PhoneRepairsPage = () => {
             {phoneServices.map((service, index) => (
               <AnimationWrapper key={index} delay={index * 0.1}>
                 <div className="bg-solarized-light2 dark:bg-solarized-dark2 p-6 rounded-lg shadow-md dark:shadow-lg">
-                  <Smartphone className="w-8 h-8 text-accentBlue dark:text-solarized-cyan mb-4" />
-                  <h3 className="text-xl font-bold font-heading text-textDark dark:text-solarized-light mb-2">
+                  <Smartphone className="w-8 h-8 text-solarized-blue dark:text-solarized-cyan mb-4" />
+                  <h3 className="text-xl font-bold font-heading text-solarized-dark3 dark:text-solarized-light mb-2">
                     {service.title}
                   </h3>
-                  <p className="text-textSubtleDark dark:text-solarized-light3 mb-4">
+                  <p className="text-solarized-dark3 dark:text-solarized-light3 mb-4">
                     {service.description}
                   </p>
                   <div className="flex justify-between items-center">
-                    <p className="text-2xl font-bold text-accentBlue dark:text-solarized-blue">
+                    <p className="text-2xl font-bold text-solarized-blue dark:text-solarized-blue">
                       {service.price}
                     </p>
                     <Link
                       href="/contact"
-                      className="px-4 py-2 bg-accentBlue dark:bg-solarized-blue text-white dark:text-solarized-light rounded-lg font-medium hover:bg-opacity-90 transition"
+                      className="px-4 py-2 bg-solarized-blue dark:bg-solarized-blue text-white dark:text-solarized-light rounded-lg font-medium hover:bg-opacity-90 transition"
                     >
                       Get a Quote →
                     </Link>

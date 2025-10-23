@@ -1,6 +1,20 @@
+"use client";
+
 import AnimationWrapper from "./AnimationWrapper";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { useState } from "react";
 
 const FAQ = () => {
+  const [openItems, setOpenItems] = useState<number[]>([]);
+
+  const toggleItem = (index: number) => {
+    setOpenItems(prev =>
+      prev.includes(index)
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
+    );
+  };
+
   const faqs = [
     {
       question:
@@ -49,11 +63,11 @@ const FAQ = () => {
   return (
     <section
       id="faq"
-      className="py-16 px-4 sm:px-6 lg:px-8 bg-solarized-light2 dark:bg-solarized-dark2"
+      className="section-spacing bg-solarized-light2 dark:bg-solarized-dark2"
     >
       <div className="max-w-3xl mx-auto">
         <AnimationWrapper>
-          <div className="text-center mb-16">
+          <div className="text-center content-spacing">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 dark:text-solarized-light">
               Frequently Asked Questions
             </h2>
@@ -62,14 +76,30 @@ const FAQ = () => {
         <div className="space-y-4">
           {faqs.map((faq, index) => (
             <AnimationWrapper key={index} delay={index * 0.1}>
-              <details className="bg-solarized-light2 dark:bg-solarized-dark2 p-4 rounded-lg">
-                <summary className="text-xl font-heading font-bold cursor-pointer list-none hover:text-solarized-blue transition dark:text-solarized-light">
-                  {faq.question}
-                </summary>
-                <p className="text-solarized-dark3 dark:text-solarized-light3 mt-2">
-                  {faq.answer}
-                </p>
-              </details>
+              <div className="bg-solarized-light dark:bg-solarized-dark rounded-lg border border-solarized-light3 dark:border-solarized-dark3 overflow-hidden">
+                <button
+                  onClick={() => toggleItem(index)}
+                  className="w-full p-6 text-left flex items-center justify-between hover:bg-solarized-light2 dark:hover:bg-solarized-dark2 transition-colors"
+                >
+                  <span className="text-xl font-heading font-bold text-solarized-dark3 dark:text-solarized-light pr-4">
+                    {faq.question}
+                  </span>
+                  <div className="flex-shrink-0 ml-4">
+                    {openItems.includes(index) ? (
+                      <ChevronUp className="w-5 h-5 text-solarized-blue" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5 text-solarized-blue" />
+                    )}
+                  </div>
+                </button>
+                {openItems.includes(index) && (
+                  <div className="px-6 pb-6 border-t border-solarized-light3 dark:border-solarized-dark3">
+                    <p className="text-solarized-dark3 dark:text-solarized-light3 mt-4 leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </div>
+                )}
+              </div>
             </AnimationWrapper>
           ))}
         </div>

@@ -52,7 +52,7 @@ const DonationForm = () => {
         <div>
           <label
             htmlFor="donor-name"
-            className="block text-sm font-medium text-textDark mb-2"
+            className="block text-sm font-medium text-solarized-dark3 mb-2"
           >
             Name
           </label>
@@ -61,13 +61,13 @@ const DonationForm = () => {
             name="name"
             id="donor-name"
             required
-            className="block w-full px-4 py-3 rounded-lg bg-lightOrange-dark border border-textSubtleDark focus:ring-accentBlue focus:border-accentBlue transition"
+            className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 border border-solarized-light3 focus:ring-solarized-blue focus:border-solarized-blue transition"
           />
         </div>
         <div>
           <label
             htmlFor="donor-email"
-            className="block text-sm font-medium text-textDark mb-2"
+            className="block text-sm font-medium text-solarized-dark3 mb-2"
           >
             Email
           </label>
@@ -76,13 +76,13 @@ const DonationForm = () => {
             name="_replyto"
             id="donor-email"
             required
-            className="block w-full px-4 py-3 rounded-lg bg-lightOrange-dark border border-textSubtleDark focus:ring-accentBlue focus:border-accentBlue transition"
+            className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 border border-solarized-light3 focus:ring-solarized-blue focus:border-solarized-blue transition"
           />
         </div>
         <div>
           <label
             htmlFor="device-description"
-            className="block text-sm font-medium text-textDark mb-2"
+            className="block text-sm font-medium text-solarized-dark3 mb-2"
           >
             What are you donating?
           </label>
@@ -92,13 +92,13 @@ const DonationForm = () => {
             rows={3}
             required
             placeholder="e.g., 1x MacBook Pro 2015, 2x iPhone 8"
-            className="block w-full px-4 py-3 rounded-lg bg-lightOrange-dark border border-textSubtleDark focus:ring-accentBlue focus:border-accentBlue transition"
+            className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 border border-solarized-light3 focus:ring-solarized-blue focus:border-solarized-blue transition"
           ></textarea>
         </div>
         <div className="text-center">
           <button
             type="submit"
-            className="px-6 py-3 bg-accentGreen text-white rounded-lg font-medium hover:bg-opacity-90 transition"
+            className="px-6 py-3 bg-solarized-green text-white rounded-lg font-medium hover:bg-opacity-90 transition"
           >
             Email My Donation Label
           </button>
@@ -107,7 +107,7 @@ const DonationForm = () => {
       {status && (
         <div
           id="donation-form-status"
-          className={`mt-6 text-center font-medium ${status.startsWith("Oops") ? "text-accentMagenta" : "text-accentGreen"}`}
+          className={`mt-6 text-center font-medium ${status.startsWith("Oops") ? "text-solarized-red" : "text-solarized-green"}`}
         >
           {status}
         </div>

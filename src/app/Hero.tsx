@@ -1,6 +1,6 @@
-import Image from "next/image";
 import AnimationWrapper from "./AnimationWrapper";
 import CallToAction from "./CallToAction";
+import Image from "next/image";
 
 const Hero = () => {
   return (
@@ -32,16 +32,21 @@ const Hero = () => {
               🛡️ Secure SSL
             </div>
             <div className="flex items-center text-sm text-solarized-dark3 dark:text-solarized-light3">
-              📦 Insured Shipping
+              <span className="mr-2">📦</span>Insured Shipping
             </div>
           </div>
         </AnimationWrapper>
         <AnimationWrapper delay={0.2}>
           <div className="relative">
             <div className="relative z-10">
-              <img
-                src="/graphics/hero-image.jpg"
+              <Image
+                src="/graphics/hero-image-large.webp"
                 alt="A successfully repaired laptop looking like new"
+                className="w-full h-auto max-w-md mx-auto md:max-w-none"
+                loading="eager"
+                width={400}
+                height={300}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
             </div>
             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-solarized-yellow rounded-xl opacity-20"></div>

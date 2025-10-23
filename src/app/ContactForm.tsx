@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 const ContactForm = () => {
+  // const [state, handleSubmit] = useForm("xkgvaqde");
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -66,14 +69,14 @@ const ContactForm = () => {
     return Object.values(newErrors).every((error) => error === "");
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validateForm()) {
       setStatus("Please fix the errors above");
       return;
     }
     setStatus("Sending...");
-    const form = e.currentTarget as HTMLFormElement;
+    const form = e.currentTarget;
     const data = new FormData(form);
 
     try {
@@ -119,7 +122,7 @@ const ContactForm = () => {
 
   return (
     <div className="bg-white dark:bg-solarized-dark p-6 rounded-lg shadow-md">
-      <form id="contact-form" className="space-y-6" onSubmit={handleSubmit}>
+      <form id="contact-form" className="space-y-6" onSubmit={onSubmit}>
         <div>
           <label
             htmlFor="name"
@@ -178,18 +181,19 @@ const ContactForm = () => {
             >
               Device Type
             </label>
-            <select
-              id="deviceType"
-              name="device-type"
-              required
-              value={formData.deviceType}
-              onChange={handleChange}
-              className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${
-                errors.deviceType
-                  ? "border-solarized-red"
-                  : "border-solarized-light3 dark:border-solarized-dark3"
-              }`}
-            >
+            <div className="relative">
+              <select
+                id="deviceType"
+                name="device-type"
+                required
+                value={formData.deviceType}
+                onChange={handleChange}
+                className={`block w-full px-4 py-3 pr-10 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition appearance-none ${
+                  errors.deviceType
+                    ? "border-solarized-red"
+                    : "border-solarized-light3 dark:border-solarized-dark3"
+                }`}
+              >
               <option value="" disabled>
                 Select your device
               </option>
@@ -200,7 +204,11 @@ const ContactForm = () => {
               <option value="Laptop">Laptop</option>
               <option value="Game Console">Game Console</option>
               <option value="Other">Other</option>
-            </select>
+              </select>
+              <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+                <ChevronDown className="w-4 h-4 text-solarized-dark3 dark:text-solarized-light3" />
+              </div>
+            </div>
             {errors.deviceType && (
               <p className="text-solarized-red text-sm mt-1">
                 {errors.deviceType}
@@ -215,18 +223,19 @@ const ContactForm = () => {
             >
               Service Needed
             </label>
-            <select
-              id="serviceType"
-              name="service-type"
-              required
-              value={formData.serviceType}
-              onChange={handleChange}
-              className={`block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition ${
-                errors.serviceType
-                  ? "border-solarized-red"
-                  : "border-solarized-light3 dark:border-solarized-dark3"
-              }`}
-            >
+            <div className="relative">
+              <select
+                id="serviceType"
+                name="service-type"
+                required
+                value={formData.serviceType}
+                onChange={handleChange}
+                className={`block w-full px-4 py-3 pr-10 rounded-lg bg-solarized-light2 dark:bg-solarized-dark2 border focus:ring-solarized-blue focus:border-solarized-blue transition appearance-none ${
+                  errors.serviceType
+                    ? "border-solarized-red"
+                    : "border-solarized-light3 dark:border-solarized-dark3"
+                }`}
+              >
               <option value="" disabled>
                 Select a service
               </option>
@@ -237,7 +246,11 @@ const ContactForm = () => {
               <option value="Water Damage">Water Damage</option>
               <option value="Diagnostics">Diagnostics / Not Sure</option>
               <option value="Other">Other</option>
-            </select>
+              </select>
+              <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+                <ChevronDown className="w-4 h-4 text-solarized-dark3 dark:text-solarized-light3" />
+              </div>
+            </div>
             {errors.serviceType && (
               <p className="text-solarized-red text-sm mt-1">
                 {errors.serviceType}

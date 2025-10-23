@@ -1,4 +1,5 @@
 import AnimationWrapper from "./AnimationWrapper";
+import { FileText, Package, Cpu, Truck } from "lucide-react";
 
 const Process = () => {
   const steps = [
@@ -6,28 +7,28 @@ const Process = () => {
       title: "1. Request Quote",
       description:
         "Submit your repair details via our contact form for a free, instant quote tailored to your device.",
-      icon: "📝",
+      icon: <FileText className="w-8 h-8 text-solarized-blue" />,
       backgroundColor: "bg-solarized-blue",
     },
     {
       title: "2. Get Free Label",
       description:
         "Receive a pre-paid shipping label via email to send your device securely and at no cost.",
-      icon: "📦",
+      icon: <Package className="w-8 h-8 text-solarized-cyan" />,
       backgroundColor: "bg-solarized-cyan",
     },
     {
       title: "3. Ship Your Device",
       description:
         "Package your device safely and drop it off at any USPS or UPS location using the provided label.",
-      icon: "🚚",
+      icon: <Truck className="w-8 h-8 text-solarized-magenta" />,
       backgroundColor: "bg-solarized-magenta",
     },
     {
       title: "4. Repair & Return",
       description:
         "We repair your device and ship it back fully insured. Track progress and get updates along the way.",
-      icon: "🔧",
+      icon: <Cpu className="w-8 h-8 text-solarized-green" />,
       backgroundColor: "bg-solarized-green",
     },
   ];
@@ -35,11 +36,11 @@ const Process = () => {
   return (
     <section
       id="how-it-works"
-      className="py-16 px-4 sm:px-6 lg:px-8 bg-solarized-light2 dark:bg-solarized-dark2"
+      className="section-spacing bg-solarized-light2 dark:bg-solarized-dark2"
     >
       <div className="max-w-7xl mx-auto">
         <AnimationWrapper>
-          <div className="text-center mb-16">
+          <div className="text-center content-spacing">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-solarized-dark3 dark:text-solarized-light">
               How It Works: Your 4-Step Mail-in Process
             </h2>
@@ -70,13 +71,13 @@ const Process = () => {
             </div>
           </div>
         </AnimationWrapper>
-        <div className="grid md:grid-cols-3 gap-8 text-center">
+        <div className="grid md:grid-cols-2 gap-8 text-center">
           {steps.map((step, index) => (
             <AnimationWrapper key={index} delay={index * 0.1}>
               <div
-                className={`w-20 h-20 mx-auto rounded-full ${step.backgroundColor} bg-opacity-10 flex items-center justify-center mb-4`}
+                className={`w-20 h-20 mx-auto rounded-full ${step.backgroundColor} bg-opacity-10 flex items-center justify-center icon-spacing`}
               >
-                <span className="text-3xl">{step.icon}</span>
+                {step.icon}
               </div>
               <h3 className="text-xl font-heading font-bold mb-2 dark:text-solarized-light">
                 {step.title}

@@ -4,11 +4,11 @@ const Disclaimer = () => {
   return (
     <section
       id="disclaimer"
-      className="py-16 px-4 sm:px-6 lg:px-8 bg-solarized-light2 dark:bg-solarized-dark2"
+      className="section-spacing bg-solarized-light2 dark:bg-solarized-dark2"
     >
       <div className="max-w-3xl mx-auto text-center">
         <AnimationWrapper>
-          <div className="w-16 h-16 rounded-full bg-solarized-orange bg-opacity-10 flex items-center justify-center mb-6 mx-auto">
+          <div className="w-16 h-16 rounded-full bg-solarized-orange bg-opacity-10 flex items-center justify-center icon-spacing mx-auto">
             <span className="text-3xl">⚠️</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 dark:text-solarized-light">

@@ -1,11 +1,12 @@
 import AnimationWrapper from "./AnimationWrapper";
+import { Smartphone, Laptop, Gamepad2, Wrench } from "lucide-react";
 
 const Pricing = () => {
   return (
-    <section id="pricing" className="py-16 px-4 sm:px-6 lg:px-8">
+    <section id="pricing" className="section-spacing">
       <div className="max-w-7xl mx-auto">
         <AnimationWrapper>
-          <div className="text-center mb-16">
+          <div className="text-center content-spacing">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-solarized-dark3 dark:text-solarized-light">
               Affordable Repair Pricing
             </h2>
@@ -20,7 +21,7 @@ const Pricing = () => {
           <AnimationWrapper delay={0.1}>
             <div className="bg-solarized-light2 dark:bg-solarized-dark2 h-full rounded-lg p-6 border border-solarized-light3 dark:border-solarized-dark3">
               <div className="w-12 h-12 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center mb-4">
-                <span className="text-2xl">📱</span>
+                <Smartphone className="w-6 h-6 text-solarized-blue" />
               </div>
               <div className="mb-4">
                 <h3 className="text-lg font-heading font-bold mb-2 text-solarized-dark2 dark:text-solarized-light">
@@ -65,7 +66,7 @@ const Pricing = () => {
           <AnimationWrapper delay={0.2}>
             <div className="bg-solarized-light2 dark:bg-solarized-dark2 h-full rounded-lg p-6 border border-solarized-light3 dark:border-solarized-dark3">
               <div className="w-12 h-12 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center mb-4">
-                <span className="text-2xl">💻</span>
+                <Laptop className="w-6 h-6 text-solarized-blue" />
               </div>
               <div className="mb-4">
                 <h3 className="text-lg font-heading font-bold mb-2 text-solarized-dark2 dark:text-solarized-light">
@@ -108,9 +109,9 @@ const Pricing = () => {
 
           {/* Game Console Repair Pricing */}
           <AnimationWrapper delay={0.3}>
-            <div className="bg-solarized-light2 dark:bg-solarized-dark2 h-full rounded-lg p-6 border border-solarized-light3 dark:border-solarized-dark3">
-              <div className="w-12 h-12 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center mb-4">
-                <span className="text-2xl">🎮</span>
+            <div className="bg-solarized-light2 dark:bg-solarized-dark2 h-full rounded-lg card-spacing border border-solarized-light3 dark:border-solarized-dark3">
+              <div className="w-12 h-12 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center icon-spacing">
+                <Gamepad2 className="w-6 h-6 text-solarized-blue" />
               </div>
               <div className="mb-4">
                 <h3 className="text-lg font-heading font-bold mb-2 text-solarized-dark2 dark:text-solarized-light">
@@ -155,7 +156,7 @@ const Pricing = () => {
           <AnimationWrapper delay={0.4}>
             <div className="bg-solarized-light2 dark:bg-solarized-dark2 h-full rounded-lg p-6 border border-solarized-light3 dark:border-solarized-dark3">
               <div className="w-12 h-12 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center mb-4">
-                <span className="text-2xl">🔧</span>
+                <Wrench className="w-6 h-6 text-solarized-blue" />
               </div>
               <div className="mb-4">
                 <h3 className="text-lg font-heading font-bold mb-2 text-solarized-dark2 dark:text-solarized-light">

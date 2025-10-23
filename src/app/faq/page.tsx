@@ -52,7 +52,7 @@ const FaqItem = ({
         <h3 className="text-xl font-heading font-bold text-solarized-dark3 dark:text-solarized-light">
           {faq.question}
         </h3>
-        <span className="text-accentBlue dark:text-solarized-blue">
+        <span className="text-solarized-blue dark:text-solarized-blue">
           {isOpen ? <ChevronUp /> : <ChevronDown />}
         </span>
       </button>
@@ -77,7 +77,7 @@ const FaqPage = () => {
       <div className="max-w-3xl mx-auto">
         <AnimationWrapper>
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-textDark dark:text-solarized-light">
+            <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-solarized-dark3 dark:text-solarized-light">
               Frequently Asked Questions
             </h1>
           </div>

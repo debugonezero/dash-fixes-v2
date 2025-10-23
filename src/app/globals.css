@@ -3,37 +3,54 @@
 @import "tailwindcss/utilities";
 
 .gradient-text {
-    background: linear-gradient(45deg, #268bd2, #2aa198);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  background: linear-gradient(45deg, #268bd2, #2aa198);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .glassmorphism-header {
-    background-color: #ffffff;
-    border-bottom: 1px solid rgba(147, 161, 161, 0.2);
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(147, 161, 161, 0.2);
 }
 
 .dark .glassmorphism-header {
-    background-color: #002b36;
-    border-bottom: 1px solid rgba(147, 161, 161, 0.2);
+  background-color: #002b36;
+  border-bottom: 1px solid rgba(147, 161, 161, 0.2);
 }
 
 .hero-bg {
-    background: radial-gradient(
-        circle at 10% 20%,
-        rgba(38, 139, 210, 0.1) 0%,
-        rgba(253, 246, 227, 0) 50%
-    );
+  background: radial-gradient(
+    circle at 10% 20%,
+    rgba(38, 139, 210, 0.1) 0%,
+    rgba(253, 246, 227, 0) 50%
+  );
 }
 .dark .hero-bg {
-    background: radial-gradient(
-        circle at 10% 20%,
-        rgba(38, 139, 210, 0.2) 0%,
-        rgba(0, 43, 54, 0) 50%
-    );
+  background: radial-gradient(
+    circle at 10% 20%,
+    rgba(38, 139, 210, 0.2) 0%,
+    rgba(0, 43, 54, 0) 50%
+  );
 }
 
 .font-heading {
-    font-family: "Space Grotesk", sans-serif;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+/* Consistent spacing utilities */
+.section-spacing {
+  @apply py-16 px-4 sm:px-6 lg:px-8;
+}
+
+.content-spacing {
+  @apply mb-16;
+}
+
+.card-spacing {
+  @apply p-6;
+}
+
+.icon-spacing {
+  @apply mb-4;
 }

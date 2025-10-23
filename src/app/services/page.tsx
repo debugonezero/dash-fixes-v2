@@ -7,10 +7,10 @@ const ServicesPage = () => {
       <section className="hero-bg py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-textDark dark:text-solarized-light">
+            <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 text-solarized-dark3 dark:text-solarized-light">
               Our Repair Services
             </h1>
-            <p className="text-lg max-w-2xl mx-auto text-textSubtleDark dark:text-solarized-light3">
+            <p className="text-lg max-w-2xl mx-auto text-solarized-dark3 dark:text-solarized-light3">
               We specialize in fixing all your campus tech essentials quickly
               and affordably.
             </p>
@@ -41,7 +41,7 @@ const ServicesPage = () => {
               </p>
               <Link
                 href="/laptop-repairs"
-                className="font-medium text-accentBlue hover:underline dark:text-solarized-blue"
+                className="font-medium text-solarized-blue hover:underline dark:text-solarized-blue"
               >
                 Learn More →
               </Link>

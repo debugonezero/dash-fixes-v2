@@ -1,12 +1,12 @@
 import Link from "next/link";
 import AnimationWrapper from "./AnimationWrapper";
-import { Package } from "lucide-react";
+import { Package, Smartphone, Laptop, Gamepad2 } from "lucide-react";
 import CallToAction from "./CallToAction";
 
 const Services = () => {
   const mainServices = [
     {
-      icon: "📱",
+      icon: <Smartphone className="w-6 h-6 text-solarized-blue" />,
       title: "Phone Repairs",
       description:
         "Broken screens, battery issues, water damage - we&apos;ve got you covered.",
@@ -14,7 +14,7 @@ const Services = () => {
       link: "/phone-repairs",
     },
     {
-      icon: "💻",
+      icon: <Laptop className="w-6 h-6 text-solarized-blue" />,
       title: "Laptop Repairs",
       description:
         "From hardware issues to software problems, we&apos;ll get your laptop running like new.",
@@ -22,7 +22,7 @@ const Services = () => {
       link: "/laptop-repairs",
     },
     {
-      icon: "🎮",
+      icon: <Gamepad2 className="w-6 h-6 text-solarized-blue" />,
       title: "Game Console Repairs",
       description:
         "Overheating PS5s, controller drift, and more - we&apos;ll get you back in the game.",
@@ -42,13 +42,13 @@ const Services = () => {
   return (
     <section
       id="services"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-solarized-light2 dark:bg-solarized-dark2"
+      className="section-spacing bg-solarized-light2 dark:bg-solarized-dark2"
     >
       <div className="max-w-7xl mx-auto">
         <AnimationWrapper>
-          <div className="text-center mb-16">
+          <div className="text-center content-spacing">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-solarized-dark2 dark:text-solarized-light">
-              Our Repair Services 🛠️
+              Our Repair Services
             </h2>
             <p className="text-lg max-w-3xl mx-auto text-solarized-dark3 dark:text-solarized-light3">
               We specialize in fixing all your campus tech essentials quickly
@@ -62,9 +62,9 @@ const Services = () => {
           {mainServices.map((service, index) => (
             <AnimationWrapper key={index} delay={index * 0.1}>
               <Link href={service.link}>
-                <div className="service-card bg-solarized-light dark:bg-solarized-dark h-full rounded-lg p-6 border border-solarized-light3 dark:border-solarized-dark3">
-                  <div className="w-12 h-12 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center mb-4">
-                    <span className="text-2xl">{service.icon}</span>
+                <div className="service-card bg-solarized-light dark:bg-solarized-dark h-full rounded-lg card-spacing border border-solarized-light3 dark:border-solarized-dark3">
+                  <div className="w-12 h-12 rounded-full bg-solarized-blue bg-opacity-10 flex items-center justify-center icon-spacing">
+                    {service.icon}
                   </div>
                   <h3 className="text-lg font-heading font-bold mb-2 text-solarized-dark2 dark:text-solarized-light">
                     {service.title}

@@ -1,34 +1,34 @@
 import AnimationWrapper from "./AnimationWrapper";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Star, User } from "lucide-react";
 
 const Testimonials = () => {
   const testimonials = [
     {
       quote:
         "Came to get my Galaxy S6 Lite screen replaced. He found the piece for $35 and charged $65 for the labor. I recommend their services if you're in need.",
-      author: "David C.",
-      icon: "👤",
-      repairType: "iPhone Screen Replacement",
+      author: "Aaron M.",
+      icon: <User className="w-5 h-5 text-solarized-light3" />,
+      stars: 5,
     },
     {
       quote:
         "Amazing service provider! If you want the job done right and quickly by a professional, this is it! Technicians know how to quickly identify all types of problems and can resolve all issues related to tech! Have been using them for all tech related issues for a long time!",
       author: "Martin N.",
-      icon: "💻",
-      repairType: "Laptop Performance Optimization",
+      icon: <User className="w-5 h-5 text-solarized-light3" />,
+      stars: 5,
     },
   ];
 
   return (
     <section
       id="testimonials"
-      className="py-16 px-4 sm:px-6 lg:px-8 bg-solarized-light2 dark:bg-solarized-dark2"
+      className="section-spacing bg-solarized-light2 dark:bg-solarized-dark2"
     >
       <div className="max-w-7xl mx-auto">
         <AnimationWrapper>
-          <div className="text-center mb-16">
+          <div className="text-center content-spacing">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 dark:text-solarized-light">
-              What Our Customers Say ⭐
+              What Our Customers Say
             </h2>
             <p className="text-lg max-w-2xl mx-auto dark:text-solarized-light3">
               We&apos;re proud of our 5-star service.
@@ -40,16 +40,18 @@ const Testimonials = () => {
             <AnimationWrapper key={index} delay={index * 0.1}>
               <div className="bg-solarized-light dark:bg-solarized-dark rounded-xl p-8 shadow-md">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 rounded-full mr-4 bg-solarized-light2 dark:bg-solarized-dark2 flex items-center justify-center">
-                    <span className="text-2xl">{testimonial.icon}</span>
+                  <div className="w-12 h-12 rounded-full mr-4 bg-solarized-light2 dark:bg-solarized-dark2 flex items-center justify-center icon-spacing">
+                    {testimonial.icon}
                   </div>
                   <div>
                     <p className="font-semibold text-solarized-dark2 dark:text-solarized-light">
                       {testimonial.author}
                     </p>
-                    <p className="text-sm text-solarized-dark3 dark:text-solarized-light3">
-                      {testimonial.repairType}
-                    </p>
+                    <div className="flex items-center">
+                      {Array.from({ length: testimonial.stars }, (_, i) => (
+                        <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                      ))}
+                    </div>
                   </div>
                 </div>
                 <p className="text-lg italic text-solarized-dark3 dark:text-solarized-light3 mb-6">

@@ -56,19 +56,19 @@ const GameConsoleRepairsPage = () => {
               <AnimationWrapper key={index} delay={index * 0.1}>
                 <div className="service-card bg-lightOrange-dark dark:bg-darkTeal-light p-8 rounded-lg shadow-lg flex flex-col justify-between">
                   <div>
-                    <div className="flex justify-center mb-4 text-accentMagenta">
+                    <div className="flex justify-center mb-4 text-solarized-magenta">
                       {service.icon}
                     </div>
-                    <h3 className="text-xl font-bold font-heading text-textDark dark:text-textLight mb-2 text-center">
+                    <h3 className="text-xl font-bold font-heading text-solarized-dark3 dark:text-solarized-light mb-2 text-center">
                       {service.title}
                     </h3>
-                    <p className="text-textSubtleDark dark:text-textSubtleLight font-sans text-sm text-center">
+                    <p className="text-solarized-dark3 dark:text-solarized-light3 font-sans text-sm text-center">
                       {service.description}
                     </p>
                   </div>
                   <div className="text-center mt-6">
                     <Link href={service.link}>
-                      <span className="font-medium text-accentBlue hover:underline cursor-pointer">
+                      <span className="font-medium text-solarized-blue hover:underline cursor-pointer">
                         Get a Quote &rarr;
                       </span>
                     </Link>

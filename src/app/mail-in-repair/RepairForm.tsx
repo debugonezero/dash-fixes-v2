@@ -38,28 +38,28 @@ const RepairForm = () => {
       <h3 className="text-2xl font-heading font-bold text-center mb-8">Start Your Repair Request</h3>
       <form id="repair-form" onSubmit={handleFormSubmit} className="space-y-6 bg-white p-8 rounded-lg shadow-md">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-textDark mb-2">Name</label>
-          <input type="text" name="name" id="name" required className="block w-full px-4 py-3 rounded-lg bg-lightOrange-dark border border-textSubtleDark focus:ring-accentBlue focus:border-accentBlue transition" />
+          <label htmlFor="name" className="block text-sm font-medium text-solarized-dark3 mb-2">Name</label>
+          <input type="text" name="name" id="name" required className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 border border-solarized-light3 focus:ring-solarized-blue focus:border-solarized-blue transition" />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-textDark mb-2">Email</label>
-          <input type="email" name="_replyto" id="email" required className="block w-full px-4 py-3 rounded-lg bg-lightOrange-dark border border-textSubtleDark focus:ring-accentBlue focus:border-accentBlue transition" />
+          <label htmlFor="email" className="block text-sm font-medium text-solarized-dark3 mb-2">Email</label>
+          <input type="email" name="_replyto" id="email" required className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 border border-solarized-light3 focus:ring-solarized-blue focus:border-solarized-blue transition" />
         </div>
         <div>
-          <label htmlFor="device" className="block text-sm font-medium text-textDark mb-2">Device (e.g., iPhone 14 Pro)</label>
-          <input type="text" name="device" id="device" required className="block w-full px-4 py-3 rounded-lg bg-lightOrange-dark border border-textSubtleDark focus:ring-accentBlue focus:border-accentBlue transition" />
+          <label htmlFor="device" className="block text-sm font-medium text-solarized-dark3 mb-2">Device (e.g., iPhone 14 Pro)</label>
+          <input type="text" name="device" id="device" required className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 border border-solarized-light3 focus:ring-solarized-blue focus:border-solarized-blue transition" />
         </div>
         <div>
-          <label htmlFor="issue" className="block text-sm font-medium text-textDark mb-2">Describe the Issue</label>
-          <textarea name="issue" id="issue" rows={4} required className="block w-full px-4 py-3 rounded-lg bg-lightOrange-dark border border-textSubtleDark focus:ring-accentBlue focus:border-accentBlue transition"></textarea>
+          <label htmlFor="issue" className="block text-sm font-medium text-solarized-dark3 mb-2">Describe the Issue</label>
+          <textarea name="issue" id="issue" rows={4} required className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 border border-solarized-light3 focus:ring-solarized-blue focus:border-solarized-blue transition"></textarea>
         </div>
         <div>
-          <button type="submit" className="w-full px-6 py-3 bg-accentBlue text-white rounded-lg font-medium text-center hover:bg-opacity-90 transition">
+          <button type="submit" className="w-full px-6 py-3 bg-solarized-blue text-white rounded-lg font-medium text-center hover:bg-opacity-90 transition">
             Get My Free Quote
           </button>
         </div>
       </form>
-      {status && <div id="repair-form-status" className={`mt-6 text-center font-medium ${status.startsWith('Oops') ? 'text-accentMagenta' : 'text-accentGreen'}`}>{status}</div>}
+      {status && <div id="repair-form-status" className={`mt-6 text-center font-medium ${status.startsWith('Oops') ? 'text-solarized-red' : 'text-solarized-green'}`}>{status}</div>}
     </div>
   );
 };
