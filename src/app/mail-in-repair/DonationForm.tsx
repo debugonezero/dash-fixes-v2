@@ -47,12 +47,12 @@ const DonationForm = () => {
       <form
         id="donation-form"
         onSubmit={handleFormSubmit}
-        className="space-y-6 bg-white p-8 rounded-lg shadow-md"
+        className="space-y-6 bg-white dark:bg-solarized-dark2 p-8 rounded-lg shadow-md"
       >
         <div>
           <label
             htmlFor="donor-name"
-            className="block text-sm font-medium text-solarized-dark3 mb-2"
+            className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2"
           >
             Name
           </label>
@@ -61,13 +61,13 @@ const DonationForm = () => {
             name="name"
             id="donor-name"
             required
-            className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 border border-solarized-light3 focus:ring-solarized-blue focus:border-solarized-blue transition"
+            className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark border border-solarized-light3 dark:border-solarized-dark3 focus:ring-solarized-blue focus:border-solarized-blue transition"
           />
         </div>
         <div>
           <label
             htmlFor="donor-email"
-            className="block text-sm font-medium text-solarized-dark3 mb-2"
+            className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2"
           >
             Email
           </label>
@@ -76,13 +76,13 @@ const DonationForm = () => {
             name="_replyto"
             id="donor-email"
             required
-            className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 border border-solarized-light3 focus:ring-solarized-blue focus:border-solarized-blue transition"
+            className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark border border-solarized-light3 dark:border-solarized-dark3 focus:ring-solarized-blue focus:border-solarized-blue transition"
           />
         </div>
         <div>
           <label
             htmlFor="device-description"
-            className="block text-sm font-medium text-solarized-dark3 mb-2"
+            className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2"
           >
             What are you donating?
           </label>
@@ -92,7 +92,7 @@ const DonationForm = () => {
             rows={3}
             required
             placeholder="e.g., 1x MacBook Pro 2015, 2x iPhone 8"
-            className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 border border-solarized-light3 focus:ring-solarized-blue focus:border-solarized-blue transition"
+            className="block w-full px-4 py-3 rounded-lg bg-solarized-light2 dark:bg-solarized-dark border border-solarized-light3 dark:border-solarized-dark3 focus:ring-solarized-blue focus:border-solarized-blue transition"
           ></textarea>
         </div>
         <div className="text-center">
