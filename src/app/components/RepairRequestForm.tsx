@@ -152,7 +152,7 @@ export default function RepairRequestForm() {
           {/* Device Information */}
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="deviceType" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2">
+              <label htmlFor="deviceType" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light mb-2">
                 Device Type *
               </label>
               <select
@@ -176,7 +176,7 @@ export default function RepairRequestForm() {
             </div>
 
             <div>
-              <label htmlFor="serviceType" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2">
+              <label htmlFor="serviceType" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light mb-2">
                 Service Type *
               </label>
               <select
@@ -199,7 +199,7 @@ export default function RepairRequestForm() {
           </div>
 
           <div>
-            <label htmlFor="issueDescription" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2">
+            <label htmlFor="issueDescription" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light mb-2">
               Describe the Issue *
             </label>
             <textarea
@@ -217,7 +217,7 @@ export default function RepairRequestForm() {
           {/* Customer Information */}
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="customerName" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2">
+              <label htmlFor="customerName" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light mb-2">
                 Full Name *
               </label>
               <input
@@ -232,7 +232,7 @@ export default function RepairRequestForm() {
             </div>
 
             <div>
-              <label htmlFor="customerEmail" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2">
+              <label htmlFor="customerEmail" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light mb-2">
                 Email Address *
               </label>
               <input
@@ -255,7 +255,7 @@ export default function RepairRequestForm() {
 
             <div className="space-y-4">
               <div>
-                <label htmlFor="shippingAddress.street" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2">
+                <label htmlFor="shippingAddress.street" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light mb-2">
                   Street Address *
                 </label>
                 <input
@@ -271,7 +271,7 @@ export default function RepairRequestForm() {
 
               <div className="grid md:grid-cols-3 gap-4">
                 <div>
-                  <label htmlFor="shippingAddress.city" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2">
+                  <label htmlFor="shippingAddress.city" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light mb-2">
                     City *
                   </label>
                   <input
@@ -286,7 +286,7 @@ export default function RepairRequestForm() {
                 </div>
 
                 <div>
-                  <label htmlFor="shippingAddress.state" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2">
+                  <label htmlFor="shippingAddress.state" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light mb-2">
                     State *
                   </label>
                   <input
@@ -301,7 +301,7 @@ export default function RepairRequestForm() {
                 </div>
 
                 <div>
-                  <label htmlFor="shippingAddress.zipCode" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light3 mb-2">
+                  <label htmlFor="shippingAddress.zipCode" className="block text-sm font-medium text-solarized-dark3 dark:text-solarized-light mb-2">
                     ZIP Code *
                   </label>
                   <input
