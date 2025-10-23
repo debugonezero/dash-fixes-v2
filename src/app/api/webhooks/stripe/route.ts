@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import Stripe from 'stripe';
@@ -7,7 +9,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_51ABC123def4
   apiVersion: '2025-09-30.clover',
 });
 
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET || 'whsec_test_webhook_secret';
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET || 'whsec_test_webhook_secret_here';
 
 export async function POST(request: NextRequest) {
   try {
