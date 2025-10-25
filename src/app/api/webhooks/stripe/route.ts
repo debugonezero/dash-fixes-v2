@@ -60,44 +60,37 @@ export async function POST(request: NextRequest) {
           const serviceRequest = await db.getServiceRequest(parseInt(serviceRequestId));
 
           if (serviceRequest) {
-            // Generate shipping label
+            // Generate shipping label (PDF)
             try {
               console.log('📦 Starting shipping label generation...');
 
-              const fromAddress: ShippingAddress = {
-                name: serviceRequest.customerName,
-                street1: serviceRequest.shippingAddress.street1,
-                city: serviceRequest.shippingAddress.city,
-                state: serviceRequest.shippingAddress.state,
-                zip: serviceRequest.shippingAddress.zip,
-                country: serviceRequest.shippingAddress.country || 'US'
-              };
+              const { generateShippingLabel, createShippingLabelData } = await import('../../lib/shipping-label');
+              const labelData = createShippingLabelData(serviceRequest);
+              const pdfBuffer = await generateShippingLabel(labelData);
 
-              console.log('📍 From address:', fromAddress);
-              console.log('🔑 Shippo API key available:', !!process.env.SHIPPO_API_KEY);
+              console.log('✅ Shipping label PDF generated successfully');
+              console.log('📮 Tracking number:', labelData.trackingNumber);
 
-              const shippingLabel = await createShippingLabel(fromAddress, 'usps_priority');
-
-              console.log('✅ Shipping label created successfully:', {
-                tracking: shippingLabel.tracking_number,
-                label_url: shippingLabel.label_url,
-                rate: shippingLabel.rate
-              });
+              // Store PDF in a temporary location (in production, you'd upload to cloud storage)
+              // For now, we'll store the tracking info and send email with instructions
+              const labelUrl = `https://dashfixes.com/track/${serviceRequest.serviceNumber}`;
 
               // Update service request with shipping info
               await db.updateServiceRequest(parseInt(serviceRequestId), {
                 paymentStatus: 'paid',
                 status: 'SHIPPING_LABEL_GENERATED',
                 stripePaymentId: paymentIntent.id,
-                shippingLabelUrl: shippingLabel.label_url,
-                trackingNumber: shippingLabel.tracking_number,
-                shippingCost: parseFloat(shippingLabel.rate.amount),
-                shippingProvider: shippingLabel.rate.service,
+                shippingLabelUrl: labelUrl,
+                trackingNumber: labelData.trackingNumber,
+                shippingCost: 9.99,
+                shippingProvider: 'USPS Priority',
                 updatedAt: new Date(),
               });
 
               console.log(`🎉 Payment succeeded and shipping label generated for service request ${serviceRequestId}`);
-              console.log(`📮 Tracking: ${shippingLabel.tracking_number}, Label: ${shippingLabel.label_url}`);
+              console.log(`📮 Tracking: ${labelData.trackingNumber}, Label: ${labelUrl}`);
+
+              // TODO: Send email with shipping label PDF and instructions
 
             } catch (shippingError) {
               console.error('❌ Error generating shipping label:', shippingError);
