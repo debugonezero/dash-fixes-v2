@@ -14,18 +14,38 @@ const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET || 'whsec_test_webhook_
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('🔄 Webhook received - starting processing');
+
     const body = await request.text();
     const headersList = await headers();
     const sig = headersList.get('stripe-signature')!;
 
+    console.log('🔍 Checking environment variables...');
+    console.log('Has STRIPE_WEBHOOK_SECRET:', !!process.env.STRIPE_WEBHOOK_SECRET);
+    console.log('Webhook secret length:', process.env.STRIPE_WEBHOOK_SECRET?.length || 0);
+    console.log('Has STRIPE_SECRET_KEY:', !!process.env.STRIPE_SECRET_KEY);
+    console.log('Stripe mode:', process.env.STRIPE_SECRET_KEY?.startsWith('sk_live') ? 'live' : 'test');
+
     let event: Stripe.Event;
 
     try {
+      console.log('🔐 Attempting signature verification...');
       event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
+      console.log('✅ Signature verification successful');
     } catch (err: unknown) {
       const error = err as Error;
-      console.error(`Webhook signature verification failed.`, error.message);
-      return NextResponse.json({ error: 'Webhook signature verification failed' }, { status: 400 });
+      console.error(`❌ Webhook signature verification failed:`, error.message);
+      console.error('Full error:', err);
+      return NextResponse.json({
+        error: 'Webhook signature verification failed',
+        details: error.message,
+        debug: {
+          hasWebhookSecret: !!process.env.STRIPE_WEBHOOK_SECRET,
+          secretLength: process.env.STRIPE_WEBHOOK_SECRET?.length || 0,
+          hasStripeKey: !!process.env.STRIPE_SECRET_KEY,
+          stripeMode: process.env.STRIPE_SECRET_KEY?.startsWith('sk_live') ? 'live' : 'test'
+        }
+      }, { status: 400 });
     }
 
     // Handle the event
