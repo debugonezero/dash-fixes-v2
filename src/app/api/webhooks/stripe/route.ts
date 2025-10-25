@@ -62,6 +62,8 @@ export async function POST(request: NextRequest) {
           if (serviceRequest) {
             // Generate shipping label
             try {
+              console.log('📦 Starting shipping label generation...');
+
               const fromAddress: ShippingAddress = {
                 name: serviceRequest.customerName,
                 street1: serviceRequest.shippingAddress.street1,
@@ -71,7 +73,16 @@ export async function POST(request: NextRequest) {
                 country: serviceRequest.shippingAddress.country || 'US'
               };
 
+              console.log('📍 From address:', fromAddress);
+              console.log('🔑 Shippo API key available:', !!process.env.SHIPPO_API_KEY);
+
               const shippingLabel = await createShippingLabel(fromAddress, 'usps_priority');
+
+              console.log('✅ Shipping label created successfully:', {
+                tracking: shippingLabel.tracking_number,
+                label_url: shippingLabel.label_url,
+                rate: shippingLabel.rate
+              });
 
               // Update service request with shipping info
               await db.updateServiceRequest(parseInt(serviceRequestId), {
@@ -85,11 +96,17 @@ export async function POST(request: NextRequest) {
                 updatedAt: new Date(),
               });
 
-              console.log(`Payment succeeded and shipping label generated for service request ${serviceRequestId}`);
-              console.log(`Tracking: ${shippingLabel.tracking_number}, Label: ${shippingLabel.label_url}`);
+              console.log(`🎉 Payment succeeded and shipping label generated for service request ${serviceRequestId}`);
+              console.log(`📮 Tracking: ${shippingLabel.tracking_number}, Label: ${shippingLabel.label_url}`);
 
             } catch (shippingError) {
-              console.error('Error generating shipping label:', shippingError);
+              console.error('❌ Error generating shipping label:', shippingError);
+              console.error('Full shipping error details:', {
+                error: shippingError,
+                serviceRequestId,
+                customerEmail: serviceRequest.customerEmail,
+                address: serviceRequest.shippingAddress
+              });
 
               // Still mark as paid but note shipping error
               await db.updateServiceRequest(parseInt(serviceRequestId), {
