@@ -14,7 +14,7 @@ const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET || 'whsec_test_webhook_
 
 export async function POST(request: NextRequest) {
   try {
-    console.log('🔄 Webhook received - starting processing');
+    console.log('🚀 Webhook received - starting processing (v2.1)');
 
     const body = await request.text();
     const headersList = await headers();
