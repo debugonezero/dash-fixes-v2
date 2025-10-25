@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
 
     try {
       console.log('🔐 Attempting signature verification...');
-      event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
+      event = await stripe.webhooks.constructEventAsync(body, sig, endpointSecret);
       console.log('✅ Signature verification successful');
     } catch (err: unknown) {
       const error = err as Error;
