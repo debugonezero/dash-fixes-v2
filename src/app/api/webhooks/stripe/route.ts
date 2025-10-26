@@ -57,14 +57,14 @@ export async function POST(request: NextRequest) {
         const serviceRequestId = paymentIntent.metadata.serviceRequestId;
         if (serviceRequestId) {
           // Get service request details for shipping
-          const serviceRequest = await db.getServiceRequest(parseInt(serviceRequestId));
+          const serviceRequest = await db.getServiceRequest(serviceRequestId);
 
           if (serviceRequest) {
             // Generate shipping label (PDF)
             try {
               console.log('📦 Starting shipping label generation...');
 
-              const { generateShippingLabel, createShippingLabelData } = await import('../../lib/shipping-label');
+              const { generateShippingLabel, createShippingLabelData } = await import('../../../lib/shipping-label');
               const labelData = createShippingLabelData(serviceRequest);
               const pdfBuffer = await generateShippingLabel(labelData);
 
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
               const labelUrl = `https://dashfixes.com/track/${serviceRequest.serviceNumber}`;
 
               // Update service request with shipping info
-              await db.updateServiceRequest(parseInt(serviceRequestId), {
+              await db.updateServiceRequest(serviceRequestId, {
                 paymentStatus: 'paid',
                 status: 'SHIPPING_LABEL_GENERATED',
                 stripePaymentId: paymentIntent.id,
@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
 
               // Send email with shipping label
               try {
-                const { sendShippingLabelEmail } = await import('../../lib/email');
+                const { sendShippingLabelEmail } = await import('../../../lib/email');
 
                 await sendShippingLabelEmail({
                   customerName: serviceRequest.customerName,
@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
               });
 
               // Still mark as paid but note shipping error
-              await db.updateServiceRequest(parseInt(serviceRequestId), {
+              await db.updateServiceRequest(serviceRequestId, {
                 paymentStatus: 'paid',
                 status: 'PAID_SHIPPING_ERROR',
                 stripePaymentId: paymentIntent.id,
@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
         // Update service request status
         const failedServiceRequestId = failedPaymentIntent.metadata.serviceRequestId;
         if (failedServiceRequestId) {
-          await db.updateServiceRequest(parseInt(failedServiceRequestId), {
+          await db.updateServiceRequest(failedServiceRequestId, {
             paymentStatus: 'failed',
             updatedAt: new Date(),
           });

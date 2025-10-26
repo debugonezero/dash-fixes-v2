@@ -1,7 +1,8 @@
 import { Resend } from 'resend';
 import { ShippingLabelEmail } from '../components/ShippingLabelEmail';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Use test API key for development if no real key is provided
+const resend = new Resend(process.env.RESEND_API_KEY || 're_123456789');
 
 export interface ShippingLabelEmailData {
   customerName: string;
@@ -56,7 +57,7 @@ export async function sendShippingLabelEmail(data: ShippingLabelEmailData): Prom
 export async function sendTestEmail(to: string): Promise<void> {
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Dash Fixes <repairs@dashfixes.com>',
+      from: 'Dash Fixes <web@dashfixes.com>',
       to: [to],
       subject: 'Test Email from Dash Fixes',
       html: `

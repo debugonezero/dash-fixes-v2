@@ -1,4 +1,5 @@
 import { loadStripe } from '@stripe/stripe-js';
+import { PrismaClient } from '@prisma/client';
 
 // Initialize Stripe with your publishable key
 // This will be set in environment variables
@@ -18,6 +19,15 @@ if (!stripePublishableKey && process.env.NODE_ENV === 'production') {
 
 // Load Stripe.js
 export const stripePromise = loadStripe(finalStripeKey);
+
+// Initialize Prisma client
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined;
+};
+
+export const prisma = globalForPrisma.prisma ?? new PrismaClient();
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
 // Stripe configuration
 export const STRIPE_CONFIG = {
@@ -66,31 +76,6 @@ export const REPAIR_PRICING: {
   }
 };
 
-// In-memory storage for development (no database needed)
-const serviceRequests: Array<{
-  id: number;
-  serviceNumber: string;
-  deviceType: string;
-  serviceType: string;
-  issueDescription: string;
-  customerName: string;
-  customerEmail: string;
-  shippingAddress: {
-    street1: string;
-    city: string;
-    state: string;
-    zip: string;
-    country?: string;
-  };
-  paymentAmount: number;
-  paymentStatus: string;
-  status: string;
-  createdAt: Date;
-  updatedAt?: Date;
-  completedAt?: Date;
-}> = [];
-let requestCounter = 1000;
-
 // Generate service number
 function generateServiceNumber(): string {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -101,7 +86,7 @@ function generateServiceNumber(): string {
   return result;
 }
 
-// Simple in-memory database functions
+// Prisma-based database functions
 export const db = {
   createServiceRequest: async (data: {
     deviceType: string;
@@ -121,28 +106,36 @@ export const db = {
     status?: string;
   }) => {
     const serviceNumber = generateServiceNumber();
-    const request = {
-      id: ++requestCounter,
-      serviceNumber,
-      ...data,
-      status: data.status || 'PENDING',
-      paymentStatus: data.paymentStatus || 'pending',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-    serviceRequests.push(request);
+    const request = await prisma.serviceRequest.create({
+      data: {
+        serviceNumber,
+        deviceType: data.deviceType,
+        serviceType: data.serviceType,
+        issueDescription: data.issueDescription,
+        customerName: data.customerName,
+        customerEmail: data.customerEmail,
+        shippingAddress: data.shippingAddress,
+        paymentAmount: data.paymentAmount,
+        paymentStatus: data.paymentStatus || 'pending',
+        status: data.status || 'PENDING',
+      },
+    });
     return request;
   },
 
   findServiceRequest: async (serviceNumber: string) => {
-    return serviceRequests.find(req => req.serviceNumber === serviceNumber);
+    return await prisma.serviceRequest.findUnique({
+      where: { serviceNumber },
+    });
   },
 
-  getServiceRequest: async (id: number) => {
-    return serviceRequests.find(req => req.id === id);
+  getServiceRequest: async (id: string) => {
+    return await prisma.serviceRequest.findUnique({
+      where: { id },
+    });
   },
 
-  updateServiceRequest: async (id: number, updates: Partial<{
+  updateServiceRequest: async (id: string, updates: Partial<{
     paymentStatus: string;
     status: string;
     stripePaymentId: string;
@@ -153,13 +146,15 @@ export const db = {
     updatedAt: Date;
     completedAt: Date;
   }>) => {
-    const index = serviceRequests.findIndex(req => req.id === id);
-    if (index !== -1) {
-      serviceRequests[index] = { ...serviceRequests[index], ...updates };
-      return serviceRequests[index];
-    }
-    return null;
+    return await prisma.serviceRequest.update({
+      where: { id },
+      data: updates,
+    });
   },
 
-  getAllRequests: () => serviceRequests,
+  getAllRequests: async () => {
+    return await prisma.serviceRequest.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
+  },
 };
