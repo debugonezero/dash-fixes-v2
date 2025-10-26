@@ -90,7 +90,26 @@ export async function POST(request: NextRequest) {
               console.log(`🎉 Payment succeeded and shipping label generated for service request ${serviceRequestId}`);
               console.log(`📮 Tracking: ${labelData.trackingNumber}, Label: ${labelUrl}`);
 
-              // TODO: Send email with shipping label PDF and instructions
+              // Send email with shipping label
+              try {
+                const { sendShippingLabelEmail } = await import('../../lib/email');
+
+                await sendShippingLabelEmail({
+                  customerName: serviceRequest.customerName,
+                  customerEmail: serviceRequest.customerEmail,
+                  serviceNumber: serviceRequest.serviceNumber,
+                  trackingNumber: labelData.trackingNumber,
+                  shippingLabelPdf: pdfBuffer,
+                  deviceType: serviceRequest.deviceType,
+                  issue: serviceRequest.issueDescription || 'Device repair',
+                });
+
+                console.log('📧 Shipping label email sent successfully to:', serviceRequest.customerEmail);
+
+              } catch (emailError) {
+                console.error('❌ Failed to send shipping label email:', emailError);
+                // Don't fail the webhook for email errors - customer can still get label from tracking page
+              }
 
             } catch (shippingError) {
               console.error('❌ Error generating shipping label:', shippingError);
