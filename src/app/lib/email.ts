@@ -89,7 +89,7 @@ export async function sendShippingLabelEmail(data: ShippingLabelEmailData): Prom
     `;
 
     const { data: emailResult, error } = await resend.emails.send({
-      from: 'Dash Fixes <onboarding@resend.dev>',
+      from: 'Dash Fixes <web@dashfixes.com>',
       to: [data.customerEmail],
       subject: `Your Shipping Label - Service #${data.serviceNumber}`,
       html: emailHtml,
