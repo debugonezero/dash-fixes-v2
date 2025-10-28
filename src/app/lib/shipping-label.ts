@@ -1,4 +1,4 @@
-import { jsPDF } from 'jspdf';
+import { generateShippingLabelPDF } from './ShippingLabelDocument';
 
 export interface ShippingLabelData {
   serviceNumber: string;
@@ -22,83 +22,84 @@ export interface ShippingLabelData {
   shippingCost: number;
   deviceType: string;
   issue: string;
+  packageDimensions?: {
+    length: number;
+    width: number;
+    height: number;
+    weight: number;
+  };
 }
 
 /**
- * Generate a shipping label PDF
+ * Get shipping label dimensions based on device category
+ */
+export function getLabelDimensions(deviceType: string): [number, number] {
+  const deviceLower = deviceType.toLowerCase();
+
+  // Cell phones (small devices)
+  if (deviceLower.includes('iphone') || deviceLower.includes('phone') ||
+      deviceLower.includes('android') || deviceLower.includes('samsung') ||
+      deviceLower.includes('pixel') || deviceLower.includes('cell')) {
+    return [4, 6]; // 4x6 inches
+  }
+
+  // Laptops and tablets (medium devices)
+  if (deviceLower.includes('macbook') || deviceLower.includes('laptop') ||
+      deviceLower.includes('ipad') || deviceLower.includes('tablet') ||
+      deviceLower.includes('surface') || deviceLower.includes('chromebook')) {
+    return [6, 9]; // 6x9 inches
+  }
+
+  // Gaming consoles (large devices)
+  if (deviceLower.includes('playstation') || deviceLower.includes('ps4') ||
+      deviceLower.includes('ps5') || deviceLower.includes('xbox') ||
+      deviceLower.includes('nintendo') || deviceLower.includes('switch') ||
+      deviceLower.includes('console')) {
+    return [8, 11]; // 8x11 inches
+  }
+
+  // Default to small size for unknown devices
+  return [4, 6];
+}
+
+/**
+ * Get package dimensions and weight based on device category
+ */
+export function getPackageDimensions(deviceType: string): { length: number; width: number; height: number; weight: number } {
+  const deviceLower = deviceType.toLowerCase();
+
+  // Cell phones (small box: 6x4x2 inches, ~1 lb with padding)
+  if (deviceLower.includes('iphone') || deviceLower.includes('phone') ||
+      deviceLower.includes('android') || deviceLower.includes('samsung') ||
+      deviceLower.includes('pixel') || deviceLower.includes('cell')) {
+    return { length: 6, width: 4, height: 2, weight: 1 };
+  }
+
+  // Laptops and tablets (medium box: 16x12x4 inches, ~3 lbs with padding)
+  if (deviceLower.includes('macbook') || deviceLower.includes('laptop') ||
+      deviceLower.includes('ipad') || deviceLower.includes('tablet') ||
+      deviceLower.includes('surface') || deviceLower.includes('chromebook')) {
+    return { length: 16, width: 12, height: 4, weight: 3 };
+  }
+
+  // Gaming consoles (large box: 18x14x8 inches, ~5 lbs with padding)
+  if (deviceLower.includes('playstation') || deviceLower.includes('ps4') ||
+      deviceLower.includes('ps5') || deviceLower.includes('xbox') ||
+      deviceLower.includes('nintendo') || deviceLower.includes('switch') ||
+      deviceLower.includes('console')) {
+    return { length: 18, width: 14, height: 8, weight: 5 };
+  }
+
+  // Default to small dimensions for unknown devices
+  return { length: 6, width: 4, height: 2, weight: 1 };
+}
+
+/**
+ * Generate a shipping label PDF using React PDF
  */
 export async function generateShippingLabel(data: ShippingLabelData): Promise<Buffer> {
-  const doc = new jsPDF({
-    orientation: 'portrait',
-    unit: 'in',
-    format: [4, 6] // 4x6 inch shipping label
-  });
-
-  // Set up fonts and colors
-  doc.setFont('helvetica', 'bold');
-
-  // Header
-  doc.setFontSize(16);
-  doc.setTextColor(38, 139, 210); // Solarized blue
-  doc.text('DASH FIXES', 0.25, 0.4);
-
-  doc.setFontSize(10);
-  doc.setTextColor(0, 0, 0);
-  doc.text('Expert Tech Repair Service', 0.25, 0.6);
-
-  // Service Number
-  doc.setFontSize(12);
-  doc.setTextColor(220, 50, 47); // Solarized red
-  doc.text(`Service #${data.serviceNumber}`, 0.25, 0.8);
-
-  // Tracking Number
-  doc.setFontSize(10);
-  doc.setTextColor(0, 0, 0);
-  doc.text(`Tracking: ${data.trackingNumber}`, 0.25, 0.95);
-
-  // From Address (Customer)
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'bold');
-  doc.text('FROM:', 0.25, 1.2);
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
-  doc.text(data.fromAddress.name, 0.25, 1.35);
-  doc.text(data.fromAddress.street1, 0.25, 1.45);
-  doc.text(`${data.fromAddress.city}, ${data.fromAddress.state} ${data.fromAddress.zip}`, 0.25, 1.55);
-
-  // To Address (Dash Fixes)
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'bold');
-  doc.text('TO:', 0.25, 1.8);
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
-  doc.text(data.toAddress.name, 0.25, 1.95);
-  doc.text(data.toAddress.street1, 0.25, 2.05);
-  doc.text(`${data.toAddress.city}, ${data.toAddress.state} ${data.toAddress.zip}`, 0.25, 2.15);
-
-  // Device Info
-  doc.setFontSize(10);
-  doc.setFont('helvetica', 'bold');
-  doc.text('DEVICE:', 0.25, 2.4);
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8);
-  doc.text(data.deviceType, 0.25, 2.5);
-  doc.text(`Issue: ${data.issue.substring(0, 40)}${data.issue.length > 40 ? '...' : ''}`, 0.25, 2.6);
-
-  // Instructions
-  doc.setFontSize(8);
-  doc.setTextColor(101, 123, 131); // Solarized dark gray
-  doc.text('IMPORTANT: Package securely with', 0.25, 2.8);
-  doc.text('at least 2" padding on all sides.', 0.25, 2.9);
-  doc.text('Include device only - no chargers.', 0.25, 3.0);
-
-  // Footer
-  doc.setFontSize(6);
-  doc.setTextColor(88, 110, 117);
-  doc.text('www.dashfixes.com | (626) 622-0196', 0.25, 3.2);
-
-  // Return as buffer
-  return Buffer.from(doc.output('arraybuffer'));
+  const [width, height] = getLabelDimensions(data.deviceType);
+  return await generateShippingLabelPDF(data, width, height);
 }
 
 /**
@@ -114,6 +115,8 @@ export function generateTrackingNumber(): string {
  * Create shipping label data from service request
  */
 export function createShippingLabelData(serviceRequest: any): ShippingLabelData {
+  const deviceType = serviceRequest.deviceType || 'Unknown Device';
+
   return {
     serviceNumber: serviceRequest.serviceNumber,
     customerName: serviceRequest.customerName,
@@ -134,7 +137,8 @@ export function createShippingLabelData(serviceRequest: any): ShippingLabelData 
     },
     trackingNumber: generateTrackingNumber(),
     shippingCost: 9.99,
-    deviceType: serviceRequest.deviceType,
+    deviceType: deviceType,
     issue: serviceRequest.issue || 'Device repair',
+    packageDimensions: getPackageDimensions(deviceType),
   };
 }
