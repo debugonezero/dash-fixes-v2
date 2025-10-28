@@ -20,14 +20,23 @@ if (!stripePublishableKey && process.env.NODE_ENV === 'production') {
 // Load Stripe.js
 export const stripePromise = loadStripe(finalStripeKey);
 
-// Initialize Prisma client
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined;
-};
+// Initialize Prisma client (only if DATABASE_URL is configured)
+let prisma: PrismaClient | null = null;
 
-export const prisma = globalForPrisma.prisma ?? new PrismaClient();
+if (process.env.DATABASE_URL) {
+  try {
+    const globalForPrisma = globalThis as unknown as {
+      prisma: PrismaClient | undefined;
+    };
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+    prisma = globalForPrisma.prisma ?? new PrismaClient();
+
+    if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+  } catch (error) {
+    console.warn('Database not configured, using in-memory storage:', error);
+    prisma = null;
+  }
+}
 
 // Stripe configuration
 export const STRIPE_CONFIG = {

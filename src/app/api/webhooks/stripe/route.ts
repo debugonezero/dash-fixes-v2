@@ -55,11 +55,20 @@ export async function POST(request: NextRequest) {
 
         // Update service request status
         const serviceRequestId = paymentIntent.metadata.serviceRequestId;
+        console.log('🔍 Service Request ID from metadata:', serviceRequestId);
+
         if (serviceRequestId) {
           // Get service request details for shipping
+          console.log('🗄️ Looking up service request in database...');
           const serviceRequest = await db.getServiceRequest(serviceRequestId);
+          console.log('📋 Service request found:', !!serviceRequest);
 
           if (serviceRequest) {
+            console.log('👤 Customer details:', {
+              name: serviceRequest.customerName,
+              email: serviceRequest.customerEmail,
+              device: serviceRequest.deviceType
+            });
             // Generate shipping label (PDF)
             try {
               console.log('📦 Starting shipping label generation...');
@@ -91,9 +100,12 @@ export async function POST(request: NextRequest) {
               console.log(`📮 Tracking: ${labelData.trackingNumber}, Label: ${labelUrl}`);
 
               // Send email with shipping label
+              console.log('📧 Starting email sending process...');
               try {
                 const { sendShippingLabelEmail } = await import('../../../lib/email');
+                console.log('📧 Email service imported successfully');
 
+                console.log('📧 Sending email with PDF attachment to:', serviceRequest.customerEmail);
                 await sendShippingLabelEmail({
                   customerName: serviceRequest.customerName,
                   customerEmail: serviceRequest.customerEmail,
@@ -104,10 +116,15 @@ export async function POST(request: NextRequest) {
                   issue: serviceRequest.issueDescription || 'Device repair',
                 });
 
-                console.log('📧 Shipping label email sent successfully to:', serviceRequest.customerEmail);
+                console.log('✅ Shipping label email sent successfully to:', serviceRequest.customerEmail);
 
               } catch (emailError) {
                 console.error('❌ Failed to send shipping label email:', emailError);
+                console.error('❌ Email error details:', {
+                  customerEmail: serviceRequest.customerEmail,
+                  serviceNumber: serviceRequest.serviceNumber,
+                  error: emailError instanceof Error ? emailError.message : 'Unknown email error'
+                });
                 // Don't fail the webhook for email errors - customer can still get label from tracking page
               }
 
