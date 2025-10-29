@@ -13,7 +13,7 @@ const webhookPayload = {
       "currency": "usd",
       "status": "succeeded",
       "metadata": {
-        "serviceRequestId": "TEST123456"
+        "serviceRequestId": "test-1234567890" // Use a real ID from your database
       }
     }
   },

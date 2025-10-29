@@ -47,8 +47,15 @@ export async function POST(request: NextRequest) {
         // Get service request
         console.log('🗄️ Fetching service request from database...');
         console.log('🔍 Looking for ID:', serviceRequestId);
-        const serviceRequest = await db.getServiceRequest(serviceRequestId);
-        console.log('📋 Service request result:', serviceRequest ? 'Found' : 'Not found');
+
+        let serviceRequest;
+        try {
+          serviceRequest = await db.getServiceRequest(serviceRequestId);
+          console.log('📋 Service request result:', serviceRequest ? 'Found' : 'Not found');
+        } catch (dbError) {
+          console.error('❌ Database query failed:', dbError);
+          throw new Error(`Database error: ${dbError instanceof Error ? dbError.message : 'Unknown DB error'}`);
+        }
 
         if (!serviceRequest) {
           console.error('❌ Service request not found:', serviceRequestId);
@@ -82,8 +89,14 @@ export async function POST(request: NextRequest) {
         const { createShippingLabel } = await import('../../../lib/shippo');
         console.log('📦 Shippo function imported');
 
-        const labelResult = await createShippingLabel(fromAddress, 'usps_priority');
-        console.log('📦 Label result:', labelResult ? 'Success' : 'Failed');
+        let labelResult;
+        try {
+          labelResult = await createShippingLabel(fromAddress, 'usps_priority');
+          console.log('📦 Label result:', labelResult ? 'Success' : 'Failed');
+        } catch (shippoError) {
+          console.error('❌ Shippo API failed:', shippoError);
+          throw new Error(`Shippo error: ${shippoError instanceof Error ? shippoError.message : 'Unknown Shippo error'}`);
+        }
 
         if (!labelResult.label_url || !labelResult.tracking_number) {
           throw new Error('Invalid shipping label data from Shippo');
@@ -93,45 +106,57 @@ export async function POST(request: NextRequest) {
 
         // Update database
         console.log('💾 Updating database...');
-        await db.updateServiceRequest(serviceRequestId, {
-          paymentStatus: 'paid',
-          status: 'SHIPPING_LABEL_GENERATED',
-          stripePaymentId: paymentIntent.id,
-          shippingLabelUrl: labelResult.label_url,
-          trackingNumber: labelResult.tracking_number,
-          shippingCost: parseFloat(labelResult.rate.amount),
-          shippingProvider: labelResult.rate.service,
-          updatedAt: new Date(),
-        });
+        try {
+          await db.updateServiceRequest(serviceRequestId, {
+            paymentStatus: 'paid',
+            status: 'SHIPPING_LABEL_GENERATED',
+            stripePaymentId: paymentIntent.id,
+            shippingLabelUrl: labelResult.label_url,
+            trackingNumber: labelResult.tracking_number,
+            shippingCost: parseFloat(labelResult.rate.amount),
+            shippingProvider: labelResult.rate.service,
+            updatedAt: new Date(),
+          });
+          console.log('✅ Database updated successfully');
+        } catch (updateError) {
+          console.error('❌ Database update failed:', updateError);
+          throw new Error(`Database update error: ${updateError instanceof Error ? updateError.message : 'Unknown update error'}`);
+        }
 
         // Send email
         console.log('📧 Sending email...');
-        const { sendShippingLabelEmail } = await import('../../../lib/email');
+        try {
+          const { sendShippingLabelEmail } = await import('../../../lib/email');
 
-        let pdfBuffer: Buffer;
-        if (labelResult.label_url.includes('shippo-test-label.example.com')) {
-          // Test mode: use custom PDF
-          console.log('🧪 Using custom PDF for test mode');
-          const { generateShippingLabel, createShippingLabelData } = await import('../../../lib/shipping-label');
-          const labelData = createShippingLabelData(serviceRequest);
-          pdfBuffer = await generateShippingLabel(labelData);
-        } else {
-          // Production: fetch real PDF
-          console.log('🏷️ Fetching real PDF from Shippo');
-          const response = await fetch(labelResult.label_url);
-          if (!response.ok) throw new Error(`Failed to fetch PDF: ${response.status}`);
-          pdfBuffer = Buffer.from(await response.arrayBuffer());
+          let pdfBuffer: Buffer;
+          if (labelResult.label_url.includes('shippo-test-label.example.com')) {
+            // Test mode: use custom PDF
+            console.log('🧪 Using custom PDF for test mode');
+            const { generateShippingLabel, createShippingLabelData } = await import('../../../lib/shipping-label');
+            const labelData = createShippingLabelData(serviceRequest);
+            pdfBuffer = await generateShippingLabel(labelData);
+          } else {
+            // Production: fetch real PDF
+            console.log('🏷️ Fetching real PDF from Shippo');
+            const response = await fetch(labelResult.label_url);
+            if (!response.ok) throw new Error(`Failed to fetch PDF: ${response.status}`);
+            pdfBuffer = Buffer.from(await response.arrayBuffer());
+          }
+
+          await sendShippingLabelEmail({
+            customerName: serviceRequest.customer_name,
+            customerEmail: serviceRequest.customer_email,
+            serviceNumber: serviceRequest.service_number,
+            trackingNumber: labelResult.tracking_number,
+            shippingLabelPdf: pdfBuffer,
+            deviceType: serviceRequest.device_type,
+            issue: serviceRequest.issue_description || 'Device repair',
+          });
+          console.log('✅ Email sent successfully');
+        } catch (emailError) {
+          console.error('❌ Email sending failed:', emailError);
+          throw new Error(`Email error: ${emailError instanceof Error ? emailError.message : 'Unknown email error'}`);
         }
-
-        await sendShippingLabelEmail({
-          customerName: serviceRequest.customer_name,
-          customerEmail: serviceRequest.customer_email,
-          serviceNumber: serviceRequest.service_number,
-          trackingNumber: labelResult.tracking_number,
-          shippingLabelPdf: pdfBuffer,
-          deviceType: serviceRequest.device_type,
-          issue: serviceRequest.issue_description || 'Device repair',
-        });
 
         console.log('✅ Webhook processing complete');
         break;
@@ -158,10 +183,21 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('💥 Webhook processing failed:', error);
+    console.error('💥 Error type:', typeof error);
+    console.error('💥 Error constructor:', error?.constructor?.name);
     console.error('💥 Error details:', error instanceof Error ? error.message : 'Non-Error object thrown');
+    console.error('💥 Full error object:', JSON.stringify(error, null, 2));
 
     // Return a more specific error message
-    const errorMessage = error instanceof Error ? error.message : 'Unknown webhook processing error';
+    let errorMessage = 'Unknown webhook processing error';
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === 'string') {
+      errorMessage = error;
+    } else if (error && typeof error === 'object') {
+      errorMessage = JSON.stringify(error);
+    }
+
     return NextResponse.json(
       {
         error: 'Webhook processing failed',
