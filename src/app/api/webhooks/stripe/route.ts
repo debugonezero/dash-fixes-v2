@@ -70,49 +70,68 @@ export async function POST(request: NextRequest) {
               email: serviceRequest.customerEmail,
               device: serviceRequest.deviceType
             });
-            // Generate shipping label (PDF)
+            // Generate REAL shipping label using Shippo
             try {
-              console.log('📦 Starting shipping label generation...');
+              console.log('📦 Starting REAL shipping label generation with Shippo...');
 
-              const { generateShippingLabel, createShippingLabelData } = await import('../../../lib/shipping-label');
-              const labelData = createShippingLabelData(serviceRequest);
-              const pdfBuffer = await generateShippingLabel(labelData);
+              const { createShippingLabel } = await import('../../../lib/shippo');
 
-              console.log('✅ Shipping label PDF generated successfully');
-              console.log('📮 Tracking number:', labelData.trackingNumber);
+              // Convert service request address to Shippo format
+              const fromAddress = {
+                name: serviceRequest.customerName,
+                street1: serviceRequest.shippingAddress.street1,
+                city: serviceRequest.shippingAddress.city,
+                state: serviceRequest.shippingAddress.state,
+                zip: serviceRequest.shippingAddress.zip,
+                country: 'US'
+              };
 
-              // Store PDF in a temporary location (in production, you'd upload to cloud storage)
-              // For now, we'll store the tracking info and send email with instructions
-              const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://dashfixes.com';
-              const labelUrl = `${baseUrl}/track/${serviceRequest.serviceNumber}`;
+              // Create real shipping label with Shippo
+              const labelResult = await createShippingLabel(fromAddress, 'usps_priority');
 
-              // Update service request with shipping info
+              if (!labelResult.label_url || !labelResult.tracking_number) {
+                throw new Error('Shippo did not return valid label URL or tracking number');
+              }
+
+              console.log('✅ REAL shipping label created successfully');
+              console.log('📮 Tracking number:', labelResult.tracking_number);
+              console.log('🏷️ Label URL:', labelResult.label_url);
+
+              // Update service request with REAL shipping info
               await db.updateServiceRequest(serviceRequestId, {
                 paymentStatus: 'paid',
                 status: 'SHIPPING_LABEL_GENERATED',
                 stripePaymentId: paymentIntent.id,
-                shippingLabelUrl: labelUrl,
-                trackingNumber: labelData.trackingNumber,
-                shippingCost: 9.99,
-                shippingProvider: 'USPS Priority',
+                shippingLabelUrl: labelResult.label_url, // Real label URL from Shippo
+                trackingNumber: labelResult.tracking_number, // Real tracking number
+                shippingCost: parseFloat(labelResult.rate.amount),
+                shippingProvider: labelResult.rate.service,
                 updatedAt: new Date(),
               });
 
-              console.log(`🎉 Payment succeeded and shipping label generated for service request ${serviceRequestId}`);
-              console.log(`📮 Tracking: ${labelData.trackingNumber}, Label: ${labelUrl}`);
+              console.log(`🎉 Payment succeeded and REAL shipping label generated for service request ${serviceRequestId}`);
+              console.log(`📮 Tracking: ${labelResult.tracking_number}, Label: ${labelResult.label_url}`);
 
-              // Send email with shipping label
+              // Send email with REAL shipping label
               console.log('📧 Starting email sending process...');
               try {
                 const { sendShippingLabelEmail } = await import('../../../lib/email');
                 console.log('📧 Email service imported successfully');
 
-                console.log('📧 Sending email with PDF attachment to:', serviceRequest.customerEmail);
+                console.log('📧 Sending email with REAL PDF attachment to:', serviceRequest.customerEmail);
+
+                // Fetch the real label PDF from Shippo URL
+                const labelResponse = await fetch(labelResult.label_url);
+                if (!labelResponse.ok) {
+                  throw new Error(`Failed to fetch label PDF: ${labelResponse.status}`);
+                }
+                const pdfBuffer = Buffer.from(await labelResponse.arrayBuffer());
+
                 await sendShippingLabelEmail({
                   customerName: serviceRequest.customerName,
                   customerEmail: serviceRequest.customerEmail,
                   serviceNumber: serviceRequest.serviceNumber,
-                  trackingNumber: labelData.trackingNumber,
+                  trackingNumber: labelResult.tracking_number,
                   shippingLabelPdf: pdfBuffer,
                   deviceType: serviceRequest.deviceType,
                   issue: serviceRequest.issueDescription || 'Device repair',
@@ -147,30 +166,59 @@ export async function POST(request: NextRequest) {
                 updatedAt: new Date(),
               });
 
-              // Send email without PDF attachment but with tracking info
-              console.log('📧 Sending email without PDF attachment due to generation error...');
-              try {
-                const { sendShippingLabelEmail } = await import('../../../lib/email');
-                // Create a minimal label data for email without PDF
-                const labelData = {
-                  trackingNumber: `DF${Date.now().toString(36).toUpperCase()}`,
-                  deviceType: serviceRequest.deviceType || 'Device',
-                  issue: serviceRequest.issueDescription || 'Device repair'
-                };
+               // FALLBACK: Generate custom PDF since Shippo failed
+               console.log('📦 FALLBACK: Generating custom PDF since Shippo failed...');
+               try {
+                 const { generateShippingLabel, createShippingLabelData } = await import('../../../lib/shipping-label');
+                 const labelData = createShippingLabelData(serviceRequest);
+                 const pdfBuffer = await generateShippingLabel(labelData);
 
-                await sendShippingLabelEmail({
-                  customerName: serviceRequest.customerName,
-                  customerEmail: serviceRequest.customerEmail,
-                  serviceNumber: serviceRequest.serviceNumber,
-                  trackingNumber: labelData.trackingNumber,
-                  shippingLabelPdf: Buffer.from(''), // Empty buffer since PDF failed
-                  deviceType: labelData.deviceType,
-                  issue: labelData.issue,
-                });
-                console.log('✅ Email sent without PDF attachment');
-              } catch (emailError) {
-                console.error('❌ Failed to send email even without PDF:', emailError);
-              }
+                 console.log('✅ Custom PDF generated as fallback');
+                 console.log('📮 Custom tracking number:', labelData.trackingNumber);
+
+                 // Update with custom label info
+                 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://dashfixes.com';
+                 const labelUrl = `${baseUrl}/track/${serviceRequest.serviceNumber}`;
+
+                 await db.updateServiceRequest(serviceRequestId, {
+                   shippingLabelUrl: labelUrl,
+                   trackingNumber: labelData.trackingNumber,
+                   shippingCost: 9.99,
+                   shippingProvider: 'USPS Priority (Custom)',
+                   updatedAt: new Date(),
+                 });
+
+                 // Send email with custom PDF
+                 const { sendShippingLabelEmail } = await import('../../../lib/email');
+                 await sendShippingLabelEmail({
+                   customerName: serviceRequest.customerName,
+                   customerEmail: serviceRequest.customerEmail,
+                   serviceNumber: serviceRequest.serviceNumber,
+                   trackingNumber: labelData.trackingNumber,
+                   shippingLabelPdf: pdfBuffer,
+                   deviceType: serviceRequest.deviceType,
+                   issue: serviceRequest.issueDescription || 'Device repair',
+                 });
+                 console.log('✅ Email sent with custom PDF attachment');
+               } catch (fallbackError) {
+                 console.error('❌ Fallback PDF generation also failed:', fallbackError);
+                 // Send email with no PDF at all
+                 try {
+                   const { sendShippingLabelEmail } = await import('../../../lib/email');
+                   await sendShippingLabelEmail({
+                     customerName: serviceRequest.customerName,
+                     customerEmail: serviceRequest.customerEmail,
+                     serviceNumber: serviceRequest.serviceNumber,
+                     trackingNumber: `SERVICE-${serviceRequest.serviceNumber}`,
+                     shippingLabelPdf: Buffer.from(''), // Empty buffer
+                     deviceType: serviceRequest.deviceType || 'Device',
+                     issue: serviceRequest.issueDescription || 'Device repair',
+                   });
+                   console.log('✅ Email sent with no PDF attachment');
+                 } catch (emailError) {
+                   console.error('❌ Failed to send any email:', emailError);
+                 }
+               }
             }
           }
         }
