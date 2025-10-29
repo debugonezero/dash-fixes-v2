@@ -1,9 +1,0 @@
-name = "dash-fixes-v2"
-compatibility_date = "2024-01-01"
-
-[build]
-command = "npx @cloudflare/next-on-pages@1"
-cwd = "."
-
-[build.upload]
-format = "service-worker"
