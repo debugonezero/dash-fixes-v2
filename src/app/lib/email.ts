@@ -31,9 +31,13 @@ export interface QuoteRequestEmailData {
   customerName: string;
   customerEmail: string;
   deviceType: string;
-  serviceType: string;
+  serviceType?: string;
   issueDescription: string;
-  shippingAddress: {
+  issue?: string;
+  quality?: string;
+  phone?: string;
+  estimatedPrice?: number;
+  shippingAddress?: {
     street1: string;
     city: string;
     state: string;
@@ -98,19 +102,30 @@ export async function sendQuoteRequestEmail(data: QuoteRequestEmailData): Promis
           <h2>Customer Information</h2>
           <p><strong>Name:</strong> ${data.customerName}</p>
           <p><strong>Email:</strong> ${data.customerEmail}</p>
+          ${data.phone ? `<p><strong>Phone:</strong> ${data.phone}</p>` : ''}
 
           <h2>Device Information</h2>
           <p><strong>Device Type:</strong> ${data.deviceType}</p>
-          <p><strong>Service Type:</strong> ${data.serviceType}</p>
-          <p><strong>Issue Description:</strong></p>
+          ${data.issue ? `<p><strong>Issue:</strong> ${data.issue}</p>` : ''}
+          ${data.quality ? `<p><strong>Part Quality:</strong> ${data.quality}</p>` : ''}
+          ${data.serviceType ? `<p><strong>Service Type:</strong> ${data.serviceType}</p>` : ''}
+          <p><strong>Description:</strong></p>
           <p>${data.issueDescription.replace(/\n/g, '<br>')}</p>
 
+          ${data.estimatedPrice ? `
+          <h2>Estimated Price</h2>
+          <p style="font-size: 18px; font-weight: bold; color: #059669;">$${data.estimatedPrice}</p>
+          <p style="color: #6b7280; font-size: 14px;">This is an automated estimate based on part quality selection. Please verify with current pricing.</p>
+          ` : ''}
+
+          ${data.shippingAddress ? `
           <h2>Shipping Address</h2>
           <p>${data.shippingAddress.street1}<br>
           ${data.shippingAddress.city}, ${data.shippingAddress.state} ${data.shippingAddress.zip}</p>
+          ` : ''}
 
           <div style="background-color: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 8px; padding: 20px; margin: 20px 0;">
-            <p>Please review this quote request and respond to the customer with pricing and next steps.</p>
+            <p>Please review this quote request and respond to the customer with final pricing and next steps.</p>
           </div>
         </div>
       `,

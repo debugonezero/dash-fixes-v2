@@ -71,12 +71,26 @@ export default function QuoteRequestPage() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Here you would send the quote request
-    // For now, just simulate submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch('/api/quote-request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    setSubmitted(true);
-    setIsSubmitting(false);
+      if (!response.ok) {
+        throw new Error('Failed to send quote request');
+      }
+
+      setSubmitted(true);
+    } catch (error) {
+      console.error('Error sending quote request:', error);
+      alert('Failed to send quote request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
