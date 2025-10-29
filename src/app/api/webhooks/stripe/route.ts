@@ -1,7 +1,6 @@
 // Note: This route requires Node.js runtime for PDF generation
-// For Cloudflare deployment, consider using Cloudflare Workers with Node.js compatibility
-// or deploy this route separately
-export const runtime = 'nodejs';
+// For Cloudflare deployment, using edge runtime - may need Node.js compatibility
+export const runtime = 'edge';
 
 import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
