@@ -120,18 +120,18 @@ export const db = {
     const serviceNumber = generateServiceNumber();
     const supabase = await getSupabase();
     const { data: request, error } = await supabase!
-      .from('repairs')
+      .from('service_requests')
       .insert({
         service_number: serviceNumber,
         device_type: mapDeviceType(data.deviceType),
-        service_needed: mapServiceType(data.serviceType),
-        device_model: 'Unknown', // We'll need to add this to the form
+        service_type: mapServiceType(data.serviceType),
         issue_description: data.issueDescription,
         customer_name: data.customerName,
         customer_email: data.customerEmail,
         shipping_address: data.shippingAddress,
-        diagnostic_fee: data.paymentAmount,
-        status: 'quote_requested',
+        payment_amount: data.paymentAmount,
+        payment_status: data.paymentStatus || 'pending',
+        status: 'PENDING',
       })
       .select()
       .single();
@@ -143,7 +143,7 @@ export const db = {
   findServiceRequest: async (serviceNumber: string) => {
     const supabase = await getSupabase();
     const { data, error } = await supabase!
-      .from('repairs')
+      .from('service_requests')
       .select('*')
       .eq('service_number', serviceNumber)
       .single();
@@ -155,7 +155,7 @@ export const db = {
   getServiceRequest: async (id: string) => {
     const supabase = await getSupabase();
     const { data, error } = await supabase!
-      .from('repairs')
+      .from('service_requests')
       .select('*')
       .eq('id', id)
       .single();
@@ -177,19 +177,19 @@ export const db = {
   }>) => {
     const updateData: any = {};
 
-    if (updates.paymentStatus) updateData.payment_id = updates.stripePaymentId; // Different column name
+    if (updates.paymentStatus) updateData.payment_status = updates.paymentStatus;
     if (updates.status) updateData.status = updates.status;
-    if (updates.stripePaymentId) updateData.payment_id = updates.stripePaymentId;
+    if (updates.stripePaymentId) updateData.stripe_payment_id = updates.stripePaymentId;
     if (updates.shippingLabelUrl) updateData.shipping_label_url = updates.shippingLabelUrl;
     if (updates.trackingNumber) updateData.tracking_number = updates.trackingNumber;
-    if (updates.shippingCost) updateData.final_cost = updates.shippingCost; // Different column name
+    if (updates.shippingCost) updateData.shipping_cost = updates.shippingCost;
     if (updates.shippingProvider) updateData.shipping_provider = updates.shippingProvider;
     if (updates.updatedAt) updateData.updated_at = updates.updatedAt;
     if (updates.completedAt) updateData.completed_at = updates.completedAt;
 
     const supabase = await getSupabase();
     const { data, error } = await supabase!
-      .from('repairs')
+      .from('service_requests')
       .update(updateData)
       .eq('id', id)
       .select()
@@ -202,7 +202,7 @@ export const db = {
   getAllRequests: async () => {
     const supabase = await getSupabase();
     const { data, error } = await supabase!
-      .from('repairs')
+      .from('service_requests')
       .select('*')
       .order('created_at', { ascending: false });
 

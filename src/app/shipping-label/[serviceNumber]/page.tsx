@@ -25,8 +25,8 @@ export default async function ShippingLabelPage({ params }: PageProps) {
     notFound();
   }
 
-  // Check if payment was successful
-  if (request.payment_status !== 'paid') {
+  // Check if submission was successful (paid or completed for free submissions)
+  if (request.payment_status !== 'paid' && request.payment_status !== 'completed') {
     return (
       <div className="min-h-screen bg-solarized-light dark:bg-solarized-dark flex items-center justify-center">
         <div className="text-center">
