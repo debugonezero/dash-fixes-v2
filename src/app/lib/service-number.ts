@@ -1,43 +1,40 @@
 /**
  * Generate a unique service request number
- * Format: Simple 8-character alphanumeric code (e.g., "A1B2C3D4")
- * Similar to airline reservation codes - easy to type and remember
+ * Format: Simple 6-digit numeric code (e.g., "123456")
+ * Easy to type and remember for customers
  */
 export function generateServiceNumber(): string {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Removed confusing chars like 0,O,I,1
   let result = '';
-
-  for (let i = 0; i < 8; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  for (let i = 0; i < 6; i++) {
+    result += Math.floor(Math.random() * 10).toString();
   }
-
   return result;
 }
 
 /**
  * Validate service number format
- * 8-character alphanumeric code using safe characters
+ * 6-digit numeric code
  */
 export function isValidServiceNumber(serviceNumber: string): boolean {
   if (!serviceNumber || typeof serviceNumber !== 'string') {
     return false;
   }
 
-  // Remove spaces and convert to uppercase for validation
-  const cleanNumber = serviceNumber.replace(/\s/g, '').toUpperCase();
+  // Remove spaces for validation
+  const cleanNumber = serviceNumber.replace(/\s/g, '');
 
   // Check length
-  if (cleanNumber.length !== 8) {
+  if (cleanNumber.length !== 6) {
     return false;
   }
 
-  // Check pattern (letters A-H, J-K, M-N, P-Z and numbers 2-9)
-  const pattern = /^[A-HJ-KMNP-Z2-9]{8}$/;
+  // Check pattern (exactly 6 digits)
+  const pattern = /^\d{6}$/;
   return pattern.test(cleanNumber);
 }
 
 /**
- * Normalize service number (convert to uppercase, remove spaces and invalid chars)
+ * Normalize service number (remove spaces and invalid chars)
  */
 export function normalizeServiceNumber(serviceNumber: string): string {
   if (!serviceNumber || typeof serviceNumber !== 'string') {
@@ -45,9 +42,8 @@ export function normalizeServiceNumber(serviceNumber: string): string {
   }
 
   return serviceNumber
-    .toUpperCase()
-    .replace(/[^A-HJ-KMNP-Z2-9]/g, '') // Remove spaces and invalid characters
-    .slice(0, 8); // Limit to 8 characters
+    .replace(/[^\d]/g, '') // Remove non-digits
+    .slice(0, 6); // Limit to 6 digits
 }
 
 /**
@@ -55,6 +51,6 @@ export function normalizeServiceNumber(serviceNumber: string): string {
  */
 export function formatServiceNumber(serviceNumber: string): string {
   const normalized = normalizeServiceNumber(serviceNumber);
-  // Add spaces for readability: ABCD EFGH
-  return normalized.replace(/(.{4})(.{4})/, '$1 $2');
+  // Format as XXX-XXX for readability
+  return normalized.replace(/(\d{3})(\d{3})/, '$1-$2');
 }

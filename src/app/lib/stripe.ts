@@ -1,4 +1,5 @@
 import { loadStripe } from '@stripe/stripe-js';
+import { generateServiceNumber } from './service-number';
 
 // Initialize Stripe with your publishable key
 const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
@@ -61,15 +62,7 @@ export const REPAIR_PRICING: {
   }
 };
 
-// Generate service number
-function generateServiceNumber(): string {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let result = '';
-  for (let i = 0; i < 8; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return result;
-}
+
 
 // Map form device types to database enums
 function mapDeviceType(formType: string): string {
