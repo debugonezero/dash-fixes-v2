@@ -9,6 +9,32 @@ import {
 } from "lucide-react";
 import CallToAction from "../CallToAction";
 
+export const metadata = {
+  title: "Mail-in Tech Repair Service | Free Shipping & Quotes | Dash Fixes",
+  description: "Professional mail-in repair service for iPhones, MacBooks, and gaming consoles. Free pre-paid shipping labels, 3-5 day turnaround, nationwide service. Get your free quote today!",
+  keywords: "mail in repair, shipping repair, nationwide repair service, free shipping repair, iPhone mail repair, MacBook mail repair, laptop mail repair, game console mail repair",
+  openGraph: {
+    title: "Mail-in Tech Repair Service | Free Shipping & Quotes | Dash Fixes",
+    description: "Professional mail-in repair service for iPhones, MacBooks, and gaming consoles. Free pre-paid shipping labels, 3-5 day turnaround, nationwide service.",
+    url: "https://www.dashfixes.com/mail-in-repair",
+    type: "website",
+    images: [
+      {
+        url: "/graphics/logo.svg",
+        width: 1200,
+        height: 630,
+        alt: "Dash Fixes Mail-in Repair Service",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mail-in Tech Repair Service | Free Shipping & Quotes",
+    description: "Professional mail-in repair service with free shipping. Get your device repaired anywhere in the US.",
+    images: ["/graphics/logo.svg"],
+  },
+};
+
 const MailInRepairPage = () => {
   return (
     <div className="bg-white dark:bg-solarized-dark min-h-screen">

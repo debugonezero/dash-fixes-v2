@@ -3,6 +3,23 @@ import Link from "next/link";
 import AnimationWrapper from "../AnimationWrapper";
 import { Recycle, Handshake } from "lucide-react";
 
+export const metadata = {
+  title: "About Dash Fixes | Sustainable Tech Repair Experts",
+  description: "Learn about Dash Fixes, your trusted campus tech repair experts. We provide sustainable, professional repair services for iPhones, MacBooks, and gaming consoles with a focus on reducing e-waste.",
+  keywords: "about Dash Fixes, tech repair company, sustainable repairs, Pasadena tech repair, campus repair service, e-waste reduction",
+  openGraph: {
+    title: "About Dash Fixes | Sustainable Tech Repair Experts",
+    description: "Learn about Dash Fixes, your trusted campus tech repair experts providing sustainable repair services for iPhones, MacBooks, and gaming consoles.",
+    url: "https://www.dashfixes.com/about",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "About Dash Fixes | Sustainable Tech Repair Experts",
+    description: "Learn about Dash Fixes, your trusted campus tech repair experts providing sustainable repair services.",
+  },
+};
+
 const AboutPage = () => {
   return (
     <div className="bg-white dark:bg-solarized-dark min-h-screen">

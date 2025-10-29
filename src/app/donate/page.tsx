@@ -2,6 +2,23 @@ import DonationForm from "../mail-in-repair/DonationForm";
 import AnimationWrapper from "../AnimationWrapper";
 import { ShieldHalf, Check, X } from "lucide-react";
 
+export const metadata = {
+  title: "Donate Your Old Tech | Help Reduce E-Waste | Dash Fixes",
+  description: "Donate your old electronics to Dash Fixes. Your donated devices provide parts for repairs and help reduce e-waste. Free pickup available in Pasadena area.",
+  keywords: "donate electronics, e-waste reduction, tech donation, electronics recycling, old phone donation, Pasadena donation pickup",
+  openGraph: {
+    title: "Donate Your Old Tech | Help Reduce E-Waste | Dash Fixes",
+    description: "Donate your old electronics to Dash Fixes. Your donated devices provide parts for repairs and help reduce e-waste.",
+    url: "https://www.dashfixes.com/donate",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Donate Your Old Tech | Help Reduce E-Waste",
+    description: "Donate your old electronics to Dash Fixes and help reduce e-waste.",
+  },
+};
+
 const DonatePage = () => {
   return (
     <div className="bg-white dark:bg-solarized-dark min-h-screen">

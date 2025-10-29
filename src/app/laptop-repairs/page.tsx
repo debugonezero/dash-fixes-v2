@@ -3,6 +3,23 @@ import Testimonials from "../Testimonials";
 import { BugOff, MemoryStick, Keyboard, HardDrive } from "lucide-react";
 import AnimationWrapper from "../AnimationWrapper";
 
+export const metadata = {
+  title: "Laptop Repairs | MacBook & Windows Repair Services | Dash Fixes",
+  description: "Professional laptop repair services for MacBooks and Windows computers. Hardware upgrades, virus removal, screen repairs, keyboard replacements, and more. Fast service in Pasadena.",
+  keywords: "laptop repair, MacBook repair, Windows repair, hardware upgrade, virus removal, screen repair, keyboard repair, laptop repair Pasadena",
+  openGraph: {
+    title: "Laptop Repairs | MacBook & Windows Repair Services",
+    description: "Professional laptop repair services for MacBooks and Windows computers. Hardware upgrades, virus removal, and component repairs.",
+    url: "https://www.dashfixes.com/laptop-repairs",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Laptop Repairs | MacBook & Windows Repair Services",
+    description: "Professional laptop repair services for MacBooks and Windows computers in Pasadena.",
+  },
+};
+
 const LaptopRepairsPage = () => {
   const laptopServices = [
     {

@@ -2,6 +2,49 @@ import Link from "next/link";
 import Testimonials from "../Testimonials";
 import AnimationWrapper from "../AnimationWrapper";
 import { Smartphone } from "lucide-react";
+import Script from "next/script";
+
+export const metadata = {
+  title: "Phone Repairs | iPhone & Android Screen & Battery Repair | Dash Fixes",
+  description: "Professional phone repair services for iPhones and Android devices. Screen replacements, battery repairs, charging port fixes, and more. Fast, affordable service in Pasadena.",
+  keywords: "phone repair, iPhone repair, Android repair, screen replacement, battery replacement, charging port repair, phone repair Pasadena",
+  openGraph: {
+    title: "Phone Repairs | iPhone & Android Screen & Battery Repair",
+    description: "Professional phone repair services for iPhones and Android devices. Screen replacements, battery repairs, and charging port fixes.",
+    url: "https://www.dashfixes.com/phone-repairs",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Phone Repairs | iPhone & Android Repair Services",
+    description: "Professional phone repair services for iPhones and Android devices in Pasadena.",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.dashfixes.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Services",
+      "item": "https://www.dashfixes.com/services"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Phone Repairs",
+      "item": "https://www.dashfixes.com/phone-repairs"
+    }
+  ]
+};
 
 const PhoneRepairsPage = () => {
   const phoneServices = [
@@ -44,7 +87,15 @@ const PhoneRepairsPage = () => {
   ];
 
   return (
-    <div className="bg-white dark:bg-solarized-dark min-h-screen">
+    <>
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
+      <div className="bg-white dark:bg-solarized-dark min-h-screen">
       <section className="hero-bg py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <AnimationWrapper>
@@ -87,7 +138,8 @@ const PhoneRepairsPage = () => {
         </div>
       </section>
       <Testimonials />
-    </div>
+      </div>
+    </>
   );
 };
 

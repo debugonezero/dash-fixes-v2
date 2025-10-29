@@ -1,6 +1,23 @@
 import AnimationWrapper from "../AnimationWrapper";
 import { Smartphone } from "lucide-react";
 
+export const metadata = {
+  title: "iPhone Repair | Screen, Battery & Charging Port Repair | Dash Fixes",
+  description: "Expert iPhone repair services in Pasadena. Screen replacements, battery repairs, charging port fixes, and water damage recovery for all iPhone models. Fast, affordable service.",
+  keywords: "iPhone repair, iPhone screen repair, iPhone battery replacement, charging port repair, water damage repair, iPhone repair Pasadena, PCC iPhone repair",
+  openGraph: {
+    title: "iPhone Repair | Screen, Battery & Charging Port Repair",
+    description: "Expert iPhone repair services in Pasadena. Screen replacements, battery repairs, and charging port fixes for all iPhone models.",
+    url: "https://www.dashfixes.com/iphone-repair",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "iPhone Repair | Screen, Battery & Charging Port Repair",
+    description: "Expert iPhone repair services in Pasadena for all iPhone models.",
+  },
+};
+
 const IPhoneRepairPage = () => {
   return (
     <div className="bg-white dark:bg-solarized-dark min-h-screen">

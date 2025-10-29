@@ -3,6 +3,23 @@ import Testimonials from "../Testimonials";
 import { Plug, Fan, Gamepad, Disc3 } from "lucide-react";
 import AnimationWrapper from "../AnimationWrapper";
 
+export const metadata = {
+  title: "Game Console Repairs | PS5, Xbox, Nintendo Repair Services | Dash Fixes",
+  description: "Professional gaming console repair services for PS5, Xbox, Nintendo Switch, and more. HDMI port repairs, overheating fixes, controller repairs, and disc drive repairs. Fast service in Pasadena.",
+  keywords: "game console repair, PS5 repair, Xbox repair, Nintendo repair, HDMI port repair, overheating repair, controller repair, gaming console repair Pasadena",
+  openGraph: {
+    title: "Game Console Repairs | PS5, Xbox, Nintendo Repair Services",
+    description: "Professional gaming console repair services for PS5, Xbox, Nintendo Switch, and more. HDMI port repairs and overheating fixes.",
+    url: "https://www.dashfixes.com/game-console-repairs",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Game Console Repairs | PS5, Xbox, Nintendo Repair Services",
+    description: "Professional gaming console repair services for PS5, Xbox, Nintendo Switch, and more.",
+  },
+};
+
 const GameConsoleRepairsPage = () => {
   const consoleServices = [
     {

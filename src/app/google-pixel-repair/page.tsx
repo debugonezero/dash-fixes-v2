@@ -1,6 +1,23 @@
 import AnimationWrapper from "../AnimationWrapper";
 import { Smartphone } from "lucide-react";
 
+export const metadata = {
+  title: "Google Pixel Repair | Screen, Battery & Charging Port Repair | Dash Fixes",
+  description: "Expert Google Pixel repair services in Pasadena. Screen replacements, battery repairs, charging port fixes, and software issues for all Pixel models. Fast, affordable service.",
+  keywords: "Google Pixel repair, Pixel screen repair, Pixel battery replacement, charging port repair, Pixel repair Pasadena, PCC Pixel repair",
+  openGraph: {
+    title: "Google Pixel Repair | Screen, Battery & Charging Port Repair",
+    description: "Expert Google Pixel repair services in Pasadena. Screen replacements, battery repairs, and charging port fixes for all Pixel models.",
+    url: "https://www.dashfixes.com/google-pixel-repair",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Google Pixel Repair | Screen, Battery & Charging Port Repair",
+    description: "Expert Google Pixel repair services in Pasadena for all Pixel models.",
+  },
+};
+
 const GooglePixelRepairPage = () => {
   return (
     <div className="bg-white dark:bg-solarized-dark min-h-screen">

@@ -2,6 +2,23 @@ import AnimationWrapper from "../AnimationWrapper";
 import { CheckCircle, Mail, Phone, Clock } from "lucide-react";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Thank You | Quote Request Received | Dash Fixes",
+  description: "Thank you for your quote request. We've received your repair information and will get back to you within 24 hours with pricing and next steps.",
+  keywords: "thank you, quote received, repair request submitted, Dash Fixes confirmation",
+  openGraph: {
+    title: "Thank You | Quote Request Received | Dash Fixes",
+    description: "Thank you for your quote request. We've received your repair information and will get back to you within 24 hours.",
+    url: "https://www.dashfixes.com/thank-you",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Thank You | Quote Request Received",
+    description: "Thank you for your quote request. We've received your repair information.",
+  },
+};
+
 const ThankYouPage = () => {
   return (
     <div className="bg-white dark:bg-solarized-dark min-h-screen py-16 px-4 sm:px-6 lg:px-8">

@@ -2,6 +2,23 @@ import ContactForm from "../components/ContactForm";
 import { Phone, Mail, MessageCircle } from "lucide-react";
 import Testimonials from "../Testimonials";
 
+export const metadata = {
+  title: "Contact Dash Fixes | Tech Repair Support & Quotes",
+  description: "Get in touch with Dash Fixes for expert tech repair services. Contact us for quotes, support, or questions about iPhone, MacBook, and gaming console repairs in Pasadena.",
+  keywords: "contact Dash Fixes, tech repair support, repair quotes, Pasadena tech repair, iPhone repair contact, MacBook repair contact",
+  openGraph: {
+    title: "Contact Dash Fixes | Tech Repair Support & Quotes",
+    description: "Get in touch with Dash Fixes for expert tech repair services. Contact us for quotes, support, or questions about iPhone, MacBook, and gaming console repairs.",
+    url: "https://www.dashfixes.com/contact",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Contact Dash Fixes | Tech Repair Support",
+    description: "Get in touch with Dash Fixes for expert tech repair services and quotes.",
+  },
+};
+
 const WhyGetAQuote = () => (
   <div className="pt-8 md:pt-0">
     <h3 className="text-2xl font-heading font-bold mb-4 dark:text-solarized-light">

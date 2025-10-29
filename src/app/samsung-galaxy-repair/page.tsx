@@ -1,6 +1,23 @@
 import AnimationWrapper from "../AnimationWrapper";
 import { Smartphone } from "lucide-react";
 
+export const metadata = {
+  title: "Samsung Galaxy Repair | Screen, Battery & Charging Port Repair | Dash Fixes",
+  description: "Expert Samsung Galaxy repair services in Pasadena. Screen replacements, battery repairs, charging port fixes for Galaxy S, Note, and Fold models. Fast, affordable service.",
+  keywords: "Samsung Galaxy repair, Galaxy screen repair, Galaxy battery replacement, charging port repair, Samsung repair Pasadena, PCC Samsung repair",
+  openGraph: {
+    title: "Samsung Galaxy Repair | Screen, Battery & Charging Port Repair",
+    description: "Expert Samsung Galaxy repair services in Pasadena. Screen replacements, battery repairs, and charging port fixes for Galaxy S, Note, and Fold models.",
+    url: "https://www.dashfixes.com/samsung-galaxy-repair",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Samsung Galaxy Repair | Screen, Battery & Charging Port Repair",
+    description: "Expert Samsung Galaxy repair services in Pasadena for Galaxy S, Note, and Fold models.",
+  },
+};
+
 const SamsungGalaxyRepairPage = () => {
   return (
     <div className="bg-white dark:bg-solarized-dark min-h-screen">

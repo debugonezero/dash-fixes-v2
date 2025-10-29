@@ -1,6 +1,23 @@
 import Link from "next/link";
 import AnimationWrapper from "../AnimationWrapper";
 
+export const metadata = {
+  title: "Thank You | Payment Received - Shipping Label Sent | Dash Fixes",
+  description: "Thank you for your payment. Your shipping label has been emailed to you. Check your email for packaging instructions and tracking information.",
+  keywords: "thank you, payment received, shipping label, mail-in repair confirmation, Dash Fixes shipping",
+  openGraph: {
+    title: "Thank You | Payment Received - Shipping Label Sent",
+    description: "Thank you for your payment. Your shipping label has been emailed to you with packaging instructions.",
+    url: "https://www.dashfixes.com/mail-in-thank-you",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Thank You | Payment Received - Shipping Label Sent",
+    description: "Thank you for your payment. Your shipping label has been emailed to you.",
+  },
+};
+
 const ThankYouPage = () => {
   return (
     <section className="hero-bg flex-grow flex items-center justify-center text-center py-16 px-4 sm:px-6 lg:px-8">
