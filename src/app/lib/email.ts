@@ -112,10 +112,14 @@ export async function sendQuoteRequestEmail(data: QuoteRequestEmailData): Promis
           <p><strong>Description:</strong></p>
           <p>${data.issueDescription.replace(/\n/g, '<br>')}</p>
 
-          ${data.estimatedPrice ? `
+          ${data.estimatedPrice !== undefined ? `
           <h2>Estimated Price</h2>
-          <p style="font-size: 18px; font-weight: bold; color: #059669;">$${data.estimatedPrice}</p>
-          <p style="color: #6b7280; font-size: 14px;">This is an automated estimate based on part quality selection. Please verify with current pricing.</p>
+          ${data.estimatedPrice === 0 ?
+            `<p style="font-size: 18px; font-weight: bold; color: #dc2626;">Check chat for pricing</p>
+             <p style="color: #6b7280; font-size: 14px;">This repair requires custom pricing. Please contact us via chat for a personalized quote.</p>` :
+            `<p style="font-size: 18px; font-weight: bold; color: #059669;">$${data.estimatedPrice}</p>
+             <p style="color: #6b7280; font-size: 14px;">This is an automated estimate based on part quality selection. Please verify with current pricing.</p>`
+          }
           ` : ''}
 
           ${data.shippingAddress ? `
