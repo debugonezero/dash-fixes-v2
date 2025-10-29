@@ -13,6 +13,9 @@ const BlogPost = () => {
     <section className="section-spacing bg-solarized-light2 dark:bg-solarized-dark2">
       <div className="max-w-4xl mx-auto">
         <AnimationWrapper>
+          <nav className="mb-8 text-sm text-solarized-dark3 dark:text-solarized-light3">
+            <Link href="/" className="hover:text-solarized-blue">Home</Link> &gt; <Link href="/blog" className="hover:text-solarized-blue">Blog</Link> &gt; How Much Does Shipping Cost
+          </nav>
           <div className="mb-8">
             <Link href="/blog" className="inline-flex items-center text-solarized-blue hover:text-solarized-blue-dark transition">
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -116,7 +119,7 @@ const BlogPost = () => {
 
               <h2>Get Started Today</h2>
               <p>
-                Ready to get your device repaired? Our transparent shipping policy is just one way we make the process simple and stress-free. Contact us today to get started with your repair quote.
+                Ready to get your device repaired? Our transparent shipping policy is just one way we make the process simple and stress-free. <Link href="/services" className="text-solarized-blue hover:underline">View our services</Link> or <Link href="/contact" className="text-solarized-blue hover:underline">contact us</Link> today to get started with your repair quote.
               </p>
 
               <div className="mt-8 flex flex-col sm:flex-row gap-4">

@@ -10,8 +10,9 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Dash Fixes | Expert Tech Repairs in Pasadena",
-  description: "Professional iPhone, MacBook, and gaming console repairs. On-campus service at PCC & Caltech. Nationwide mail-in repairs with free shipping. Get your free quote today!",
-  keywords: "iPhone repair Pasadena, MacBook repair, laptop repair, game console repair, phone repair, tech repair California, PCC tech support, Caltech repairs",
+  description:
+    "Expert iPhone, MacBook, and gaming console repairs in Pasadena. On-campus service at PCC & Caltech. Nationwide mail-in repairs with free shipping and insured return. Get your free quote today!",
+  keywords: "iPhone repair Pasadena, MacBook repair, laptop repair, game console repair, phone repair, tech repair California, PCC tech support, Caltech repairs, mail-in repair, affordable tech repair, Pasadena CA, Samsung repair, Google Pixel repair",
   openGraph: {
     title: "Dash Fixes | Expert Tech Repairs in Pasadena",
     description: "Professional iPhone, MacBook, and gaming console repairs. On-campus service at PCC & Caltech. Nationwide mail-in repairs with free shipping.",
