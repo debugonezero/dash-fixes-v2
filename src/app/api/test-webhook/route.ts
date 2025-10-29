@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/app/lib/stripe';
 
+export const runtime = 'edge';
+
 export async function GET() {
   try {
     // Test database connection

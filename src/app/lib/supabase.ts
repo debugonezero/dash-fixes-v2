@@ -2,13 +2,21 @@ import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing required Supabase environment variables: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY')
+if (!supabaseUrl) {
+  throw new Error('Missing required Supabase environment variable: NEXT_PUBLIC_SUPABASE_URL')
+}
+
+// Use service role key for server-side operations if available, otherwise fall back to anon key
+const supabaseKey = supabaseServiceKey || supabaseAnonKey
+
+if (!supabaseKey) {
+  throw new Error('Missing Supabase authentication key. Need either SUPABASE_SERVICE_ROLE_KEY or NEXT_PUBLIC_SUPABASE_ANON_KEY')
 }
 
 // Create client with proper error handling
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+export const supabase = createClient(supabaseUrl, supabaseKey)
 
 // Database types (matching our Prisma schema)
 export interface ServiceRequest {
