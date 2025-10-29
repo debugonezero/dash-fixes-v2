@@ -1,5 +1,4 @@
 import { loadStripe } from '@stripe/stripe-js';
-import { supabase } from './supabase';
 
 // Initialize Stripe with your publishable key
 const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
@@ -100,6 +99,12 @@ function mapServiceType(formType: string): string {
   return mapping[formType] || 'other';
 }
 
+// Lazy import of supabase to avoid client-side issues
+const getSupabase = async () => {
+  const { supabase } = await import('./supabase');
+  return supabase;
+};
+
 // Supabase-based database functions
 export const db = {
   createServiceRequest: async (data: {
@@ -120,7 +125,8 @@ export const db = {
     status?: string;
   }) => {
     const serviceNumber = generateServiceNumber();
-    const { data: request, error } = await supabase
+    const supabase = await getSupabase();
+    const { data: request, error } = await supabase!
       .from('repairs')
       .insert({
         service_number: serviceNumber,
@@ -142,7 +148,8 @@ export const db = {
   },
 
   findServiceRequest: async (serviceNumber: string) => {
-    const { data, error } = await supabase
+    const supabase = await getSupabase();
+    const { data, error } = await supabase!
       .from('repairs')
       .select('*')
       .eq('service_number', serviceNumber)
@@ -153,7 +160,8 @@ export const db = {
   },
 
   getServiceRequest: async (id: string) => {
-    const { data, error } = await supabase
+    const supabase = await getSupabase();
+    const { data, error } = await supabase!
       .from('repairs')
       .select('*')
       .eq('id', id)
@@ -186,7 +194,8 @@ export const db = {
     if (updates.updatedAt) updateData.updated_at = updates.updatedAt;
     if (updates.completedAt) updateData.completed_at = updates.completedAt;
 
-    const { data, error } = await supabase
+    const supabase = await getSupabase();
+    const { data, error } = await supabase!
       .from('repairs')
       .update(updateData)
       .eq('id', id)
@@ -198,7 +207,8 @@ export const db = {
   },
 
   getAllRequests: async () => {
-    const { data, error } = await supabase
+    const supabase = await getSupabase();
+    const { data, error } = await supabase!
       .from('repairs')
       .select('*')
       .order('created_at', { ascending: false });
