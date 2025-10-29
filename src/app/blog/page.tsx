@@ -11,6 +11,14 @@ export const metadata: Metadata = {
 const BlogPage = () => {
   const posts = [
     {
+      title: "How Much Does Shipping Cost for Device Repairs?",
+      excerpt: "Learn about our affordable $9.99 flat-rate shipping, pre-paid labels, and insured nationwide coverage.",
+      date: "2024-10-30",
+      author: "Dash Fixes Team",
+      slug: "how-much-does-shipping-cost",
+      readTime: "4 min read",
+    },
+    {
       title: "How to Extend Your iPhone Battery Life",
       excerpt: "Simple tips to make your iPhone battery last longer and avoid premature replacement.",
       date: "2024-10-15",
