@@ -195,4 +195,5 @@ export async function createShippingLabel(
   }
 }
 
-export default { getShippingRates, createShippingLabel };
+const easyship = { getShippingRates, createShippingLabel };
+export default easyship;

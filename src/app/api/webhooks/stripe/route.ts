@@ -125,7 +125,7 @@ export async function POST(request: NextRequest) {
             stripePaymentId: paymentIntent.id,
             shippingLabelUrl: labelResult.label_url,
             trackingNumber: labelResult.tracking_number,
-            shippingCost: parseFloat(labelResult.rate.amount),
+            shippingCost: labelResult.rate.amount,
             shippingProvider: labelResult.rate.service,
             updatedAt: new Date(),
           });
