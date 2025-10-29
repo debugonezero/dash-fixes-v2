@@ -1,5 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { sendQuoteRequestEmail } from '@/app/lib/email';
+ import { NextRequest, NextResponse } from 'next/server';
+ import { sendQuoteRequestEmail } from '@/app/lib/email';
+
+ export const runtime = 'edge';
 
 export async function POST(request: NextRequest) {
   try {
