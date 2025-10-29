@@ -68,30 +68,8 @@ export default function RepairRequestForm() {
     setError('');
 
     try {
-      const response = await fetch('/api/create-payment-intent', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to create service request');
-      }
-
-      // Check if payment is required
-      if (data.skipPayment) {
-        // Skip payment, go directly to shipping instructions
-        window.location.href = `/shipping-label/${data.serviceNumber}`;
-        return;
-      }
-
-      setClientSecret(data.clientSecret);
-      setServiceNumber(data.serviceNumber);
-      setStep('payment');
+      // Just redirect to shipping instructions - no API call needed
+      window.location.href = '/shipping-instructions';
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {

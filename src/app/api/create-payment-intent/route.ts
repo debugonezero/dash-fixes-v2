@@ -11,8 +11,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_51ABC123def4
 });
 
 export async function POST(request: NextRequest) {
+  console.log('🔧 Create payment intent API called');
   try {
     const body = await request.json();
+    console.log('📨 Request body:', body);
     const {
       deviceType,
       serviceType,
@@ -24,12 +26,15 @@ export async function POST(request: NextRequest) {
 
     // Validate required fields
     if (!deviceType || !serviceType || !customerName || !customerEmail || !shippingAddress) {
+      console.log('❌ Missing required fields');
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
       );
     }
+    console.log('✅ Validation passed');
 
+    console.log('💾 Creating service request in database...');
     // Create service request in database (no payment required)
     const serviceRequest = await db.createServiceRequest({
       deviceType,
@@ -41,7 +46,9 @@ export async function POST(request: NextRequest) {
       paymentAmount: 0, // Free submission
       paymentStatus: 'completed', // No payment needed
     });
+    console.log('✅ Service request created:', serviceRequest);
 
+    console.log('📧 Sending shipping instructions email...');
     // Send shipping instructions email
     try {
       const { sendShippingInstructionsEmail } = await import('../../lib/email');

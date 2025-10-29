@@ -1,23 +1,9 @@
 export const runtime = 'edge';
 
-import { notFound } from 'next/navigation';
-import { db } from '@/app/lib/stripe';
-import { isValidServiceNumber, formatServiceNumber } from '@/app/lib/service-number';
 import AnimationWrapper from '@/app/AnimationWrapper';
 import { Package, Printer, MapPin, ExternalLink, CheckCircle } from 'lucide-react';
 
-interface PageProps {
-  params: Promise<{
-    serviceNumber: string;
-  }>;
-}
-
-export default async function ShippingLabelPage({ params }: PageProps) {
-  const { serviceNumber } = await params;
-
-  // For now, just show instructions regardless of service number
-  // We'll make this simpler
-
+export default function ShippingInstructionsPage() {
   return (
     <div className="min-h-screen bg-solarized-light dark:bg-solarized-dark">
       <div className="max-w-4xl mx-auto px-4 py-8">
@@ -27,10 +13,10 @@ export default async function ShippingLabelPage({ params }: PageProps) {
               <Package className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-solarized-dark3 dark:text-solarized-light">
-              Generate Your Shipping Label
+              Ship Your Device for Repair
             </h1>
             <p className="text-lg text-solarized-dark3 dark:text-solarized-light3 max-w-2xl mx-auto">
-              Your payment has been processed! Now let's get your device shipped to us for repair.
+              Thanks for your repair request! Here's how to ship your device to us.
             </p>
           </div>
         </AnimationWrapper>
@@ -41,7 +27,7 @@ export default async function ShippingLabelPage({ params }: PageProps) {
               {/* Instructions */}
               <div>
                 <h2 className="text-2xl font-bold mb-6 text-solarized-dark2 dark:text-solarized-light">
-                  How to Ship Your Device
+                  Shipping Steps
                 </h2>
 
                 <div className="space-y-4">
@@ -50,7 +36,7 @@ export default async function ShippingLabelPage({ params }: PageProps) {
                     <div>
                       <h3 className="font-semibold text-solarized-dark2 dark:text-solarized-light">Prepare Your Device</h3>
                       <p className="text-sm text-solarized-dark3 dark:text-solarized-light3 mt-1">
-                        Remove accessories and include your contact information
+                        Remove accessories and package securely
                       </p>
                     </div>
                   </div>
@@ -60,7 +46,7 @@ export default async function ShippingLabelPage({ params }: PageProps) {
                     <div>
                       <h3 className="font-semibold text-solarized-dark2 dark:text-solarized-light">Generate Label</h3>
                       <p className="text-sm text-solarized-dark3 dark:text-solarized-light3 mt-1">
-                        Click the button below to create your prepaid shipping label via USPS
+                        Click the button below to create your shipping label
                       </p>
                     </div>
                   </div>
@@ -80,7 +66,7 @@ export default async function ShippingLabelPage({ params }: PageProps) {
                     <div>
                       <h3 className="font-semibold text-solarized-dark2 dark:text-solarized-light">Drop Off</h3>
                       <p className="text-sm text-solarized-dark3 dark:text-solarized-light3 mt-1">
-                        Take to any USPS post office, blue mailbox, or authorized drop-off location
+                        Take to any USPS location or authorized drop-off
                       </p>
                     </div>
                   </div>
@@ -107,7 +93,7 @@ export default async function ShippingLabelPage({ params }: PageProps) {
                   <ul className="text-sm text-solarized-dark3 dark:text-solarized-light3 space-y-1">
                     <li>• Use Priority Mail for faster delivery (2-3 days)</li>
                     <li>• Insure valuable devices for peace of mind</li>
-                    <li>• Keep your service number visible on the package</li>
+                    <li>• Include a note with your contact info</li>
                   </ul>
                 </div>
 
@@ -149,7 +135,7 @@ export default async function ShippingLabelPage({ params }: PageProps) {
                 </div>
                 <h4 className="font-semibold text-solarized-dark2 dark:text-solarized-light mb-2">USPS Post Office</h4>
                 <p className="text-sm text-solarized-dark3 dark:text-solarized-light3">
-                  Take your device and label PDF to any USPS location. They'll print and apply the label for free.
+                  Take your device and label PDF to any USPS location. They'll print and apply for free.
                 </p>
               </div>
 
@@ -159,7 +145,7 @@ export default async function ShippingLabelPage({ params }: PageProps) {
                 </div>
                 <h4 className="font-semibold text-solarized-dark2 dark:text-solarized-light mb-2">Print Shops</h4>
                 <p className="text-sm text-solarized-dark3 dark:text-solarized-light3">
-                  FedEx Office, UPS Store, Staples, or Office Depot. Usually $1-2 to print shipping labels.
+                  FedEx Office, UPS Store, Staples (usually $1-2)
                 </p>
               </div>
 
@@ -169,22 +155,19 @@ export default async function ShippingLabelPage({ params }: PageProps) {
                 </div>
                 <h4 className="font-semibold text-solarized-dark2 dark:text-solarized-light mb-2">Grocery Stores</h4>
                 <p className="text-sm text-solarized-dark3 dark:text-solarized-light3">
-                  Many Walgreens, CVS, and Walmart locations have shipping label printing kiosks.
+                  Many Walgreens, CVS, Walmart have printing kiosks
                 </p>
               </div>
             </div>
           </div>
         </AnimationWrapper>
 
-        {/* Service Number Reminder */}
+        {/* Contact Info */}
         <AnimationWrapper delay={0.3}>
           <div className="text-center mt-8">
             <div className="bg-solarized-yellow bg-opacity-10 border border-solarized-yellow rounded-lg p-4 inline-block">
               <p className="text-solarized-dark2 dark:text-solarized-light font-semibold">
-                Remember to include your contact information with the device
-              </p>
-              <p className="text-sm text-solarized-dark3 dark:text-solarized-light3 mt-1">
-                This helps us match your device to your repair request
+                Questions? Contact us at (626) 622-0196 or reply to your confirmation email
               </p>
             </div>
           </div>
