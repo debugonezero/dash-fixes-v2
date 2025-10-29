@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const AnimationWrapper = ({
   children,
@@ -9,14 +9,23 @@ const AnimationWrapper = ({
   children: React.ReactNode;
   delay?: number;
 }) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), delay * 1000);
+    return () => clearTimeout(timer);
+  }, [delay]);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay }}
+    <div
+      className={`transition-all duration-500 ease-out ${
+        isVisible
+          ? 'opacity-100 translate-y-0'
+          : 'opacity-0 translate-y-5'
+      }`}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
 

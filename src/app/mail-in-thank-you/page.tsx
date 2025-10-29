@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AnimationWrapper from "../AnimationWrapper";
+import { Send, ExternalLink } from "lucide-react";
 
 export const metadata = {
   title: "Thank You | Payment Received - Shipping Label Sent | Dash Fixes",
@@ -23,7 +24,7 @@ const ThankYouPage = () => {
     <section className="hero-bg flex-grow flex items-center justify-center text-center py-16 px-4 sm:px-6 lg:px-8">
       <AnimationWrapper>
         <div className="w-24 h-24 mx-auto rounded-full bg-solarized-green bg-opacity-10 flex items-center justify-center mb-6">
-          <i className="fa-solid fa-paper-plane text-4xl text-solarized-green"></i>
+          <Send className="text-4xl text-solarized-green" />
         </div>
         <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4">
           Thank You!
@@ -57,7 +58,7 @@ const ThankYouPage = () => {
               className="px-6 py-3 border border-solarized-blue text-solarized-blue rounded-lg font-medium text-center hover:bg-solarized-blue hover:bg-opacity-10 transition"
             >
               Find a USPS Location{" "}
-              <i className="fa-solid fa-external-link-alt inline ml-2"></i>
+              <ExternalLink className="inline ml-2 w-4 h-4" />
             </a>
             <a
               href="https://www.ups.com/dropoff/"
@@ -66,7 +67,7 @@ const ThankYouPage = () => {
               className="px-6 py-3 border border-solarized-blue text-solarized-blue rounded-lg font-medium text-center hover:bg-solarized-blue hover:bg-opacity-10 transition"
             >
               Find a UPS Location{" "}
-              <i className="fa-solid fa-external-link-alt inline ml-2"></i>
+              <ExternalLink className="inline ml-2 w-4 h-4" />
             </a>
           </div>
         </div>

@@ -1,19 +1,26 @@
-import { loadStripe } from '@stripe/stripe-js';
 import { generateServiceNumber } from './service-number';
 
-// Initialize Stripe with your publishable key
-const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+// Client-side Stripe initialization (only load on client)
+let stripePromise: Promise<any> | null = null;
 
-// Validate Stripe key is configured
-if (!stripePublishableKey) {
-  throw new Error('NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable is required');
-}
+export const getStripePromise = async () => {
+  if (typeof window === 'undefined') {
+    return null; // Don't load on server
+  }
 
-// Use the configured key (should be test key for development, live key for production)
-const finalStripeKey = stripePublishableKey;
+  if (!stripePromise) {
+    const { loadStripe } = await import('@stripe/stripe-js');
+    const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 
-// Load Stripe.js
-export const stripePromise = loadStripe(finalStripeKey);
+    if (!stripePublishableKey) {
+      throw new Error('NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable is required');
+    }
+
+    stripePromise = loadStripe(stripePublishableKey);
+  }
+
+  return stripePromise;
+};
 
 // Stripe configuration
 export const STRIPE_CONFIG = {
@@ -94,8 +101,8 @@ function mapServiceType(formType: string): string {
 
 // Lazy import of supabase to avoid client-side issues
 const getSupabase = async () => {
-  const { supabase } = await import('./supabase');
-  return supabase;
+  const { getSupabaseClient } = await import('./supabase');
+  return await getSupabaseClient();
 };
 
 // Supabase-based database functions

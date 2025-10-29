@@ -1,12 +1,20 @@
-import { createClient } from '@supabase/supabase-js'
+// import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 
 // Create Supabase client - will be null on client-side
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const supabase = (typeof window === 'undefined' && supabaseServiceKey)
-  ? createClient(supabaseUrl!, supabaseServiceKey!)
-  : null;
+
+// Lazy initialize Supabase client to avoid build-time issues
+let supabase: any = null;
+
+const getSupabaseClient = async () => {
+  if (typeof window === 'undefined' && supabaseServiceKey && !supabase) {
+    const { createClient } = await import('@supabase/supabase-js');
+    supabase = createClient(supabaseUrl!, supabaseServiceKey!);
+  }
+  return supabase;
+};
 
 // Only check for required environment variables on server-side
 if (typeof window === 'undefined') {
@@ -18,7 +26,7 @@ if (typeof window === 'undefined') {
   }
 }
 
-export { supabase }
+export { supabase, getSupabaseClient }
 
 // Database types (matching our Prisma schema)
 export interface ServiceRequest {

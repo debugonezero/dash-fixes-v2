@@ -2,22 +2,18 @@ import { PDFDocument, rgb } from 'pdf-lib';
 import { ShippingLabelData } from './shipping-label';
 
 /**
- * Generate a shipping label PDF using pdf-lib (works on edge runtime)
+ * Generate a shipping label PDF
  */
 export async function generateShippingLabelPDF(data: ShippingLabelData, width: number, height: number): Promise<Buffer> {
   // Create a new PDF document
   const pdfDoc = await PDFDocument.create();
+  const page = pdfDoc.addPage([width, height]);
+  const pageHeight = height;
 
-  // Add a page with custom size (inches * 72 points)
-  const page = pdfDoc.addPage([width * 72, height * 72]);
-
-  // Get page dimensions
-  const { width: pageWidth, height: pageHeight } = page.getSize();
-
-  // Set up colors
-  const blue = rgb(0.15, 0.55, 0.82); // Solarized blue
-  const red = rgb(0.86, 0.2, 0.18);   // Solarized red
-  const black = rgb(0, 0, 0);
+  // Define colors
+  const blue = rgb(0.0, 0.47, 0.75); // Solarized blue
+  const red = rgb(0.8, 0.28, 0.36); // Solarized red
+  const black = rgb(0.0, 0.0, 0.0);
   const gray = rgb(0.36, 0.43, 0.41); // Solarized dark gray
   const lightGray = rgb(0.58, 0.63, 0.63);
 

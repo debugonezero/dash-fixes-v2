@@ -2,12 +2,20 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import Script from "next/script";
+import dynamic from "next/dynamic";
 import Header from "./Header";
 import Footer from "./Footer";
-import CookieConsent from "./components/CookieConsent";
-import WhatsAppChat from "./components/WhatsAppChat";
+
+const CookieConsent = dynamic(() => import("./components/CookieConsent"), {
+  loading: () => null,
+});
+
+const WhatsAppChat = dynamic(() => import("./components/WhatsAppChat"), {
+  loading: () => null,
+});
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.dashfixes.com'),
   title: "Dash Fixes | Campus Tech Repairs",
   description:
     "Your trusted campus expert for fast, affordable repairs on iPhones, MacBooks, and game consoles. Serving PCC, Caltech, and Pasadena with on-campus pickup and nationwide mail-in service. Get your free quote from the Tech Alchemist today!",
@@ -137,16 +145,10 @@ export default function RootLayout({
 
         {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=optional"
           rel="stylesheet"
         />
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        />
+
         <Script
           id="organization-schema"
           type="application/ld+json"
@@ -173,21 +175,8 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
-        <CookieConsent />
-        <WhatsAppChat />
-
-        <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-WTJ1VLTLF2"
-        ></Script>
-        <Script id="gtag-config" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-WTJ1VLTLF2');
-          `}
-        </Script>
+         <CookieConsent />
+         <WhatsAppChat />
       </body>
     </html>
   );

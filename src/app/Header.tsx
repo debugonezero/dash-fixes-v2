@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Wrench, Phone, Menu, X } from "lucide-react";
+import { Wrench, Phone, Menu, X, Sun, Moon } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const Header = () => {
@@ -98,9 +98,9 @@ const Header = () => {
             aria-label="Toggle theme"
           >
             {isDark ? (
-              <i className="fa-solid fa-sun"></i>
+              <Sun className="w-5 h-5" />
             ) : (
-              <i className="fa-solid fa-moon"></i>
+              <Moon className="w-5 h-5" />
             )}
           </button>
           <button

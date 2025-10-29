@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
           try {
             const allRepairs = await db.getAllRequests();
             console.log('📋 All repairs in DB:', allRepairs.length, 'records');
-            console.log('📋 Sample IDs:', allRepairs.slice(0, 3).map(r => r.id));
+            console.log('📋 Sample IDs:', allRepairs.slice(0, 3).map((r: any) => r.id));
           } catch (dbError) {
             console.error('❌ Database list error:', dbError);
           }

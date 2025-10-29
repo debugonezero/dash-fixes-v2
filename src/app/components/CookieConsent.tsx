@@ -10,9 +10,28 @@ export default function CookieConsent() {
     // Check if user has already accepted cookies
     const hasAccepted = localStorage.getItem('cookie-consent');
     if (!hasAccepted) {
-      // Show banner after a short delay
-      const timer = setTimeout(() => setIsVisible(true), 1000);
-      return () => clearTimeout(timer);
+      // Show banner after user interaction or longer delay to reduce initial load pressure
+      const handleInteraction = () => {
+        setTimeout(() => setIsVisible(true), 1000);
+        window.removeEventListener('click', handleInteraction);
+        window.removeEventListener('scroll', handleInteraction);
+      };
+
+      // Show after 3 seconds OR user interaction, whichever comes first
+      const timer = setTimeout(() => {
+        setIsVisible(true);
+        window.removeEventListener('click', handleInteraction);
+        window.removeEventListener('scroll', handleInteraction);
+      }, 3000);
+
+      window.addEventListener('click', handleInteraction, { once: true });
+      window.addEventListener('scroll', handleInteraction, { once: true });
+
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener('click', handleInteraction);
+        window.removeEventListener('scroll', handleInteraction);
+      };
     }
   }, []);
 

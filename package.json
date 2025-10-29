@@ -2,25 +2,29 @@
   "name": "dash-fixes-v2",
   "version": "0.1.0",
   "private": true,
+  "browserslist": [
+    "Chrome >= 130",
+    "Firefox >= 130",
+    "Safari >= 18",
+    "Edge >= 130"
+  ],
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
     "@react-email/components": "^0.5.7",
     "@react-email/render": "^1.4.0",
-    "@react-pdf/renderer": "^4.3.1",
     "@stripe/react-stripe-js": "^5.3.0",
     "@stripe/stripe-js": "^8.2.0",
     "@supabase/supabase-js": "^2.76.1",
-    "framer-motion": "^12.23.24",
     "lucide-react": "^0.546.0",
     "next": "15.5.4",
     "next-themes": "^0.4.6",
     "pdf-lib": "^1.17.1",
-    "puppeteer": "^24.26.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-email": "^4.3.2",
@@ -39,6 +43,7 @@
     "node-fetch": "^3.3.2",
     "postcss": "^8.4.0",
     "tailwindcss": "^3.4.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "webpack-bundle-analyzer": "^4.10.2"
   }
 }
