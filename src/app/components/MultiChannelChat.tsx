@@ -17,26 +17,35 @@ export default function MultiChannelChat() {
 
   const contactOptions = [
     {
+      name: 'Live Chat',
+      icon: MessageCircle,
+      url: '#', // Will trigger live chat widget
+      color: 'bg-solarized-blue hover:bg-solarized-blue/90',
+      description: 'Instant chat for quotes (recommended)',
+      external: false,
+      action: 'livechat'
+    },
+    {
       name: 'WhatsApp',
       icon: MessageCircle,
       url: whatsappUrl,
       color: 'bg-green-500 hover:bg-green-600',
-      description: 'Instant messaging (recommended)',
+      description: 'WhatsApp messaging',
       external: true
     },
     {
-      name: 'Phone Call',
+      name: 'Phone Support',
       icon: Phone,
       url: phoneUrl,
-      color: 'bg-solarized-blue hover:bg-solarized-blue/90',
-      description: 'Direct voice call',
+      color: 'bg-orange-500 hover:bg-orange-600',
+      description: 'Direct support calls only',
       external: false
     },
     {
       name: 'Email',
       icon: Mail,
       url: emailUrl,
-      color: 'bg-orange-500 hover:bg-orange-600',
+      color: 'bg-gray-500 hover:bg-gray-600',
       description: 'Send us a message',
       external: false
     }
@@ -69,34 +78,58 @@ export default function MultiChannelChat() {
           </div>
 
           <p className="text-sm text-solarized-dark3 dark:text-solarized-light3 mb-4">
-            Choose how you'd like to contact us:
+            Get a repair quote instantly:
           </p>
 
           <div className="space-y-3">
             {contactOptions.map((option) => {
               const IconComponent = option.icon;
+
+              const handleClick = () => {
+                setIsOpen(false);
+                if (option.action === 'livechat') {
+                  // Trigger live chat widget here
+                  // This will be replaced with actual live chat integration
+                  alert('Live chat will be integrated soon! For now, please use WhatsApp or email.');
+                }
+              };
+
               return (
-                <a
+                <button
                   key={option.name}
-                  href={option.url}
-                  target={option.external ? "_blank" : undefined}
-                  rel={option.external ? "noopener noreferrer" : undefined}
-                  className={`flex items-center p-3 rounded-lg text-white transition-colors ${option.color}`}
-                  onClick={() => setIsOpen(false)}
+                  onClick={option.action === 'livechat' ? handleClick : undefined}
+                  className={`flex items-center p-3 rounded-lg text-white transition-colors ${option.color} w-full text-left ${option.action !== 'livechat' ? 'cursor-pointer' : ''}`}
                 >
-                  <IconComponent className="w-5 h-5 mr-3 flex-shrink-0" />
-                  <div className="flex-1">
-                    <div className="font-medium text-sm">{option.name}</div>
-                    <div className="text-xs opacity-90">{option.description}</div>
-                  </div>
-                </a>
+                  {option.action !== 'livechat' ? (
+                    <a
+                      href={option.url}
+                      target={option.external ? "_blank" : undefined}
+                      rel={option.external ? "noopener noreferrer" : undefined}
+                      className="flex items-center w-full"
+                    >
+                      <IconComponent className="w-5 h-5 mr-3 flex-shrink-0" />
+                      <div className="flex-1">
+                        <div className="font-medium text-sm">{option.name}</div>
+                        <div className="text-xs opacity-90">{option.description}</div>
+                      </div>
+                    </a>
+                  ) : (
+                    <>
+                      <IconComponent className="w-5 h-5 mr-3 flex-shrink-0" />
+                      <div className="flex-1">
+                        <div className="font-medium text-sm">{option.name}</div>
+                        <div className="text-xs opacity-90">{option.description}</div>
+                      </div>
+                    </>
+                  )}
+                </button>
               );
             })}
           </div>
 
           <div className="mt-4 pt-3 border-t border-gray-200 dark:border-solarized-dark3">
             <p className="text-xs text-solarized-dark3 dark:text-solarized-light3 text-center">
-              We typically respond within 2 hours
+              Live chat: Instant response • WhatsApp: ~5 min • Email: ~2 hours
             </p>
           </div>
 
