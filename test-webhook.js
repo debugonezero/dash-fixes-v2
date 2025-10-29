@@ -1,5 +1,4 @@
 // Test script to simulate Stripe webhook for testing PDF generation
-const fetch = require('node-fetch');
 
 const webhookPayload = {
   "id": "evt_test_webhook",
@@ -31,7 +30,7 @@ async function testWebhook() {
   try {
     console.log('🧪 Testing webhook with mock payment success...');
 
-    const response = await fetch('http://localhost:3001/api/webhooks/stripe', {
+    const response = await fetch('http://localhost:3000/api/webhooks/stripe', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

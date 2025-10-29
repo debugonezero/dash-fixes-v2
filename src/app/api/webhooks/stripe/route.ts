@@ -1,6 +1,5 @@
 // Note: Using edge runtime for Cloudflare Pages compatibility
-// PDF generation may need alternative approach for edge runtime
-export const runtime = 'edge';
+// Using nodejs runtime for Supabase compatibility
 
 import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
