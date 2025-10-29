@@ -19,6 +19,14 @@ export interface ShippingLabelEmailData {
   issue: string;
 }
 
+export interface ShippingInstructionsEmailData {
+  customerName: string;
+  customerEmail: string;
+  serviceNumber: string;
+  deviceType: string;
+  issue: string;
+}
+
 /**
  * Send shipping label email with PDF attachment using React Email template
  */
@@ -88,6 +96,71 @@ export async function sendContactEmail(data: { name: string; email: string; mess
     console.log('✅ Contact email sent successfully');
   } catch (error) {
     console.error('❌ Contact email failed:', error);
+    throw error;
+  }
+}
+
+/**
+ * Send shipping instructions email (no PDF attachment)
+ */
+export async function sendShippingInstructionsEmail(data: ShippingInstructionsEmailData): Promise<void> {
+  try {
+    const fromEmail = process.env.FROM_EMAIL || 'web@dashfixes.com';
+    const shippingPageUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.dashfixes.com'}/shipping-label/${data.serviceNumber}`;
+
+    const { data: emailResult, error } = await resend.emails.send({
+      from: `Dash Fixes <${fromEmail}>`,
+      to: [data.customerEmail],
+      subject: `Payment Received - Generate Your Shipping Label - Service #${data.serviceNumber}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h1 style="color: #2563eb;">Payment Received - Next Steps</h1>
+
+          <p>Hi ${data.customerName},</p>
+
+          <p>Thank you for your payment! Your repair request for your <strong>${data.deviceType}</strong> has been received.</p>
+
+          <div style="background-color: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 8px; padding: 20px; margin: 20px 0;">
+            <h2 style="color: #0ea5e9; margin-top: 0;">📦 Generate Your Shipping Label</h2>
+            <p>Click the button below to create your prepaid shipping label:</p>
+            <a href="${shippingPageUrl}" style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; margin: 10px 0;">Generate Shipping Label</a>
+          </div>
+
+          <h3>What to do next:</h3>
+          <ol>
+            <li><strong>Prepare your device:</strong> Remove accessories and include your service number <strong>${data.serviceNumber}</strong></li>
+            <li><strong>Generate label:</strong> Use the link above to create your shipping label via USPS</li>
+            <li><strong>Print & ship:</strong> Print the label and attach it to your securely packaged device</li>
+            <li><strong>Track progress:</strong> We'll update you via email once we receive your device</li>
+          </ol>
+
+          <div style="background-color: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 15px; margin: 20px 0;">
+            <h4 style="color: #92400e; margin-top: 0;">💡 Don't have a printer?</h4>
+            <p style="margin-bottom: 0;">No problem! Take the PDF to any USPS post office, FedEx Office, or print shop. They can print and apply the label for you.</p>
+          </div>
+
+          <p><strong>Shipping Address:</strong><br>
+          Dash Fixes<br>
+          123 E Colorado Blvd<br>
+          Pasadena, CA 91101</p>
+
+          <p>Questions? Reply to this email or call (626) 622-0196.</p>
+
+          <p>Thank you for choosing Dash Fixes!<br>
+          <em>Your trusted Pasadena tech repair experts</em></p>
+        </div>
+      `,
+    });
+
+    if (error) {
+      console.error('❌ Shipping instructions email failed:', error);
+      throw new Error(`Failed to send shipping instructions email: ${error.message}`);
+    }
+
+    console.log('✅ Shipping instructions email sent successfully:', emailResult);
+
+  } catch (error) {
+    console.error('❌ Error sending shipping instructions email:', error);
     throw error;
   }
 }

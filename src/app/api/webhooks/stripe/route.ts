@@ -84,49 +84,13 @@ export async function POST(request: NextRequest) {
 
         console.log('👤 Processing for:', serviceRequest.customer_email);
 
-        // Generate shipping label
-        console.log('📦 Generating shipping label...');
-
-        const fromAddress = {
-          name: serviceRequest.customer_name,
-          line_1: serviceRequest.shipping_address.street1,
-          city: serviceRequest.shipping_address.city,
-          state: serviceRequest.shipping_address.state,
-          postal_code: serviceRequest.shipping_address.zip,
-          country: 'US'
-        };
-
-        console.log('📦 From address:', fromAddress);
-
-        const { createShippingLabel } = await import('../../../lib/easyship');
-        console.log('📦 EasyShip function imported');
-
-        let labelResult;
-        try {
-          labelResult = await createShippingLabel(fromAddress, 'usps_priority');
-          console.log('📦 Label result:', labelResult ? 'Success' : 'Failed');
-        } catch (easyshipError) {
-          console.error('❌ EasyShip API failed:', easyshipError);
-          throw new Error(`EasyShip error: ${easyshipError instanceof Error ? easyshipError.message : 'Unknown EasyShip error'}`);
-        }
-
-        if (!labelResult.label_url || !labelResult.tracking_number) {
-          throw new Error('Invalid shipping label data from Shippo');
-        }
-
-        console.log('✅ Label created - Tracking:', labelResult.tracking_number);
-
-        // Update database
-        console.log('💾 Updating database...');
+        // Update database with payment success
+        console.log('💾 Updating database with payment success...');
         try {
           await db.updateServiceRequest(serviceRequestId, {
             paymentStatus: 'paid',
-            status: 'SHIPPING_LABEL_GENERATED',
+            status: 'PAID',
             stripePaymentId: paymentIntent.id,
-            shippingLabelUrl: labelResult.label_url,
-            trackingNumber: labelResult.tracking_number,
-            shippingCost: labelResult.rate.amount,
-            shippingProvider: labelResult.rate.service,
             updatedAt: new Date(),
           });
           console.log('✅ Database updated successfully');
@@ -135,36 +99,19 @@ export async function POST(request: NextRequest) {
           throw new Error(`Database update error: ${updateError instanceof Error ? updateError.message : 'Unknown update error'}`);
         }
 
-        // Send email
-        console.log('📧 Sending email...');
+        // Send email with shipping instructions
+        console.log('📧 Sending shipping instructions email...');
         try {
-          const { sendShippingLabelEmail } = await import('../../../lib/email');
+          const { sendShippingInstructionsEmail } = await import('../../../lib/email');
 
-          let pdfBuffer: Buffer;
-          if (labelResult.label_url.includes('shippo-test-label.example.com')) {
-            // Test mode: use custom PDF
-            console.log('🧪 Using custom PDF for test mode');
-            const { generateShippingLabel, createShippingLabelData } = await import('../../../lib/shipping-label');
-            const labelData = createShippingLabelData(serviceRequest);
-            pdfBuffer = await generateShippingLabel(labelData);
-          } else {
-            // Production: fetch real PDF
-            console.log('🏷️ Fetching real PDF from Shippo');
-            const response = await fetch(labelResult.label_url);
-            if (!response.ok) throw new Error(`Failed to fetch PDF: ${response.status}`);
-            pdfBuffer = Buffer.from(await response.arrayBuffer());
-          }
-
-          await sendShippingLabelEmail({
+          await sendShippingInstructionsEmail({
             customerName: serviceRequest.customer_name,
             customerEmail: serviceRequest.customer_email,
             serviceNumber: serviceRequest.service_number,
-            trackingNumber: labelResult.tracking_number,
-            shippingLabelPdf: pdfBuffer,
             deviceType: serviceRequest.device_type,
             issue: serviceRequest.issue_description || 'Device repair',
           });
-          console.log('✅ Email sent successfully');
+          console.log('✅ Shipping instructions email sent successfully');
         } catch (emailError) {
           console.error('❌ Email sending failed:', emailError);
           throw new Error(`Email error: ${emailError instanceof Error ? emailError.message : 'Unknown email error'}`);

@@ -93,8 +93,8 @@ export default function RepairRequestForm() {
   };
 
   const handlePaymentSuccess = (serviceNumber: string) => {
-    // Redirect to tracking page
-    window.location.href = `/track/${serviceNumber}?payment=success`;
+    // Redirect to shipping label generation page
+    window.location.href = `/shipping-label/${serviceNumber}`;
   };
 
   const handlePaymentError = (error: string) => {
