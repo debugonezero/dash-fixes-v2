@@ -31,16 +31,28 @@ export async function POST(request: NextRequest) {
     }
 
     // Create service request in memory (no database needed for testing)
-    const serviceRequest = await db.createServiceRequest({
+    const serviceRequest = {
+      id: 'test-' + Date.now(),
+      serviceNumber: 'TEST' + Math.random().toString(36).substr(2, 6).toUpperCase(),
       deviceType,
       serviceType,
       issueDescription,
       customerName,
       customerEmail,
       shippingAddress,
-      paymentAmount: 9.99, // $9.99 for round-trip shipping label
+      paymentAmount: 9.99,
       paymentStatus: 'pending',
-    });
+    };
+    // const serviceRequest = await db.createServiceRequest({
+    //   deviceType,
+    //   serviceType,
+    //   issueDescription,
+    //   customerName,
+    //   customerEmail,
+    //   shippingAddress,
+    //   paymentAmount: 9.99, // $9.99 for round-trip shipping label
+    //   paymentStatus: 'pending',
+    // });
 
     // Create Stripe PaymentIntent
     const paymentIntent = await stripe.paymentIntents.create({
