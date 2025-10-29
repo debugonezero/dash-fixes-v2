@@ -35,13 +35,14 @@ export async function sendShippingLabelEmail(data: ShippingLabelEmailData): Prom
         trackingNumber: data.trackingNumber,
         deviceType: data.deviceType,
         issue: data.issue,
+        shippingLabelPdf: data.shippingLabelPdf,
       }),
-      attachments: [
+      attachments: data.shippingLabelPdf && data.shippingLabelPdf.length > 0 ? [
         {
           filename: `shipping-label-${data.serviceNumber}.pdf`,
           content: data.shippingLabelPdf,
         },
-      ],
+      ] : [],
     });
 
     if (error) {

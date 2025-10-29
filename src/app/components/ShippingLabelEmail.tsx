@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Html, Head, Body, Container, Section, Text, Heading, Button, Hr } from '@react-email/components';
+import { Html, Head, Body, Container, Section, Text, Heading, Button, Hr, Link } from '@react-email/components';
 
 interface ShippingLabelEmailProps {
   customerName: string;
@@ -7,7 +7,13 @@ interface ShippingLabelEmailProps {
   trackingNumber: string;
   deviceType: string;
   issue: string;
+  shippingLabelPdf?: Buffer;
 }
+
+const linkStyle = {
+  color: '#268bd2',
+  textDecoration: 'underline',
+};
 
 export function ShippingLabelEmail({
   customerName,
@@ -15,6 +21,7 @@ export function ShippingLabelEmail({
   trackingNumber,
   deviceType,
   issue,
+  shippingLabelPdf,
 }: ShippingLabelEmailProps) {
   return (
     <Html>
@@ -48,12 +55,23 @@ export function ShippingLabelEmail({
             <Section style={instructionsBox}>
               <Heading style={h3}>🚚 Shipping Instructions:</Heading>
               <ol style={list}>
-                <li style={listItem}>Print the attached shipping label (PDF file)</li>
+                <li style={listItem}>
+                  {shippingLabelPdf && shippingLabelPdf.length > 0
+                    ? "Print the attached shipping label (PDF file)"
+                    : "Visit your tracking page to download and print your shipping label"
+                  }
+                </li>
                 <li style={listItem}>Package your device securely with at least 2 inches of padding on all sides</li>
                 <li style={listItem}>Attach the shipping label to the outside of the package</li>
                 <li style={listItem}>Take to any FedEx, UPS, or USPS location - shipping is pre-paid!</li>
                 <li style={listItem}>Track your package using the tracking number above</li>
               </ol>
+
+              {!shippingLabelPdf || shippingLabelPdf.length === 0 ? (
+                <Text style={warningText}>
+                  📄 <strong>Download your label:</strong> Visit <Link href={`https://www.dashfixes.com/track/${serviceNumber}`} style={linkStyle}>your tracking page</Link> to download and print your shipping label.
+                </Text>
+              ) : null}
 
               <Text style={warningText}>
                 ⚠️ <strong>Important:</strong> Only include your device - no chargers, cables, or accessories unless specifically requested.

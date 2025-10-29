@@ -146,6 +146,31 @@ export async function POST(request: NextRequest) {
                 stripePaymentId: paymentIntent.id,
                 updatedAt: new Date(),
               });
+
+              // Send email without PDF attachment but with tracking info
+              console.log('📧 Sending email without PDF attachment due to generation error...');
+              try {
+                const { sendShippingLabelEmail } = await import('../../../lib/email');
+                // Create a minimal label data for email without PDF
+                const labelData = {
+                  trackingNumber: `DF${Date.now().toString(36).toUpperCase()}`,
+                  deviceType: serviceRequest.deviceType || 'Device',
+                  issue: serviceRequest.issueDescription || 'Device repair'
+                };
+
+                await sendShippingLabelEmail({
+                  customerName: serviceRequest.customerName,
+                  customerEmail: serviceRequest.customerEmail,
+                  serviceNumber: serviceRequest.serviceNumber,
+                  trackingNumber: labelData.trackingNumber,
+                  shippingLabelPdf: Buffer.from(''), // Empty buffer since PDF failed
+                  deviceType: labelData.deviceType,
+                  issue: labelData.issue,
+                });
+                console.log('✅ Email sent without PDF attachment');
+              } catch (emailError) {
+                console.error('❌ Failed to send email even without PDF:', emailError);
+              }
             }
           }
         }
