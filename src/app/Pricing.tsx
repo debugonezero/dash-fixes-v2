@@ -7,6 +7,10 @@ const Pricing = () => {
       <div className="max-w-7xl mx-auto">
         <AnimationWrapper>
           <div className="text-center content-spacing">
+            <div className="bg-solarized-blue text-solarized-light rounded-lg p-4 mb-8 max-w-2xl mx-auto">
+              <h3 className="text-xl font-bold mb-2">🎉 Introductory Offer!</h3>
+              <p className="text-lg">Get 10% off your first repair with code <strong>WELCOME10</strong></p>
+            </div>
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-solarized-dark3 dark:text-solarized-light">
               Affordable Repair Pricing
             </h2>

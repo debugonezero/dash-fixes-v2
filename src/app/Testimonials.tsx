@@ -17,6 +17,34 @@ const Testimonials = () => {
       icon: <User className="w-5 h-5 text-solarized-light3" />,
       stars: 5,
     },
+    {
+      quote:
+        "Dash Fixes is the best! They fixed my iPhone screen in under an hour and the price was very reasonable. Highly recommend for anyone needing phone repairs in Pasadena.",
+      author: "Sarah K.",
+      icon: <User className="w-5 h-5 text-solarized-light3" />,
+      stars: 5,
+    },
+    {
+      quote:
+        "Professional service from start to finish. My MacBook was running slow and they optimized it perfectly. Fast turnaround and great communication throughout the process.",
+      author: "David L.",
+      icon: <User className="w-5 h-5 text-solarized-light3" />,
+      stars: 5,
+    },
+    {
+      quote:
+        "Needed my Nintendo Switch repaired and Dash Fixes had it working like new in no time. Fair pricing and excellent customer service. Will definitely use them again!",
+      author: "Mike R.",
+      icon: <User className="w-5 h-5 text-solarized-light3" />,
+      stars: 5,
+    },
+    {
+      quote:
+        "Outstanding repair service! They replaced my laptop screen with OEM quality parts and the fit was perfect. Much better than the big box stores. Highly recommended!",
+      author: "Jennifer T.",
+      icon: <User className="w-5 h-5 text-solarized-light3" />,
+      stars: 5,
+    },
   ];
 
   return (
@@ -35,7 +63,7 @@ const Testimonials = () => {
             </p>
           </div>
         </AnimationWrapper>
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <AnimationWrapper key={index} delay={index * 0.1}>
               <div className="bg-solarized-light dark:bg-solarized-dark rounded-xl p-8 shadow-md">
