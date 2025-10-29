@@ -89,25 +89,25 @@ export async function POST(request: NextRequest) {
 
         const fromAddress = {
           name: serviceRequest.customer_name,
-          street1: serviceRequest.shipping_address.street1,
+          line_1: serviceRequest.shipping_address.street1,
           city: serviceRequest.shipping_address.city,
           state: serviceRequest.shipping_address.state,
-          zip: serviceRequest.shipping_address.zip,
+          postal_code: serviceRequest.shipping_address.zip,
           country: 'US'
         };
 
         console.log('📦 From address:', fromAddress);
 
-        const { createShippingLabel } = await import('../../../lib/shippo');
-        console.log('📦 Shippo function imported');
+        const { createShippingLabel } = await import('../../../lib/easyship');
+        console.log('📦 EasyShip function imported');
 
         let labelResult;
         try {
           labelResult = await createShippingLabel(fromAddress, 'usps_priority');
           console.log('📦 Label result:', labelResult ? 'Success' : 'Failed');
-        } catch (shippoError) {
-          console.error('❌ Shippo API failed:', shippoError);
-          throw new Error(`Shippo error: ${shippoError instanceof Error ? shippoError.message : 'Unknown Shippo error'}`);
+        } catch (easyshipError) {
+          console.error('❌ EasyShip API failed:', easyshipError);
+          throw new Error(`EasyShip error: ${easyshipError instanceof Error ? easyshipError.message : 'Unknown EasyShip error'}`);
         }
 
         if (!labelResult.label_url || !labelResult.tracking_number) {
