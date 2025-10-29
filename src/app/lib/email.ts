@@ -60,6 +60,37 @@ export async function sendShippingLabelEmail(data: ShippingLabelEmailData): Prom
 /**
  * Send a simple test email to verify Resend setup
  */
+/**
+ * Send a contact form email
+ */
+export async function sendContactEmail(data: { name: string; email: string; message: string }): Promise<void> {
+  try {
+    const fromEmail = process.env.FROM_EMAIL || 'web@dashfixes.com';
+    const { data: emailResult, error } = await resend.emails.send({
+      from: `Dash Fixes <${fromEmail}>`,
+      to: [fromEmail], // Send to ourselves
+      replyTo: data.email, // Allow replies to go to the contact
+      subject: `New Contact Form Message from ${data.name}`,
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Message:</strong></p>
+        <p>${data.message.replace(/\n/g, '<br>')}</p>
+      `,
+    });
+
+    if (error) {
+      throw new Error(`Contact email failed: ${error.message}`);
+    }
+
+    console.log('✅ Contact email sent successfully');
+  } catch (error) {
+    console.error('❌ Contact email failed:', error);
+    throw error;
+  }
+}
+
 export async function sendTestEmail(to: string): Promise<void> {
   try {
     const fromEmail = process.env.FROM_EMAIL || 'web@dashfixes.com';
