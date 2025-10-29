@@ -149,6 +149,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
 
+        {/* Tidio Live Chat */}
+        <script src="//code.tidio.co/vrzhvnnqiqrbd6ogqpruirjcvv6skms9.js" async></script>
+
         <Script
           id="organization-schema"
           type="application/ld+json"

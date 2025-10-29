@@ -3,6 +3,18 @@
 import { useState } from 'react';
 import { MessageCircle, Phone, Mail, X } from 'lucide-react';
 
+// Tidio chat API type declaration
+declare global {
+  interface Window {
+    tidioChatApi?: {
+      show: () => void;
+      open: () => void;
+      hide: () => void;
+      close: () => void;
+    };
+  }
+}
+
 export default function MultiChannelChat() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -88,9 +100,20 @@ export default function MultiChannelChat() {
               const handleClick = () => {
                 setIsOpen(false);
                 if (option.action === 'livechat') {
-                  // Trigger live chat widget here
-                  // This will be replaced with actual live chat integration
-                  alert('Live chat will be integrated soon! For now, please use WhatsApp or email.');
+                  // Trigger Tidio live chat
+                  if (window.tidioChatApi) {
+                    window.tidioChatApi.show();
+                    window.tidioChatApi.open();
+                  } else {
+                    // Fallback if Tidio isn't loaded yet
+                    console.log('Tidio chat not ready, trying again...');
+                    setTimeout(() => {
+                      if (window.tidioChatApi) {
+                        window.tidioChatApi.show();
+                        window.tidioChatApi.open();
+                      }
+                    }, 1000);
+                  }
                 }
               };
 
