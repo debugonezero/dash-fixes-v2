@@ -150,13 +150,16 @@ export async function findDropOffLocations(zipCode: string): Promise<DropOffLoca
 }
 
 /**
- * Create a shipping label (test mode)
+ * Create a shipping label (handles test mode)
  */
 export async function createShippingLabel(
   fromAddress: ShippingAddress,
   serviceLevel: string = 'usps_priority'
 ) {
   try {
+    const isTestMode = process.env.SHIPPO_API_KEY?.startsWith('shippo_test');
+    console.log('🧪 Shippo test mode detected:', isTestMode);
+
     const toAddress = {
       name: 'Dash Fixes',
       street1: '123 E Colorado Blvd',
@@ -175,12 +178,14 @@ export async function createShippingLabel(
       massUnit: 'lb' as const
     };
 
+    console.log('📦 Creating shipment...');
     const shipment = await shippo.shipments.create({
       addressFrom: fromAddress,
       addressTo: toAddress,
       parcels: [parcel],
       async: false
     });
+    console.log('✅ Shipment created, rates available:', shipment.rates?.length || 0);
 
     // Find the selected rate
     const selectedRate = shipment.rates.find((rate: any) =>
@@ -189,15 +194,41 @@ export async function createShippingLabel(
     );
 
     if (!selectedRate) {
+      console.error('❌ No matching rate found for service:', serviceLevel);
+      console.log('Available rates:', shipment.rates.map((r: any) => r.servicelevel.name));
       throw new Error('Selected shipping service not available');
     }
 
-    // Create the label
+    console.log('💰 Selected rate:', selectedRate.servicelevel.name, 'Cost:', selectedRate.amount);
+
+    if (isTestMode) {
+      // In test mode, simulate a successful transaction without actually purchasing
+      console.log('🧪 TEST MODE: Simulating successful label creation');
+
+      // Generate a fake but realistic tracking number
+      const trackingNumber = `1Z${Date.now().toString().slice(-10)}US`;
+
+      // Return test data
+      return {
+        label_url: `https://shippo-test-label.example.com/${trackingNumber}.pdf`,
+        tracking_number: trackingNumber,
+        rate: {
+          amount: selectedRate.amount,
+          currency: selectedRate.currency,
+          service: selectedRate.servicelevel.name
+        }
+      };
+    }
+
+    // Production mode: actually create the transaction
+    console.log('💳 Creating actual transaction...');
     const transaction = await shippo.transactions.create({
       rate: selectedRate.objectId,
       labelFileType: 'PDF',
       async: false
     });
+
+    console.log('✅ Transaction created:', transaction.objectId);
 
     return {
       label_url: transaction.labelUrl,
@@ -209,8 +240,9 @@ export async function createShippingLabel(
       }
     };
   } catch (error) {
-    console.error('Error creating shipping label:', error);
-    throw new Error('Failed to create shipping label');
+    console.error('❌ Error creating shipping label:', error);
+    console.error('❌ Full error:', error instanceof Error ? error.message : error);
+    throw new Error(`Failed to create shipping label: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
 

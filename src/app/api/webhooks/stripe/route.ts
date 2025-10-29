@@ -73,6 +73,8 @@ export async function POST(request: NextRequest) {
             // Generate REAL shipping label using Shippo
             try {
               console.log('📦 Starting REAL shipping label generation with Shippo...');
+              console.log('🔑 Shippo API Key present:', !!process.env.SHIPPO_API_KEY);
+              console.log('🧪 Shippo test mode:', process.env.SHIPPO_API_KEY?.startsWith('shippo_test'));
 
               const { createShippingLabel } = await import('../../../lib/shippo');
 
@@ -86,10 +88,22 @@ export async function POST(request: NextRequest) {
                 country: 'US'
               };
 
+              console.log('📍 From address:', fromAddress);
+
               // Create real shipping label with Shippo
-              const labelResult = await createShippingLabel(fromAddress, 'usps_priority');
+              console.log('🚀 Calling Shippo createShippingLabel...');
+              let labelResult;
+              try {
+                labelResult = await createShippingLabel(fromAddress, 'usps_priority');
+                console.log('📦 Shippo response:', JSON.stringify(labelResult, null, 2));
+              } catch (shippoError) {
+                console.error('❌ Shippo API call failed:', shippoError);
+                console.error('❌ Shippo error details:', shippoError instanceof Error ? shippoError.message : shippoError);
+                throw new Error(`Shippo API failed: ${shippoError instanceof Error ? shippoError.message : 'Unknown Shippo error'}`);
+              }
 
               if (!labelResult.label_url || !labelResult.tracking_number) {
+                console.error('❌ Shippo returned invalid data:', labelResult);
                 throw new Error('Shippo did not return valid label URL or tracking number');
               }
 
@@ -121,11 +135,21 @@ export async function POST(request: NextRequest) {
                 console.log('📧 Sending email with REAL PDF attachment to:', serviceRequest.customerEmail);
 
                 // Fetch the real label PDF from Shippo URL
-                const labelResponse = await fetch(labelResult.label_url);
-                if (!labelResponse.ok) {
-                  throw new Error(`Failed to fetch label PDF: ${labelResponse.status}`);
+                let pdfBuffer: Buffer;
+                if (labelResult.label_url.includes('shippo-test-label.example.com')) {
+                  // Test mode: generate a custom PDF since Shippo test URLs don't work
+                  console.log('🧪 TEST MODE: Generating custom PDF for test label');
+                  const { generateShippingLabel, createShippingLabelData } = await import('../../../lib/shipping-label');
+                  const labelData = createShippingLabelData(serviceRequest);
+                  pdfBuffer = await generateShippingLabel(labelData);
+                } else {
+                  // Production mode: fetch real PDF
+                  const labelResponse = await fetch(labelResult.label_url);
+                  if (!labelResponse.ok) {
+                    throw new Error(`Failed to fetch label PDF: ${labelResponse.status}`);
+                  }
+                  pdfBuffer = Buffer.from(await labelResponse.arrayBuffer());
                 }
-                const pdfBuffer = Buffer.from(await labelResponse.arrayBuffer());
 
                 await sendShippingLabelEmail({
                   customerName: serviceRequest.customerName,
