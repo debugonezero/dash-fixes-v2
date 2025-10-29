@@ -85,8 +85,40 @@ export default async function TrackPage({ params }: PageProps) {
 
   const request = await getServiceRequest(serviceNumber);
 
+  // If no request found, show a processing/waiting page instead of 404
   if (!request) {
-    notFound();
+    return (
+      <section className="py-16 px-4 sm:px-6 lg:px-8 min-h-screen bg-solarized-light dark:bg-solarized-dark">
+        <div className="max-w-4xl mx-auto">
+          <AnimationWrapper>
+            <div className="text-center mb-12">
+              <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-solarized-dark3 dark:text-solarized-light">
+                Processing Your Payment
+              </h1>
+              <p className="text-lg text-solarized-dark3 dark:text-solarized-light3 mb-8">
+                Service Request: <span className="font-mono font-bold text-solarized-blue">{formatServiceNumber(serviceNumber)}</span>
+              </p>
+              <div className="bg-white dark:bg-solarized-dark2 rounded-xl p-8 shadow-md border border-solarized-light3 dark:border-solarized-dark3 max-w-md mx-auto">
+                <div className="flex items-center justify-center mb-6">
+                  <div className="w-16 h-16 rounded-full bg-solarized-blue/10 flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-solarized-blue"></div>
+                  </div>
+                </div>
+                <h2 className="text-xl font-heading font-bold mb-4 text-solarized-dark3 dark:text-solarized-light">
+                  Payment Processing
+                </h2>
+                <p className="text-solarized-dark3 dark:text-solarized-light3 mb-6">
+                  We're processing your payment and generating your shipping label. This usually takes 1-2 minutes.
+                </p>
+                <p className="text-sm text-solarized-dark3 dark:text-solarized-light3">
+                  Check back in a few minutes, or check your email for the shipping label.
+                </p>
+              </div>
+            </div>
+          </AnimationWrapper>
+        </div>
+      </section>
+    );
   }
 
   const statusInfo = statusConfig[request.status as keyof typeof statusConfig];
