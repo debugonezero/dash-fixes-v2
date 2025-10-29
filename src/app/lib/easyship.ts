@@ -41,7 +41,7 @@ export async function getShippingRates(fromAddress: ShippingAddress, parcel: Par
       origin_address: fromAddress,
       destination_address: {
         name: 'Dash Fixes',
-        line_1: '123 E Colorado Blvd',
+        line_1: 'Secure PO Box',
         city: 'Pasadena',
         state: 'CA',
         postal_code: '91101',
@@ -135,7 +135,7 @@ export async function createShippingLabel(
       origin_address: fromAddress,
       destination_address: {
         name: 'Dash Fixes',
-        line_1: '123 E Colorado Blvd',
+        line_1: 'Secure PO Box',
         city: 'Pasadena',
         state: 'CA',
         postal_code: '91101',

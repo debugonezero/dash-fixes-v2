@@ -130,7 +130,7 @@ export function createShippingLabelData(serviceRequest: any): ShippingLabelData 
     },
     toAddress: {
       name: 'Dash Fixes',
-      street1: '123 E Colorado Blvd',
+      street1: 'Secure PO Box',
       city: 'Pasadena',
       state: 'CA',
       zip: '91101',

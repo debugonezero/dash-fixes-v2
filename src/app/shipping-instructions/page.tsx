@@ -82,7 +82,7 @@ export default function ShippingInstructionsPage() {
                 <div className="bg-solarized-light2 dark:bg-solarized-dark rounded-lg p-6 mb-6">
                   <div className="font-semibold text-solarized-dark2 dark:text-solarized-light mb-2">Dash Fixes</div>
                   <div className="text-solarized-dark3 dark:text-solarized-light3">
-                    123 E Colorado Blvd<br />
+                    Secure PO Box<br />
                     Pasadena, CA 91101<br />
                     United States
                   </div>

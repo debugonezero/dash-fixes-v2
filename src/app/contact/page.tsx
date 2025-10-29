@@ -1,5 +1,5 @@
 import ContactForm from "../components/ContactForm";
-import { Phone, Mail } from "lucide-react";
+import { Phone, Mail, MessageCircle } from "lucide-react";
 import Testimonials from "../Testimonials";
 
 const WhyGetAQuote = () => (
@@ -72,19 +72,28 @@ const ContactPage = () => {
             <p className="text-lg max-w-2xl mx-auto text-solarized-dark3 dark:text-solarized-light3">
               Have a broken device? Fill out the form below, or give us a call!
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8">
+            <div className="mt-8 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
               <a
                 href="tel:626-622-0196"
-                className="text-2xl font-heading font-bold inline-flex items-center hover:text-solarized-blue transition text-solarized-dark2 dark:text-solarized-light"
+                className="text-xl font-heading font-bold inline-flex items-center hover:text-solarized-blue transition text-solarized-dark2 dark:text-solarized-light"
               >
-                <Phone className="w-6 h-6 mr-3" />
+                <Phone className="w-5 h-5 mr-2" />
                 (626) 622-0196
               </a>
               <a
-                href="mailto:web@dashfixes.com"
-                className="text-2xl font-heading font-bold inline-flex items-center hover:text-solarized-blue transition text-solarized-dark2 dark:text-solarized-light"
+                href="https://wa.me/16266220196?text=Hi!%20I%20need%20help%20with%20a%20device%20repair%20quote."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xl font-heading font-bold inline-flex items-center hover:text-green-600 transition text-solarized-dark2 dark:text-solarized-light"
               >
-                <Mail className="w-6 h-6 mr-3" />
+                <MessageCircle className="w-5 h-5 mr-2" />
+                WhatsApp Chat
+              </a>
+              <a
+                href="mailto:web@dashfixes.com"
+                className="text-xl font-heading font-bold inline-flex items-center hover:text-solarized-blue transition text-solarized-dark2 dark:text-solarized-light"
+              >
+                <Mail className="w-5 h-5 mr-2" />
                 web@dashfixes.com
               </a>
             </div>

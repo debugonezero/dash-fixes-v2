@@ -27,6 +27,20 @@ export interface ShippingInstructionsEmailData {
   issue: string;
 }
 
+export interface QuoteRequestEmailData {
+  customerName: string;
+  customerEmail: string;
+  deviceType: string;
+  serviceType: string;
+  issueDescription: string;
+  shippingAddress: {
+    street1: string;
+    city: string;
+    state: string;
+    zip: string;
+  };
+}
+
 /**
  * Send shipping label email with PDF attachment using React Email template
  */
@@ -62,6 +76,53 @@ export async function sendShippingLabelEmail(data: ShippingLabelEmailData): Prom
 
   } catch (error) {
     console.error('❌ Error sending shipping label email:', error);
+    throw error;
+  }
+}
+
+/**
+ * Send quote request email to admin
+ */
+export async function sendQuoteRequestEmail(data: QuoteRequestEmailData): Promise<void> {
+  try {
+    const fromEmail = process.env.FROM_EMAIL || 'web@dashfixes.com';
+    const { data: emailResult, error } = await resend.emails.send({
+      from: `Dash Fixes <${fromEmail}>`,
+      to: [fromEmail], // Send to admin
+      replyTo: data.customerEmail,
+      subject: `New Quote Request from ${data.customerName}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h1 style="color: #2563eb;">New Quote Request</h1>
+
+          <h2>Customer Information</h2>
+          <p><strong>Name:</strong> ${data.customerName}</p>
+          <p><strong>Email:</strong> ${data.customerEmail}</p>
+
+          <h2>Device Information</h2>
+          <p><strong>Device Type:</strong> ${data.deviceType}</p>
+          <p><strong>Service Type:</strong> ${data.serviceType}</p>
+          <p><strong>Issue Description:</strong></p>
+          <p>${data.issueDescription.replace(/\n/g, '<br>')}</p>
+
+          <h2>Shipping Address</h2>
+          <p>${data.shippingAddress.street1}<br>
+          ${data.shippingAddress.city}, ${data.shippingAddress.state} ${data.shippingAddress.zip}</p>
+
+          <div style="background-color: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 8px; padding: 20px; margin: 20px 0;">
+            <p>Please review this quote request and respond to the customer with pricing and next steps.</p>
+          </div>
+        </div>
+      `,
+    });
+
+    if (error) {
+      throw new Error(`Quote request email failed: ${error.message}`);
+    }
+
+    console.log('✅ Quote request email sent successfully');
+  } catch (error) {
+    console.error('❌ Quote request email failed:', error);
     throw error;
   }
 }
@@ -141,7 +202,7 @@ export async function sendShippingInstructionsEmail(data: ShippingInstructionsEm
 
           <p><strong>Shipping Address:</strong><br>
           Dash Fixes<br>
-          123 E Colorado Blvd<br>
+          Secure PO Box<br>
           Pasadena, CA 91101</p>
 
           <p>Questions? Reply to this email or call (626) 622-0196.</p>

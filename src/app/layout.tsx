@@ -5,6 +5,7 @@ import Script from "next/script";
 import Header from "./Header";
 import Footer from "./Footer";
 import CookieConsent from "./components/CookieConsent";
+import WhatsAppChat from "./components/WhatsAppChat";
 
 export const metadata: Metadata = {
   title: "Dash Fixes | Campus Tech Repairs",
@@ -173,6 +174,7 @@ export default function RootLayout({
         <main>{children}</main>
         <Footer />
         <CookieConsent />
+        <WhatsAppChat />
 
         <Script
           async

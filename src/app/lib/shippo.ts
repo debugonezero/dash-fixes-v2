@@ -40,7 +40,7 @@ export async function getShippingRates(fromAddress: ShippingAddress): Promise<Sh
   try {
     const toAddress = {
       name: 'Dash Fixes',
-      street1: '123 E Colorado Blvd', // Replace with actual address
+      street1: 'Secure PO Box', // Replace with actual address
       city: 'Pasadena',
       state: 'CA',
       zip: '91101',
@@ -162,7 +162,7 @@ export async function createShippingLabel(
 
     const toAddress = {
       name: 'Dash Fixes',
-      street1: '123 E Colorado Blvd',
+      street1: 'Secure PO Box',
       city: 'Pasadena',
       state: 'CA',
       zip: '91101',

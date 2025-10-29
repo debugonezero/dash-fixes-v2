@@ -107,7 +107,7 @@ export function ShippingLabelEmail({
           <Section style={footer}>
             <Text style={footerText}>
               © 2025 Dash Fixes | Expert Tech Repair Service<br />
-              123 E Colorado Blvd, Pasadena, CA 91101
+              Secure PO Box, Pasadena, CA 91101
             </Text>
           </Section>
         </Container>

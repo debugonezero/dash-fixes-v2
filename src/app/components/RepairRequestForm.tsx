@@ -1,9 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { Elements } from '@stripe/react-stripe-js';
-import { stripePromise } from '@/app/lib/stripe';
-import PaymentForm from './PaymentForm';
 
 interface FormData {
   deviceType: string;
@@ -36,9 +33,7 @@ export default function RepairRequestForm() {
     },
   });
 
-  const [step, setStep] = useState<'form' | 'payment'>('form');
-  const [clientSecret, setClientSecret] = useState('');
-  const [serviceNumber, setServiceNumber] = useState('');
+  const [step, setStep] = useState<'form' | 'quote-success'>('form');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
 
@@ -68,8 +63,18 @@ export default function RepairRequestForm() {
     setError('');
 
     try {
-      // Just redirect to shipping instructions - no API call needed
-      window.location.href = '/shipping-instructions';
+      // Send quote request email
+      const response = await fetch('/api/quote-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send quote request');
+      }
+
+      setStep('quote-success');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
@@ -77,59 +82,15 @@ export default function RepairRequestForm() {
     }
   };
 
-  const handlePaymentSuccess = (serviceNumber: string) => {
-    // Redirect to shipping label generation page
-    window.location.href = `/shipping-label/${serviceNumber}`;
-  };
-
-  const handlePaymentError = (error: string) => {
-    setError(error);
-    setStep('form');
-  };
-
-  if (step === 'payment' && clientSecret) {
-    return (
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-white dark:bg-solarized-dark2 rounded-xl p-8 shadow-md border border-solarized-light3 dark:border-solarized-dark3">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-heading font-bold mb-4 text-solarized-dark3 dark:text-solarized-light">
-              Complete Payment
-            </h2>
-            <p className="text-solarized-dark3 dark:text-solarized-light3">
-              Pay $9.99 for your pre-paid shipping label and get instant tracking
-            </p>
-          </div>
-
-          <Elements
-            stripe={stripePromise}
-            options={{
-              clientSecret,
-              appearance: {
-                theme: 'stripe',
-              },
-            }}
-          >
-            <PaymentForm
-              clientSecret={clientSecret}
-              serviceNumber={serviceNumber}
-              onSuccess={handlePaymentSuccess}
-              onError={handlePaymentError}
-            />
-          </Elements>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="max-w-2xl mx-auto">
       <div className="bg-white dark:bg-solarized-dark2 rounded-xl p-8 shadow-md border border-solarized-light3 dark:border-solarized-dark3">
         <div className="text-center mb-8">
           <h2 className="text-2xl font-heading font-bold mb-4 text-solarized-dark3 dark:text-solarized-light">
-            Request Mail-in Repair
+            Request Free Repair Quote
           </h2>
           <p className="text-solarized-dark3 dark:text-solarized-light3">
-            Fill out the form below and pay $9.99 for your pre-paid shipping label
+            Get a free quote for your device repair. We'll contact you within 24 hours.
           </p>
         </div>
 
@@ -311,20 +272,20 @@ export default function RepairRequestForm() {
             </div>
           )}
 
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full px-6 py-3 bg-solarized-blue text-solarized-light rounded-lg font-medium text-center hover:bg-opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-          >
-            {isSubmitting ? (
-              <>
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-solarized-light mr-2"></div>
-                Creating Service Request...
-              </>
-            ) : (
-              'Continue to Payment ($9.99)'
-            )}
-          </button>
+           <button
+             type="submit"
+             disabled={isSubmitting}
+             className="w-full px-6 py-3 bg-solarized-blue text-solarized-light rounded-lg font-medium text-center hover:bg-opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+           >
+             {isSubmitting ? (
+               <>
+                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-solarized-light mr-2"></div>
+                 Sending Quote Request...
+               </>
+             ) : (
+               'Request Free Quote'
+             )}
+           </button>
 
           <p className="text-center text-sm text-solarized-dark3 dark:text-solarized-light3">
             🔒 Your information is secure and will only be used for your repair service
