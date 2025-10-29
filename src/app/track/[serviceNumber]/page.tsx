@@ -18,51 +18,67 @@ const statusConfig = {
     color: 'text-solarized-yellow',
     bgColor: 'bg-solarized-yellow/10',
     title: 'Request Submitted',
-    description: 'Your repair request has been received and is being reviewed.'
+    description: 'Your repair request has been received and is being reviewed.',
+    step: 1
   },
   PAID: {
     icon: CheckCircle,
     color: 'text-solarized-green',
     bgColor: 'bg-solarized-green/10',
     title: 'Payment Received',
-    description: 'Payment confirmed. Preparing your shipping label.'
+    description: 'Payment confirmed. Preparing your shipping label.',
+    step: 2
   },
   SHIPPED: {
     icon: Package,
     color: 'text-solarized-blue',
     bgColor: 'bg-solarized-blue/10',
     title: 'Device Shipped',
-    description: 'Your device has been shipped to our repair facility.'
+    description: 'Your device has been shipped to our repair facility.',
+    step: 3
   },
   RECEIVED: {
     icon: CheckCircle,
     color: 'text-solarized-cyan',
     bgColor: 'bg-solarized-cyan/10',
     title: 'Device Received',
-    description: 'Your device has arrived at our repair facility.'
+    description: 'Your device has arrived at our repair facility.',
+    step: 4
   },
   REPAIRING: {
     icon: Wrench,
     color: 'text-solarized-orange',
     bgColor: 'bg-solarized-orange/10',
     title: 'Being Repaired',
-    description: 'Our technicians are working on your device.'
+    description: 'Our technicians are working on your device.',
+    step: 5
   },
   COMPLETED: {
     icon: CheckCircle,
     color: 'text-solarized-green',
     bgColor: 'bg-solarized-green/10',
     title: 'Repair Completed',
-    description: 'Your device is ready for pickup or shipping back.'
+    description: 'Your device is ready for pickup or shipping back.',
+    step: 6
   },
   CANCELLED: {
     icon: AlertCircle,
     color: 'text-solarized-red',
     bgColor: 'bg-solarized-red/10',
     title: 'Request Cancelled',
-    description: 'This repair request has been cancelled.'
+    description: 'This repair request has been cancelled.',
+    step: 0
   }
 };
+
+const progressSteps = [
+  { label: 'Submitted', status: 'PENDING' },
+  { label: 'Paid', status: 'PAID' },
+  { label: 'Shipped', status: 'SHIPPED' },
+  { label: 'Received', status: 'RECEIVED' },
+  { label: 'Repairing', status: 'REPAIRING' },
+  { label: 'Completed', status: 'COMPLETED' }
+];
 
 // Removed generateStaticParams to allow dynamic service numbers
 // Service numbers are randomly generated, so we can't predict them
@@ -140,10 +156,50 @@ export default async function TrackPage({ params }: PageProps) {
           </div>
         </AnimationWrapper>
 
+        {/* Progress Bar */}
+        <AnimationWrapper delay={0.1}>
+          <div className="bg-white dark:bg-solarized-dark2 rounded-xl p-8 shadow-md border border-solarized-light3 dark:border-solarized-dark3 mb-8">
+            <h3 className="text-xl font-heading font-bold mb-6 text-solarized-dark3 dark:text-solarized-light">
+              Repair Progress
+            </h3>
+            <div className="relative">
+              <div className="flex items-center justify-between mb-4">
+                {progressSteps.map((step, index) => {
+                  const isCompleted = statusInfo.step > index;
+                  const isCurrent = statusInfo.step === index + 1;
+                  return (
+                    <div key={step.status} className="flex flex-col items-center flex-1">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${
+                        isCompleted ? 'bg-solarized-green text-white' :
+                        isCurrent ? `${statusInfo.bgColor} ${statusInfo.color}` :
+                        'bg-solarized-light3 dark:bg-solarized-dark3 text-solarized-dark3 dark:text-solarized-light3'
+                      }`}>
+                        {isCompleted ? '✓' : index + 1}
+                      </div>
+                      <span className={`text-xs mt-2 text-center ${
+                        isCompleted || isCurrent ? 'text-solarized-dark3 dark:text-solarized-light' : 'text-solarized-dark3 dark:text-solarized-light3'
+                      }`}>
+                        {step.label}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="relative">
+                <div className="absolute top-0 left-0 w-full h-1 bg-solarized-light3 dark:bg-solarized-dark3 rounded"></div>
+                <div
+                  className="absolute top-0 left-0 h-1 bg-solarized-blue rounded transition-all duration-500"
+                  style={{ width: `${(statusInfo.step / progressSteps.length) * 100}%` }}
+                ></div>
+              </div>
+            </div>
+          </div>
+        </AnimationWrapper>
+
         <div className="grid md:grid-cols-2 gap-8">
-          {/* Status Card */}
-          <AnimationWrapper delay={0.1}>
-            <div className="bg-white dark:bg-solarized-dark2 rounded-xl p-8 shadow-md border border-solarized-light3 dark:border-solarized-dark3">
+           {/* Status Card */}
+           <AnimationWrapper delay={0.2}>
+             <div className="bg-white dark:bg-solarized-dark2 rounded-xl p-8 shadow-md border border-solarized-light3 dark:border-solarized-dark3">
               <div className="flex items-center mb-6">
                 <div className={`w-16 h-16 rounded-full ${statusInfo.bgColor} flex items-center justify-center mr-4`}>
                   <StatusIcon className={`w-8 h-8 ${statusInfo.color}`} />
