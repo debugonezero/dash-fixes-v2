@@ -79,7 +79,14 @@ export default function RepairRequestForm() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to create payment intent');
+        throw new Error(data.error || 'Failed to create service request');
+      }
+
+      // Check if payment is required
+      if (data.skipPayment) {
+        // Skip payment, go directly to shipping instructions
+        window.location.href = `/shipping-label/${data.serviceNumber}`;
+        return;
       }
 
       setClientSecret(data.clientSecret);

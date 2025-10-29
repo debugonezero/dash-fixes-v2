@@ -17,11 +17,11 @@ export const stripePromise = loadStripe(finalStripeKey);
 
 // Stripe configuration
 export const STRIPE_CONFIG = {
-  // Diagnostic fee - $9.99 (covers initial assessment and round-trip shipping)
-  DIAGNOSTIC_FEE: 999, // Amount in cents ($9.99)
+  // Processing fee - $0 (customers pay USPS directly for shipping)
+  DIAGNOSTIC_FEE: 0, // Amount in cents ($0.00)
   CURRENCY: 'usd',
-  PRODUCT_NAME: 'Device Diagnostic & Shipping',
-  PRODUCT_DESCRIPTION: 'Initial diagnostic fee + round-trip shipping (repair costs separate)',
+  PRODUCT_NAME: 'Device Repair Request',
+  PRODUCT_DESCRIPTION: 'Free repair request submission - shipping paid directly to USPS',
 };
 
 // Repair pricing formulas

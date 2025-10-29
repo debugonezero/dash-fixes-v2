@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create service request in database
+    // Create service request in database (no payment required)
     const serviceRequest = await db.createServiceRequest({
       deviceType,
       serviceType,
@@ -38,31 +38,37 @@ export async function POST(request: NextRequest) {
       customerName,
       customerEmail,
       shippingAddress,
-      paymentAmount: 9.99, // $9.99 for round-trip shipping label
-      paymentStatus: 'pending',
+      paymentAmount: 0, // Free submission
+      paymentStatus: 'completed', // No payment needed
     });
 
-    // Create Stripe PaymentIntent
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: 999, // $9.99 in cents
-      currency: 'usd',
-      metadata: {
-        serviceRequestId: serviceRequest.id,
+    // Send shipping instructions email
+    try {
+      const { sendShippingInstructionsEmail } = await import('../../lib/email');
+
+      await sendShippingInstructionsEmail({
+        customerName: serviceRequest.customer_name,
+        customerEmail: serviceRequest.customer_email,
         serviceNumber: serviceRequest.service_number,
-        customerEmail: customerEmail,
-      },
-      description: `Shipping Label Fee - Service #${serviceRequest.serviceNumber}`,
-      receipt_email: customerEmail,
-    });
+        deviceType: serviceRequest.device_type,
+        issue: serviceRequest.issue_description || 'Device repair',
+      });
+      console.log('✅ Shipping instructions email sent successfully');
+    } catch (emailError) {
+      console.error('❌ Email sending failed:', emailError);
+      // Don't fail the request, just log the error
+    }
 
+    // Skip Stripe payment - direct to shipping instructions
     return NextResponse.json({
-      clientSecret: paymentIntent.client_secret,
+      clientSecret: null, // No payment needed
       serviceNumber: serviceRequest.service_number,
       serviceRequestId: serviceRequest.id,
+      skipPayment: true, // Flag to skip payment step
     });
 
   } catch (error) {
-    console.error('Payment intent creation error:', error);
+    console.error('Service request creation error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
