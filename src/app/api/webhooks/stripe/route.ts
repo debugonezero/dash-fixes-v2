@@ -14,6 +14,8 @@ const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET || 'whsec_test_webhook_
 
 export async function POST(request: NextRequest) {
   console.log('🚀 Webhook received - starting processing (v2.3)');
+  console.log('🔧 Environment check - SUPABASE_SERVICE_ROLE_KEY:', !!process.env.SUPABASE_SERVICE_ROLE_KEY);
+  console.log('🔧 Environment check - NEXT_PUBLIC_SUPABASE_URL:', !!process.env.NEXT_PUBLIC_SUPABASE_URL);
 
   try {
     console.log('📨 Parsing request...');
@@ -48,12 +50,22 @@ export async function POST(request: NextRequest) {
         console.log('🗄️ Fetching service request from database...');
         console.log('🔍 Looking for ID:', serviceRequestId);
 
+        console.log('🗄️ About to query database...');
+        console.log('🗄️ Service Request ID type:', typeof serviceRequestId);
+        console.log('🗄️ Service Request ID value:', serviceRequestId);
+
         let serviceRequest;
         try {
+          console.log('🗄️ Calling db.getServiceRequest...');
           serviceRequest = await db.getServiceRequest(serviceRequestId);
           console.log('📋 Service request result:', serviceRequest ? 'Found' : 'Not found');
+          if (serviceRequest) {
+            console.log('📋 Service request data:', JSON.stringify(serviceRequest, null, 2));
+          }
         } catch (dbError) {
-          console.error('❌ Database query failed:', dbError);
+          console.error('❌ Database query failed - Error type:', typeof dbError);
+          console.error('❌ Database query failed - Error constructor:', dbError?.constructor?.name);
+          console.error('❌ Database query failed - Full error:', JSON.stringify(dbError, null, 2));
           throw new Error(`Database error: ${dbError instanceof Error ? dbError.message : 'Unknown DB error'}`);
         }
 
