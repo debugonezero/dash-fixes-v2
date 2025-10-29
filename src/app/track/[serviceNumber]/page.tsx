@@ -62,15 +62,8 @@ const statusConfig = {
   }
 };
 
-export async function generateStaticParams() {
-  // Since we can't predict service numbers, we'll generate a few example ones
-  // In production, you might want to generate these based on your database
-  return [
-    { serviceNumber: 'ABC123456' },
-    { serviceNumber: 'DEF789012' },
-    { serviceNumber: 'GHI345678' },
-  ];
-}
+// Removed generateStaticParams to allow dynamic service numbers
+// Service numbers are randomly generated, so we can't predict them
 
 async function getServiceRequest(serviceNumber: string) {
   try {
