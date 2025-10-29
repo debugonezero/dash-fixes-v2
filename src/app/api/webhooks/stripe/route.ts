@@ -23,8 +23,10 @@ export async function POST(request: NextRequest) {
 
     console.log('🔍 Environment check - STRIPE_WEBHOOK_SECRET:', !!process.env.STRIPE_WEBHOOK_SECRET);
     console.log('🔍 Environment check - STRIPE_SECRET_KEY:', !!process.env.STRIPE_SECRET_KEY);
+    console.log('🔍 Webhook secret value check:', process.env.STRIPE_WEBHOOK_SECRET ? 'Set' : 'NOT SET');
 
     console.log('🔐 Verifying webhook signature...');
+    console.log('🔐 Signature received:', sig ? 'Present' : 'Missing');
     const event = await stripe.webhooks.constructEventAsync(body, sig, endpointSecret);
     console.log('✅ Signature verification successful - Event:', event.type);
 
@@ -44,10 +46,20 @@ export async function POST(request: NextRequest) {
 
         // Get service request
         console.log('🗄️ Fetching service request from database...');
+        console.log('🔍 Looking for ID:', serviceRequestId);
         const serviceRequest = await db.getServiceRequest(serviceRequestId);
+        console.log('📋 Service request result:', serviceRequest ? 'Found' : 'Not found');
 
         if (!serviceRequest) {
           console.error('❌ Service request not found:', serviceRequestId);
+          // Try to list all repairs to debug
+          try {
+            const allRepairs = await db.getAllRequests();
+            console.log('📋 All repairs in DB:', allRepairs.length, 'records');
+            console.log('📋 Sample IDs:', allRepairs.slice(0, 3).map(r => r.id));
+          } catch (dbError) {
+            console.error('❌ Database list error:', dbError);
+          }
           return NextResponse.json({ error: 'Service request not found' }, { status: 404 });
         }
 
@@ -55,7 +67,6 @@ export async function POST(request: NextRequest) {
 
         // Generate shipping label
         console.log('📦 Generating shipping label...');
-        const { createShippingLabel } = await import('../../../lib/shippo');
 
         const fromAddress = {
           name: serviceRequest.customer_name,
@@ -66,7 +77,13 @@ export async function POST(request: NextRequest) {
           country: 'US'
         };
 
+        console.log('📦 From address:', fromAddress);
+
+        const { createShippingLabel } = await import('../../../lib/shippo');
+        console.log('📦 Shippo function imported');
+
         const labelResult = await createShippingLabel(fromAddress, 'usps_priority');
+        console.log('📦 Label result:', labelResult ? 'Success' : 'Failed');
 
         if (!labelResult.label_url || !labelResult.tracking_number) {
           throw new Error('Invalid shipping label data from Shippo');
