@@ -51,18 +51,18 @@ export async function POST(request: NextRequest) {
           return NextResponse.json({ error: 'Service request not found' }, { status: 404 });
         }
 
-        console.log('👤 Processing for:', serviceRequest.customerEmail);
+        console.log('👤 Processing for:', serviceRequest.customer_email);
 
         // Generate shipping label
         console.log('📦 Generating shipping label...');
         const { createShippingLabel } = await import('../../../lib/shippo');
 
         const fromAddress = {
-          name: serviceRequest.customerName,
-          street1: serviceRequest.shippingAddress.street1,
-          city: serviceRequest.shippingAddress.city,
-          state: serviceRequest.shippingAddress.state,
-          zip: serviceRequest.shippingAddress.zip,
+          name: serviceRequest.customer_name,
+          street1: serviceRequest.shipping_address.street1,
+          city: serviceRequest.shipping_address.city,
+          state: serviceRequest.shipping_address.state,
+          zip: serviceRequest.shipping_address.zip,
           country: 'US'
         };
 
@@ -107,13 +107,13 @@ export async function POST(request: NextRequest) {
         }
 
         await sendShippingLabelEmail({
-          customerName: serviceRequest.customerName,
-          customerEmail: serviceRequest.customerEmail,
-          serviceNumber: serviceRequest.serviceNumber,
+          customerName: serviceRequest.customer_name,
+          customerEmail: serviceRequest.customer_email,
+          serviceNumber: serviceRequest.service_number,
           trackingNumber: labelResult.tracking_number,
           shippingLabelPdf: pdfBuffer,
-          deviceType: serviceRequest.deviceType,
-          issue: serviceRequest.issueDescription || 'Device repair',
+          deviceType: serviceRequest.device_type,
+          issue: serviceRequest.issue_description || 'Device repair',
         });
 
         console.log('✅ Webhook processing complete');

@@ -115,18 +115,18 @@ export function generateTrackingNumber(): string {
  * Create shipping label data from service request
  */
 export function createShippingLabelData(serviceRequest: any): ShippingLabelData {
-  const deviceType = serviceRequest.deviceType || 'Unknown Device';
+  const deviceType = serviceRequest.device_type || 'Unknown Device';
 
   return {
-    serviceNumber: serviceRequest.serviceNumber,
-    customerName: serviceRequest.customerName,
-    customerEmail: serviceRequest.customerEmail,
+    serviceNumber: serviceRequest.service_number,
+    customerName: serviceRequest.customer_name,
+    customerEmail: serviceRequest.customer_email,
     fromAddress: {
-      name: serviceRequest.customerName,
-      street1: serviceRequest.shippingAddress.street1,
-      city: serviceRequest.shippingAddress.city,
-      state: serviceRequest.shippingAddress.state,
-      zip: serviceRequest.shippingAddress.zip,
+      name: serviceRequest.customer_name,
+      street1: serviceRequest.shipping_address.street1,
+      city: serviceRequest.shipping_address.city,
+      state: serviceRequest.shipping_address.state,
+      zip: serviceRequest.shipping_address.zip,
     },
     toAddress: {
       name: 'Dash Fixes',
@@ -138,7 +138,7 @@ export function createShippingLabelData(serviceRequest: any): ShippingLabelData 
     trackingNumber: generateTrackingNumber(),
     shippingCost: 9.99,
     deviceType: deviceType,
-    issue: serviceRequest.issue || 'Device repair',
+    issue: serviceRequest.issue_description || 'Device repair',
     packageDimensions: getPackageDimensions(deviceType),
   };
 }

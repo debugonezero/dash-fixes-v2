@@ -72,6 +72,34 @@ function generateServiceNumber(): string {
   return result;
 }
 
+// Map form device types to database enums
+function mapDeviceType(formType: string): string {
+  const mapping: Record<string, string> = {
+    'iPhone': 'iphone',
+    'Android Phone': 'android_phone',
+    'iPad': 'tablet',
+    'Tablet': 'tablet',
+    'Laptop': 'laptop',
+    'MacBook': 'macbook',
+    'Game Console': 'game_console',
+    'Other': 'other'
+  };
+  return mapping[formType] || 'other';
+}
+
+// Map form service types to database enums
+function mapServiceType(formType: string): string {
+  const mapping: Record<string, string> = {
+    'Screen Repair': 'screen_repair',
+    'Battery Replacement': 'battery_replacement',
+    'Charging Port Fix': 'charging_port',
+    'Data Recovery': 'data_recovery',
+    'Performance Optimization': 'diagnostics',
+    'Other': 'other'
+  };
+  return mapping[formType] || 'other';
+}
+
 // Supabase-based database functions
 export const db = {
   createServiceRequest: async (data: {
@@ -93,18 +121,18 @@ export const db = {
   }) => {
     const serviceNumber = generateServiceNumber();
     const { data: request, error } = await supabase
-      .from('service_requests')
+      .from('repairs')
       .insert({
         service_number: serviceNumber,
-        device_type: data.deviceType,
-        service_type: data.serviceType,
+        device_type: mapDeviceType(data.deviceType),
+        service_needed: mapServiceType(data.serviceType),
+        device_model: 'Unknown', // We'll need to add this to the form
         issue_description: data.issueDescription,
         customer_name: data.customerName,
         customer_email: data.customerEmail,
         shipping_address: data.shippingAddress,
-        payment_amount: data.paymentAmount,
-        payment_status: data.paymentStatus || 'pending',
-        status: (data.status || 'PENDING') as any,
+        diagnostic_fee: data.paymentAmount,
+        status: 'quote_requested',
       })
       .select()
       .single();
@@ -115,7 +143,7 @@ export const db = {
 
   findServiceRequest: async (serviceNumber: string) => {
     const { data, error } = await supabase
-      .from('service_requests')
+      .from('repairs')
       .select('*')
       .eq('service_number', serviceNumber)
       .single();
@@ -126,7 +154,7 @@ export const db = {
 
   getServiceRequest: async (id: string) => {
     const { data, error } = await supabase
-      .from('service_requests')
+      .from('repairs')
       .select('*')
       .eq('id', id)
       .single();
@@ -148,18 +176,18 @@ export const db = {
   }>) => {
     const updateData: any = {};
 
-    if (updates.paymentStatus) updateData.payment_status = updates.paymentStatus;
+    if (updates.paymentStatus) updateData.payment_id = updates.stripePaymentId; // Different column name
     if (updates.status) updateData.status = updates.status;
-    if (updates.stripePaymentId) updateData.stripe_payment_id = updates.stripePaymentId;
+    if (updates.stripePaymentId) updateData.payment_id = updates.stripePaymentId;
     if (updates.shippingLabelUrl) updateData.shipping_label_url = updates.shippingLabelUrl;
     if (updates.trackingNumber) updateData.tracking_number = updates.trackingNumber;
-    if (updates.shippingCost) updateData.shipping_cost = updates.shippingCost;
+    if (updates.shippingCost) updateData.final_cost = updates.shippingCost; // Different column name
     if (updates.shippingProvider) updateData.shipping_provider = updates.shippingProvider;
     if (updates.updatedAt) updateData.updated_at = updates.updatedAt;
     if (updates.completedAt) updateData.completed_at = updates.completedAt;
 
     const { data, error } = await supabase
-      .from('service_requests')
+      .from('repairs')
       .update(updateData)
       .eq('id', id)
       .select()
@@ -171,7 +199,7 @@ export const db = {
 
   getAllRequests: async () => {
     const { data, error } = await supabase
-      .from('service_requests')
+      .from('repairs')
       .select('*')
       .order('created_at', { ascending: false });
 

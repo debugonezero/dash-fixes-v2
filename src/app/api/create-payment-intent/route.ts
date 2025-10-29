@@ -30,29 +30,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create service request in memory (no database needed for testing)
-    const serviceRequest = {
-      id: 'test-' + Date.now(),
-      serviceNumber: 'TEST' + Math.random().toString(36).substr(2, 6).toUpperCase(),
+    // Create service request in database
+    const serviceRequest = await db.createServiceRequest({
       deviceType,
       serviceType,
       issueDescription,
       customerName,
       customerEmail,
       shippingAddress,
-      paymentAmount: 9.99,
+      paymentAmount: 9.99, // $9.99 for round-trip shipping label
       paymentStatus: 'pending',
-    };
-    // const serviceRequest = await db.createServiceRequest({
-    //   deviceType,
-    //   serviceType,
-    //   issueDescription,
-    //   customerName,
-    //   customerEmail,
-    //   shippingAddress,
-    //   paymentAmount: 9.99, // $9.99 for round-trip shipping label
-    //   paymentStatus: 'pending',
-    // });
+    });
 
     // Create Stripe PaymentIntent
     const paymentIntent = await stripe.paymentIntents.create({
@@ -60,7 +48,7 @@ export async function POST(request: NextRequest) {
       currency: 'usd',
       metadata: {
         serviceRequestId: serviceRequest.id,
-        serviceNumber: serviceRequest.serviceNumber,
+        serviceNumber: serviceRequest.service_number,
         customerEmail: customerEmail,
       },
       description: `Shipping Label Fee - Service #${serviceRequest.serviceNumber}`,
@@ -69,7 +57,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       clientSecret: paymentIntent.client_secret,
-      serviceNumber: serviceRequest.serviceNumber,
+      serviceNumber: serviceRequest.service_number,
       serviceRequestId: serviceRequest.id,
     });
 
