@@ -1,10 +1,12 @@
+// Note: This route requires Node.js runtime for PDF generation
+// For Cloudflare deployment, consider using Cloudflare Workers with Node.js compatibility
+// or deploy this route separately
 export const runtime = 'nodejs';
 
 import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import Stripe from 'stripe';
 import { db } from '@/app/lib/stripe';
-import { createShippingLabel, ShippingAddress } from '@/app/lib/shippo';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_51ABC123def456', {
   apiVersion: '2025-09-30.clover',
@@ -82,7 +84,8 @@ export async function POST(request: NextRequest) {
 
               // Store PDF in a temporary location (in production, you'd upload to cloud storage)
               // For now, we'll store the tracking info and send email with instructions
-              const labelUrl = `https://dashfixes.com/track/${serviceRequest.serviceNumber}`;
+              const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://dashfixes.com';
+              const labelUrl = `${baseUrl}/track/${serviceRequest.serviceNumber}`;
 
               // Update service request with shipping info
               await db.updateServiceRequest(serviceRequestId, {

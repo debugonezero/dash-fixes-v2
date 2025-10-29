@@ -8,10 +8,12 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    // Enable ESLint in production builds for Cloudflare
+    ignoreDuringBuilds: false,
   },
   typescript: {
-    ignoreBuildErrors: true,
+    // Enable TypeScript checking in production builds for Cloudflare
+    ignoreBuildErrors: false,
   },
 };
 

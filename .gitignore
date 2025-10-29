@@ -44,3 +44,21 @@ next-env.d.ts
 /node_modules/
 original/
 /src/generated/prisma
+
+# logs
+build.log
+dev.log
+
+# generated test files
+test-shipping-label.pdf
+*.pdf
+
+# internal documentation (keep private)
+AGENTS.md
+MIGRATION_ANALYSIS.md
+MIGRATION_CHECKLIST.md
+full-migration-plan.md
+github-profile.md
+ROADMAP.md
+test-checklist.md
+supabase-migration.sql

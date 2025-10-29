@@ -1,42 +1,19 @@
 import { loadStripe } from '@stripe/stripe-js';
-import { PrismaClient } from '@prisma/client';
+import { supabase } from './supabase';
 
 // Initialize Stripe with your publishable key
-// This will be set in environment variables
-// For development/testing, use a fallback if env var is not set
-const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_51ABC123def456';
+const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 
-// Always use test mode for development to avoid live charges
-const isProduction = process.env.NODE_ENV === 'production';
-const finalStripeKey = isProduction
-  ? stripePublishableKey
-  : 'pk_test_51ABC123def456'; // Always use test key in development
-
-// Only throw error in production
-if (!stripePublishableKey && process.env.NODE_ENV === 'production') {
-  throw new Error('NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not set');
+// Validate Stripe key is configured
+if (!stripePublishableKey) {
+  throw new Error('NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable is required');
 }
+
+// Use the configured key (should be test key for development, live key for production)
+const finalStripeKey = stripePublishableKey;
 
 // Load Stripe.js
 export const stripePromise = loadStripe(finalStripeKey);
-
-// Initialize Prisma client (only if DATABASE_URL is configured)
-let prisma: PrismaClient | null = null;
-
-if (process.env.DATABASE_URL) {
-  try {
-    const globalForPrisma = globalThis as unknown as {
-      prisma: PrismaClient | undefined;
-    };
-
-    prisma = globalForPrisma.prisma ?? new PrismaClient();
-
-    if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
-  } catch (error) {
-    console.warn('Database not configured, using in-memory storage:', error);
-    prisma = null;
-  }
-}
 
 // Stripe configuration
 export const STRIPE_CONFIG = {
@@ -95,7 +72,7 @@ function generateServiceNumber(): string {
   return result;
 }
 
-// Prisma-based database functions
+// Supabase-based database functions
 export const db = {
   createServiceRequest: async (data: {
     deviceType: string;
@@ -115,33 +92,47 @@ export const db = {
     status?: string;
   }) => {
     const serviceNumber = generateServiceNumber();
-    const request = await prisma.serviceRequest.create({
-      data: {
-        serviceNumber,
-        deviceType: data.deviceType,
-        serviceType: data.serviceType,
-        issueDescription: data.issueDescription,
-        customerName: data.customerName,
-        customerEmail: data.customerEmail,
-        shippingAddress: data.shippingAddress,
-        paymentAmount: data.paymentAmount,
-        paymentStatus: data.paymentStatus || 'pending',
-        status: data.status || 'PENDING',
-      },
-    });
+    const { data: request, error } = await supabase
+      .from('service_requests')
+      .insert({
+        service_number: serviceNumber,
+        device_type: data.deviceType,
+        service_type: data.serviceType,
+        issue_description: data.issueDescription,
+        customer_name: data.customerName,
+        customer_email: data.customerEmail,
+        shipping_address: data.shippingAddress,
+        payment_amount: data.paymentAmount,
+        payment_status: data.paymentStatus || 'pending',
+        status: (data.status || 'PENDING') as any,
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
     return request;
   },
 
   findServiceRequest: async (serviceNumber: string) => {
-    return await prisma.serviceRequest.findUnique({
-      where: { serviceNumber },
-    });
+    const { data, error } = await supabase
+      .from('service_requests')
+      .select('*')
+      .eq('service_number', serviceNumber)
+      .single();
+
+    if (error && error.code !== 'PGRST116') throw error; // PGRST116 = not found
+    return data;
   },
 
   getServiceRequest: async (id: string) => {
-    return await prisma.serviceRequest.findUnique({
-      where: { id },
-    });
+    const { data, error } = await supabase
+      .from('service_requests')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error && error.code !== 'PGRST116') throw error;
+    return data;
   },
 
   updateServiceRequest: async (id: string, updates: Partial<{
@@ -155,15 +146,36 @@ export const db = {
     updatedAt: Date;
     completedAt: Date;
   }>) => {
-    return await prisma.serviceRequest.update({
-      where: { id },
-      data: updates,
-    });
+    const updateData: any = {};
+
+    if (updates.paymentStatus) updateData.payment_status = updates.paymentStatus;
+    if (updates.status) updateData.status = updates.status;
+    if (updates.stripePaymentId) updateData.stripe_payment_id = updates.stripePaymentId;
+    if (updates.shippingLabelUrl) updateData.shipping_label_url = updates.shippingLabelUrl;
+    if (updates.trackingNumber) updateData.tracking_number = updates.trackingNumber;
+    if (updates.shippingCost) updateData.shipping_cost = updates.shippingCost;
+    if (updates.shippingProvider) updateData.shipping_provider = updates.shippingProvider;
+    if (updates.updatedAt) updateData.updated_at = updates.updatedAt;
+    if (updates.completedAt) updateData.completed_at = updates.completedAt;
+
+    const { data, error } = await supabase
+      .from('service_requests')
+      .update(updateData)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
   },
 
   getAllRequests: async () => {
-    return await prisma.serviceRequest.findMany({
-      orderBy: { createdAt: 'desc' },
-    });
+    const { data, error } = await supabase
+      .from('service_requests')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data;
   },
 };
