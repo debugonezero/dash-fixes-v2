@@ -1,18 +1,18 @@
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 if (!supabaseUrl) {
   throw new Error('Missing required Supabase environment variable: NEXT_PUBLIC_SUPABASE_URL')
 }
 
-if (!supabaseServiceKey) {
-  throw new Error('Missing required Supabase environment variable: SUPABASE_SERVICE_ROLE_KEY')
-}
+// Create Supabase client - will be null on client-side
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabase = (typeof window === 'undefined' && supabaseServiceKey)
+  ? createClient(supabaseUrl, supabaseServiceKey)
+  : null;
 
-// Create client with proper error handling
-export const supabase = createClient(supabaseUrl, supabaseServiceKey)
+export { supabase }
 
 // Database types (matching our Prisma schema)
 export interface ServiceRequest {
