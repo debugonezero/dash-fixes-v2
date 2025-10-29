@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { notFound } from 'next/navigation';
 import { db } from '@/app/lib/stripe';
 import { isValidServiceNumber, formatServiceNumber } from '@/app/lib/service-number';
