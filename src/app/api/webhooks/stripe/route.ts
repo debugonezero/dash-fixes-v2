@@ -1,5 +1,5 @@
 // Note: Using edge runtime for Cloudflare Pages compatibility
-// Using nodejs runtime for Supabase compatibility
+export const runtime = 'edge';
 
 import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
