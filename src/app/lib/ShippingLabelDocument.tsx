@@ -1,125 +1,180 @@
-import { renderToBuffer } from '@react-pdf/renderer';
-import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { PDFDocument, rgb } from 'pdf-lib';
 import { ShippingLabelData } from './shipping-label';
 
-// React PDF Styles
-const styles = StyleSheet.create({
-  page: {
-    padding: 18, // 0.25 inches
-    fontFamily: 'Helvetica',
-  },
-  header: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#268bd2', // Solarized blue
-    marginBottom: 4,
-  },
-  subHeader: {
-    fontSize: 10,
-    color: '#000000',
-    marginBottom: 8,
-  },
-  serviceNumber: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: '#dc322f', // Solarized red
-    marginBottom: 6,
-  },
-  trackingNumber: {
-    fontSize: 10,
-    color: '#000000',
-    marginBottom: 12,
-  },
-  sectionLabel: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-  address: {
-    fontSize: 9,
-    lineHeight: 1.4,
-    marginBottom: 12,
-  },
-  deviceInfo: {
-    fontSize: 8,
-    marginBottom: 12,
-  },
-  instructions: {
-    fontSize: 8,
-    color: '#586e75', // Solarized dark gray
-    lineHeight: 1.3,
-    marginBottom: 12,
-  },
-  footer: {
-    fontSize: 6,
-    color: '#93a1a1',
-    textAlign: 'left',
-  },
-});
-
 /**
- * React PDF Shipping Label Component
- */
-const ShippingLabelDocument = ({ data, width, height }: { data: ShippingLabelData; width: number; height: number }) => (
-  <Document>
-    <Page size={[width * 72, height * 72]} style={styles.page}>
-      <View>
-        {/* Header */}
-        <Text style={styles.header}>DASH FIXES</Text>
-        <Text style={styles.subHeader}>Expert Tech Repair Service</Text>
-
-        {/* Service Number */}
-        <Text style={styles.serviceNumber}>Service #{data.serviceNumber}</Text>
-
-        {/* Tracking Number */}
-        <Text style={styles.trackingNumber}>Tracking: {data.trackingNumber}</Text>
-
-        {/* From Address */}
-        <Text style={styles.sectionLabel}>FROM:</Text>
-        <Text style={styles.address}>
-          {data.fromAddress.name}{'\n'}
-          {data.fromAddress.street1}{'\n'}
-          {data.fromAddress.city}, {data.fromAddress.state} {data.fromAddress.zip}
-        </Text>
-
-        {/* To Address */}
-        <Text style={styles.sectionLabel}>TO:</Text>
-        <Text style={styles.address}>
-          {data.toAddress.name}{'\n'}
-          {data.toAddress.street1}{'\n'}
-          {data.toAddress.city}, {data.toAddress.state} {data.toAddress.zip}
-        </Text>
-
-        {/* Device Info */}
-        <Text style={styles.sectionLabel}>DEVICE:</Text>
-        <Text style={styles.deviceInfo}>
-          {data.deviceType}{'\n'}
-          Issue: {data.issue.length > 40 ? `${data.issue.substring(0, 40)}...` : data.issue}
-        </Text>
-
-        {/* Instructions */}
-        <Text style={styles.instructions}>
-          IMPORTANT: Package securely with{'\n'}
-          at least 2" padding on all sides.{'\n'}
-          Include device only - no chargers.
-        </Text>
-
-        {/* Footer */}
-        <Text style={styles.footer}>
-          www.dashfixes.com | (626) 622-0196
-        </Text>
-      </View>
-    </Page>
-  </Document>
-);
-
-/**
- * Generate a shipping label PDF using React PDF
+ * Generate a shipping label PDF using pdf-lib (works on edge runtime)
  */
 export async function generateShippingLabelPDF(data: ShippingLabelData, width: number, height: number): Promise<Buffer> {
-  const pdfBuffer = await renderToBuffer(
-    <ShippingLabelDocument data={data} width={width} height={height} />
-  );
+  // Create a new PDF document
+  const pdfDoc = await PDFDocument.create();
 
-  return Buffer.from(pdfBuffer);
+  // Add a page with custom size (inches * 72 points)
+  const page = pdfDoc.addPage([width * 72, height * 72]);
+
+  // Get page dimensions
+  const { width: pageWidth, height: pageHeight } = page.getSize();
+
+  // Set up colors
+  const blue = rgb(0.15, 0.55, 0.82); // Solarized blue
+  const red = rgb(0.86, 0.2, 0.18);   // Solarized red
+  const black = rgb(0, 0, 0);
+  const gray = rgb(0.36, 0.43, 0.41); // Solarized dark gray
+  const lightGray = rgb(0.58, 0.63, 0.63);
+
+  // Set up fonts
+  const fontSize = {
+    header: 16,
+    subHeader: 10,
+    serviceNumber: 12,
+    trackingNumber: 10,
+    sectionLabel: 10,
+    address: 9,
+    deviceInfo: 8,
+    instructions: 8,
+    footer: 6,
+  };
+
+  let yPosition = pageHeight - 18; // Start 18 points from top
+
+  // Header
+  page.drawText('DASH FIXES', {
+    x: 18,
+    y: yPosition,
+    size: fontSize.header,
+    color: blue,
+  });
+  yPosition -= fontSize.header + 4;
+
+  page.drawText('Expert Tech Repair Service', {
+    x: 18,
+    y: yPosition,
+    size: fontSize.subHeader,
+    color: black,
+  });
+  yPosition -= fontSize.subHeader + 8;
+
+  // Service Number
+  page.drawText(`Service #${data.serviceNumber}`, {
+    x: 18,
+    y: yPosition,
+    size: fontSize.serviceNumber,
+    color: red,
+  });
+  yPosition -= fontSize.serviceNumber + 6;
+
+  // Tracking Number
+  page.drawText(`Tracking: ${data.trackingNumber}`, {
+    x: 18,
+    y: yPosition,
+    size: fontSize.trackingNumber,
+    color: black,
+  });
+  yPosition -= fontSize.trackingNumber + 12;
+
+  // From Address
+  page.drawText('FROM:', {
+    x: 18,
+    y: yPosition,
+    size: fontSize.sectionLabel,
+    color: black,
+  });
+  yPosition -= fontSize.sectionLabel + 4;
+
+  const fromLines = [
+    data.fromAddress.name,
+    data.fromAddress.street1,
+    `${data.fromAddress.city}, ${data.fromAddress.state} ${data.fromAddress.zip}`
+  ];
+
+  for (const line of fromLines) {
+    page.drawText(line, {
+      x: 18,
+      y: yPosition,
+      size: fontSize.address,
+      color: black,
+    });
+    yPosition -= fontSize.address * 1.4;
+  }
+  yPosition -= 12;
+
+  // To Address
+  page.drawText('TO:', {
+    x: 18,
+    y: yPosition,
+    size: fontSize.sectionLabel,
+    color: black,
+  });
+  yPosition -= fontSize.sectionLabel + 4;
+
+  const toLines = [
+    data.toAddress.name,
+    data.toAddress.street1,
+    `${data.toAddress.city}, ${data.toAddress.state} ${data.toAddress.zip}`
+  ];
+
+  for (const line of toLines) {
+    page.drawText(line, {
+      x: 18,
+      y: yPosition,
+      size: fontSize.address,
+      color: black,
+    });
+    yPosition -= fontSize.address * 1.4;
+  }
+  yPosition -= 12;
+
+  // Device Info
+  page.drawText('DEVICE:', {
+    x: 18,
+    y: yPosition,
+    size: fontSize.sectionLabel,
+    color: black,
+  });
+  yPosition -= fontSize.sectionLabel + 4;
+
+  const deviceLines = [
+    data.deviceType,
+    `Issue: ${data.issue.length > 40 ? `${data.issue.substring(0, 40)}...` : data.issue}`
+  ];
+
+  for (const line of deviceLines) {
+    page.drawText(line, {
+      x: 18,
+      y: yPosition,
+      size: fontSize.deviceInfo,
+      color: black,
+    });
+    yPosition -= fontSize.deviceInfo + 2;
+  }
+  yPosition -= 12;
+
+  // Instructions
+  const instructions = [
+    'IMPORTANT: Package securely with',
+    'at least 2" padding on all sides.',
+    'Include device only - no chargers.'
+  ];
+
+  for (const line of instructions) {
+    page.drawText(line, {
+      x: 18,
+      y: yPosition,
+      size: fontSize.instructions,
+      color: gray,
+    });
+    yPosition -= fontSize.instructions * 1.3;
+  }
+  yPosition -= 12;
+
+  // Footer
+  page.drawText('www.dashfixes.com | (626) 622-0196', {
+    x: 18,
+    y: yPosition,
+    size: fontSize.footer,
+    color: lightGray,
+  });
+
+  // Serialize the PDF
+  const pdfBytes = await pdfDoc.save();
+  return Buffer.from(pdfBytes);
 }
