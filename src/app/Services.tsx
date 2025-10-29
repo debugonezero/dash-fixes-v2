@@ -2,6 +2,7 @@ import Link from "next/link";
 import AnimationWrapper from "./AnimationWrapper";
 import { Package, Smartphone, Laptop, Gamepad2 } from "lucide-react";
 import CallToAction from "./CallToAction";
+import QuoteCalculator from "./QuoteCalculator";
 
 const Services = () => {
   const mainServices = [
@@ -84,9 +85,13 @@ const Services = () => {
               </Link>
             </AnimationWrapper>
           ))}
-        </div>
+         </div>
 
-        <AnimationWrapper delay={0.3}>
+         <div className="mb-16">
+           <QuoteCalculator />
+         </div>
+
+         <AnimationWrapper delay={0.3}>
           <div className="bg-solarized-light dark:bg-solarized-dark rounded-2xl shadow-xl border border-transparent transition-all duration-300 hover:shadow-2xl hover:border-solarized-blue hover:scale-[1.01] p-8 md:p-12">
             <div className="md:flex md:items-center md:gap-12">
               <div className="flex-shrink-0 mb-8 md:mb-0 text-center md:text-left">

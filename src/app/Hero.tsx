@@ -25,7 +25,7 @@ const Hero = () => {
             />
             <CallToAction
               href="/services"
-              text="View All Services"
+              text="Get a Free Quote"
             />
           </div>
           <p className="mt-4 text-sm text-solarized-dark3 dark:text-solarized-light3">
