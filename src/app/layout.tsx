@@ -10,7 +10,7 @@ const CookieConsent = dynamic(() => import("./components/CookieConsent"), {
   loading: () => null,
 });
 
-const WhatsAppChat = dynamic(() => import("./components/WhatsAppChat"), {
+const MultiChannelChat = dynamic(() => import("./components/MultiChannelChat"), {
   loading: () => null,
 });
 
@@ -176,7 +176,7 @@ export default function RootLayout({
         <main>{children}</main>
         <Footer />
          <CookieConsent />
-         <WhatsAppChat />
+          <MultiChannelChat />
       </body>
     </html>
   );
